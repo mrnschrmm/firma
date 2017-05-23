@@ -25,10 +25,10 @@ var browserSync = require('browser-sync').create();
 gulp.task('connect', function() {
     connect.server({
         base: './src',
-        hostname: 'localhost',
-        keepalive: true,
+        hostname: '127.0.0.1',
+        keepalive: false,
         open: false,
-        port: 8010,
+        port: 8011,
 
         bin: '/usr/local/bin/php',
         ini: '/usr/local/etc/php/7.1/php.ini'
@@ -36,8 +36,8 @@ gulp.task('connect', function() {
 });
 gulp.task('browserSync',['connect'], function() {
     browserSync.init({
-        proxy: "localhost:8010",
-        port: 8010,
+        proxy: "127.0.0.1:8011",
+        port: 8011,
         routes: {
             "/node_modules": "node_modules",
             "/browser-sync": "browser-sync"
@@ -50,7 +50,24 @@ gulp.task('browserSync',['connect'], function() {
         injectChanges: false
     });
 });
-gulp.task('watch', ['browserSync'], function () {
+gulp.task('sass', function () {
+    gulp.src('./src/assets/sass/**/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(autoprefixer({
+        browsers: ['last 2 versions'],
+        cascade: false
+    }))
+    .pipe(cssnano())
+    .pipe(rename("main.min.css"))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./src/assets/css'))
+    .pipe(browserSync.reload({
+        stream: true
+    }));
+});
+gulp.task('watch', ['browserSync', 'sass'], function () {
+    gulp.watch('./src/assets/sass/**/*.scss', ['sass'])
     gulp.watch("./src/*.php", browserSync.reload);
     gulp.watch("./src/content/**/*.txt", browserSync.reload);
 });
@@ -95,7 +112,7 @@ gulp.task('thumbs', function() {
 //  sequences
 
 gulp.task('default', function (callback) {
-    runSequence('clear:cache',['connect','browserSync','watch'],callback);
+    runSequence('clear:cache',['sass','connect','browserSync','watch'],callback);
 });
 gulp.task('build', function (callback) {
     runSequence('clean:dist','clear:cache',['base','assets','content','kirby','panel','site','thumbs'],callback);
