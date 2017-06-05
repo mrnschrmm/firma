@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var connect = require('gulp-connect-php');
 var gnf = require('gulp-npm-files');
-var rename = require("gulp-rename");
+var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
 var sourcemaps = require('gulp-sourcemaps');
@@ -25,10 +25,11 @@ var browserSync = require('browser-sync').create();
 gulp.task('connect', function() {
     connect.server({
         base: './src',
-        hostname: '127.0.0.1',
+        hostname: 'firma.dev',
+        port: 8011,
+
         keepalive: false,
         open: false,
-        port: 8011,
 
         bin: '/usr/local/bin/php',
         ini: '/usr/local/etc/php/7.1/php.ini'
@@ -36,18 +37,24 @@ gulp.task('connect', function() {
 });
 gulp.task('browserSync',['connect'], function() {
     browserSync.init({
-        proxy: "127.0.0.1:8011",
+        host: 'firma.dev',
+        proxy: 'firma.dev',
         port: 8011,
-        routes: {
-            "/node_modules": "node_modules",
-            "/browser-sync": "browser-sync"
-        },
-        ghostMode: false,
-        logLevel: 'warn',
+
+        open: 'external',
         browser: 'google chrome',
+        logLevel: 'warn',
+
+        ui: false,
         notify: false,
+        injectChanges: false,
+        ghostMode: false,
         scrollProportionally: false,
-        injectChanges: false
+
+        routes: {
+            '/node_modules': 'node_modules',
+            '/browser-sync': 'browser-sync'
+        }
     });
 });
 gulp.task('sass', function () {
@@ -59,7 +66,7 @@ gulp.task('sass', function () {
         cascade: false
     }))
     .pipe(cssnano())
-    .pipe(rename("main.min.css"))
+    .pipe(rename('main.min.css'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./src/assets/css'))
     .pipe(browserSync.reload({
@@ -68,8 +75,8 @@ gulp.task('sass', function () {
 });
 gulp.task('watch', ['browserSync', 'sass'], function () {
     gulp.watch('./src/assets/sass/**/*.scss', ['sass'])
-    gulp.watch("./src/*.php", browserSync.reload);
-    gulp.watch("./src/content/**/*.txt", browserSync.reload);
+    gulp.watch('./src/*.php', browserSync.reload);
+    gulp.watch('./src/content/**/*.txt', browserSync.reload);
 });
 
 //  production
@@ -115,6 +122,6 @@ gulp.task('default', function (callback) {
     runSequence('clear:cache',['sass','connect','browserSync','watch'],callback);
 });
 gulp.task('build', function (callback) {
-    runSequence('clean:dist','clear:cache',['base','assets','content','kirby','panel','site','thumbs'],callback);
+    runSequence('clean:dist','clear:cache',['sass','base','assets','content','kirby','panel','site','thumbs'],callback);
 });
 gulp.task('deploy', require('./glp/deploy')(gulp, plugins));
