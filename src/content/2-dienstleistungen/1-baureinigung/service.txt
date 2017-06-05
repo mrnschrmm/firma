@@ -1,0 +1,16 @@
+Title: Baureinigung
+
+----
+
+Text: Über Baureinigung sprechen Sie am besten bereits während der Bauphase. Denn grobe Verschmutzungen oder Überreste von Baumaterialien lassen sich schon zwischenzeitlich sinnvoll beseitigen. Das schafft Ordnung, bevor die letzten Gewerke starten und erleichtert später die Feinreinigung. Dabei passen wir uns reibungslos in den Bauzyklus der einzelnen Gewerke ein und reagieren auch auf kurzfristige Anforderungen. Besonders wichtig ist die gründliche und fachgerechte Bearbeitung aller Beläge nach den jeweiligen Herstellervorgaben. Denn hier wird der Grundstein für die spätere effektive Unterhaltsreinigung gelegt.
+
+----
+
+Subservices: 
+
+- 
+  subservice: Oberflächen und Fußbodenbeläge
+- 
+  subservice: Sanitärbereiche
+- 
+  subservice: Fenster und Glaselement
