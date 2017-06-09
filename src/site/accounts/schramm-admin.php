@@ -7,10 +7,6 @@ email: service@kaimberg.com
 language: de
 role: admin
 history:
-  - dienstleistungen/unterhaltsreinigung
-  - dienstleistungen/baureinigung
-  - dienstleistungen/grundreinigung
-  - dienstleistungen/bueroreinigung
-  - dienstleistungen/glasreinigung
+  - reinigung
 firstname: ""
 lastname: ""
