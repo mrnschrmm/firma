@@ -1,24 +1,26 @@
 'use strict';
 
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var connect = require('gulp-connect-php');
-var gnf = require('gulp-npm-files');
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var cssnano = require('gulp-cssnano');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var useref = require('gulp-useref');
-var gulpIf = require('gulp-if');
-var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
-var cache = require('gulp-cache');
-var del = require('del');
-var ftp = require('vinyl-ftp');
-var plugins = require('gulp-load-plugins')();
-var runSequence = require('run-sequence');
-var browserSync = require('browser-sync').create();
+// gulp with plugins
+
+var gulp            = require('gulp');
+var gutil           = require('gulp-util');
+var connect         = require('gulp-connect-php');
+var gnf             = require('gulp-npm-files');
+var rename          = require('gulp-rename');
+var sass            = require('gulp-sass');
+var cssnano         = require('gulp-cssnano');
+var sourcemaps      = require('gulp-sourcemaps');
+var autoprefixer    = require('gulp-autoprefixer');
+var useref          = require('gulp-useref');
+var gulpIf          = require('gulp-if');
+var uglify          = require('gulp-uglify');
+var imagemin        = require('gulp-imagemin');
+var cache           = require('gulp-cache');
+var del             = require('del');
+var ftp             = require('vinyl-ftp');
+var plugins         = require('gulp-load-plugins')();
+var runSequence     = require('run-sequence');
+var browserSync     = require('browser-sync').create();
 
 //  development
 
@@ -51,6 +53,9 @@ gulp.task('browserSync',['connect'], function() {
         ghostMode: false,
         scrollProportionally: false,
 
+        snippetOptions: {
+          ignorePaths: ['panel/**', 'site/accounts/**']
+        },
         routes: {
             '/node_modules': 'node_modules',
             '/browser-sync': 'browser-sync'
