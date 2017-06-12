@@ -21,32 +21,8 @@ var ftp             = require('vinyl-ftp');
 var plugins         = require('gulp-load-plugins')();
 var runSequence     = require('run-sequence');
 var browserSync     = require('browser-sync').create();
-var watch = require('gulp-watch');
 
 //  development
-
-gulp.task('sync', function() {
-  console.log('Watching files located in mountedFolder');
-  return watch('./dist/content/**', function(datos){
-      console.log('Kind of event: ' + datos.event);
-      for(var i=0; i<datos.history.length; i++){
-          var archivoLocal = datos.history[i];
-          var archivoRel = datos.history[i].replace(datos.base,'');
-          var archivoRemoto = '/content' + archivoRel;
-          var valid = true;
-          if(archivoLocal.indexOf('/.') >= 0)
-            valid=false; //ignore .git, .ssh folders and the like
-          console.log('File [' +(i+1) + '] ' + (valid?'valid':'INVALID') + ' localFile: ' + archivoLocal + ', relativeFile: ' + archivoRel + ', remoteFile: ' + archivoRemoto);
-          var comando = "lftp";
-          var comando_params = "-c \"open −−user ftp1177004-firma −−password nEfU87!x ftp://wp1177004.server-he.de; put " + archivoLocal + " -o " + archivoRemoto + "\" ";
-          if(valid){
-              console.log('Performing in shell: ' + comando + ' ' + comando_params);
-              var exec = require('child_process').exec;
-              exec(comando + ' ' + comando_params);
-          }
-      }//end for
-  });//end watch
-});//end task
 
 gulp.task('connect', function() {
     connect.server({
@@ -104,7 +80,7 @@ gulp.task('sass', function () {
 });
 gulp.task('watch', ['browserSync', 'sass'], function () {
     gulp.watch('./src/assets/sass/**/*.scss', ['sass'])
-    gulp.watch('./src/*.php', browserSync.reload);
+    gulp.watch('./src/*.php', browserSync.reload)
     gulp.watch('./src/content/**/*.txt', browserSync.reload);
 });
 
@@ -114,7 +90,7 @@ gulp.task('clear:cache', function (callback) {
     return cache.clearAll(callback);
 });
 gulp.task('clean:dist', function() {
-    return del.sync('dist');
+    return del.sync('./dist');
 });
 gulp.task('base', function() {
     return gulp.src(['./src/*','./src/.htaccess'])
@@ -152,8 +128,5 @@ gulp.task('default', function (callback) {
 });
 gulp.task('build', function (callback) {
     runSequence('clean:dist','clear:cache',['sass','base','assets','content','kirby','panel','site','thumbs'],callback);
-});
-gulp.task('deploy:build', function (callback) {
-    runSequence('clean:dist','clear:cache','sync',['sass','base','assets','content','kirby','panel','site','thumbs'],callback);
 });
 gulp.task('deploy', require('./glp/deploy')(gulp, plugins));
