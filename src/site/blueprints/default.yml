@@ -2,6 +2,7 @@ title: Page
 pages:
   template:
       - service
+      - company
       - contact
 files: false
 options:

@@ -13,8 +13,8 @@ if($root = $pages->findOpen()) {
 if($items and $items->count()):
 
 ?>
-<nav>
-  <ul>
+<nav class="nav-sub">
+  <ul class="menu menu-sub">
     <?php foreach($items as $item): ?>
     <li><a<?php e($item->isOpen(), ' class="active"') ?> href="<?php echo $item->url() ?>"><?php echo $item->title()->html() ?></a></li>
     <?php endforeach ?>

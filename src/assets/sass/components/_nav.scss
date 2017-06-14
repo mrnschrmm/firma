@@ -1,1 +1,59 @@
 //  Navigation
+
+.nav-main {
+
+    position: absolute;
+    bottom: 8px;
+    left: 15px;
+    z-index: 999;
+
+    line-height: 24px;
+}
+.menu {
+
+    list-style: none;
+    text-align: left;
+
+    padding: 0;
+
+    a {
+
+        font-family: 'Simplon';
+        font-size: 15px;
+        line-height: 32px;
+        font-weight: 300;
+        color: $c-nav-link;
+        text-decoration: none;
+
+        display: block;
+        position: relative;
+
+        &:hover {
+
+            color: $c-nav-hover;
+        }
+        &.active {
+
+            text-decoration: underline;
+
+            &:hover {
+
+                color: $c-nav-hover;
+            }
+        }
+    }
+}
+
+.nav-sub {
+
+
+}
+.menu-sub {
+
+    display: block;
+    height: 32px;
+    li {
+        float: left;
+        margin-right: 20px;
+    }
+}

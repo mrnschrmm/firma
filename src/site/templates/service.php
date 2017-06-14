@@ -1,19 +1,17 @@
 <?php snippet('header') ?>
 
     <main>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <div class="title">
-                        <p><?php echo $page->title() ?></p>
+                        <h1><?php echo $page->title() ?></h1>
                     </div>
-                    <div class="submenu">
-                        <?php snippet('submenu') ?>
-                    </div>
+                    <?php snippet('submenu') ?>
                     <div class="intro">
                         <p><?php echo $page->text() ?></p>
                     </div>
-                    <div class="subservices">
+                    <div class="services-sub">
                         <ul>
                             <?php foreach($page->subservices()->toStructure() as $subservice): ?>
                             <li><?php echo $subservice->subservice() ?></li>

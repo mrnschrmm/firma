@@ -8,4 +8,31 @@ html {
 body {
 
     background-color: $c-bg;
+
+    position: relative;
+    height: 100vh;
+}
+.header-main {
+    padding: 32px 0;
+}
+.logo {
+
+    font-size: 19px;
+    line-height: 21px;
+
+    text-transform: uppercase;
+
+    width: 200px;
+}
+main {
+    padding-top: 64px;
+}
+.intro {
+
+    padding-top: 24px;
+    clear: left;
+}
+.services-sub {
+
+    padding-top: 24px;
 }
