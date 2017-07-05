@@ -1,8 +1,8 @@
 <nav class="nav-main" role="navigation">
     <ul class="menu">
         <?php foreach($pages->visible() as $item): ?>
-        <li class="menu-item<?= r($item->isOpen(), 'is-active') ?>">
-            <a href="<?= $item->url() ?>"><?= $item->title()->html() ?></a>
+        <li class="menu-item">
+            <a <?php e($item->isOpen(), ' class="active"') ?> href="<?= $item->url() ?>"><?= $item->title()->html() ?></a>
         </li>
         <?php endforeach ?>
     </ul>

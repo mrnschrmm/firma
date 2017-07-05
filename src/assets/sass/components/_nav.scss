@@ -3,11 +3,10 @@
 .nav-main {
 
     position: absolute;
-    bottom: 8px;
+    bottom: 15px;
     left: 15px;
     z-index: 999;
 
-    line-height: 24px;
 }
 .menu {
 
@@ -15,12 +14,13 @@
     text-align: left;
 
     padding: 0;
+    margin: 0;
 
     a {
 
         font-family: 'Simplon';
         font-size: 15px;
-        line-height: 32px;
+        line-height: 30px;
         font-weight: 300;
         color: $c-nav-link;
         text-decoration: none;
@@ -31,14 +31,16 @@
         &:hover {
 
             color: $c-nav-hover;
+            text-decoration: underline;
         }
         &.active {
 
-            text-decoration: underline;
+            color: #FFF;
 
             &:hover {
 
                 color: $c-nav-hover;
+                text-decoration: underline;
             }
         }
     }
@@ -52,8 +54,13 @@
 
     display: block;
     height: 32px;
+    margin-bottom: 40px;
     li {
         float: left;
-        margin-right: 20px;
+        margin-right: 40px;
+
+        a {
+            font-size: 14px;
+        }
     }
 }

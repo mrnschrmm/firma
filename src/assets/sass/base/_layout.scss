@@ -13,26 +13,59 @@ body {
     height: 100vh;
 }
 .header-main {
-    padding: 32px 0;
+    padding: 16px 0;
 }
 .logo {
 
-    font-size: 19px;
-    line-height: 21px;
+    font-size: 15px;
+    line-height: 20px;
 
     text-transform: uppercase;
 
-    width: 200px;
+    width: 140px;
+    float: left;
+    a {
+        color: #fff;
+        &:hover {
+
+            color: $c-nav-hover;
+            text-decoration: underline;
+        }
+        &.active {
+
+            text-decoration: underline;
+
+            &:hover {
+
+                color: $c-nav-hover;
+            }
+        }
+    }
+}
+.phone {
+    text-align: right;
+    font-size: 15px;
+    line-height: 20px;
+
+    color: #7A95FF;
+
+    em {
+        color: #fff;
+        font-style: normal;
+    }
 }
 main {
-    padding-top: 64px;
+    padding-top: 140px;
 }
 .intro {
 
-    padding-top: 24px;
+    padding-bottom: 10px;
     clear: left;
 }
 .services-sub {
 
-    padding-top: 24px;
+    padding-top: 20px;
+}
+.title {
+    margin-bottom: 30px;
 }

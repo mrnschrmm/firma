@@ -40,7 +40,7 @@
         "gulp-util": "^3.0.8",
         "gulp-watch": "^4.3.11",
         "rsyncwrapper": "^2.0.1",
-        "run-sequence": "^1.2.2",
+        "run-sequence": "^2.0.0",
         "vinyl-ftp": "^0.6.0"
     }
 }

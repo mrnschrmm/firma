@@ -8,4 +8,61 @@ html {
 body {
 
     background-color: $c-bg;
+
+    position: relative;
+    height: 100vh;
+}
+.header-main {
+    padding: 16px 0;
+}
+.logo {
+
+    font-size: 15px;
+    line-height: 20px;
+
+    text-transform: uppercase;
+
+    width: 140px;
+    float: left;
+    a {
+        color: #fff;
+        &:hover {
+
+            color: $c-nav-hover;
+            text-decoration: underline;
+        }
+        &.active {
+
+            text-decoration: underline;
+
+            &:hover {
+
+                color: $c-nav-hover;
+            }
+        }
+    }
+}
+.phone {
+    text-align: right;
+    font-size: 15px;
+    line-height: 20px;
+
+    color: #7A95FF;
+
+    em {
+        color: #fff;
+        font-style: normal;
+    }
+}
+main {
+    padding-top: 100px;
+}
+.intro {
+
+    padding-top: 8px;
+    clear: left;
+}
+.services-sub {
+
+    padding-top: 32px;
 }
