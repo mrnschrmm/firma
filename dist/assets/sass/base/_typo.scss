@@ -3,7 +3,7 @@
 html {
 
     font-size: 15px;
-    line-height: 24px;
+    line-height: 25px;
 }
 body {
 
@@ -16,6 +16,7 @@ body {
 p {
 
     margin: 0;
+    line-height: 25px;
 }
 a {
 
@@ -51,13 +52,13 @@ h1 {
     }
     @media screen and (min-width: 992px) {
 
-        font-size: 26px;
+        font-size: 30px;
         line-height: 64px;
 
     }
     @media screen and (min-width: 1200px) {
 
-        font-size: 32px;
+        font-size: 40px;
         line-height: 64px;
     }
 }

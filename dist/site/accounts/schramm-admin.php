@@ -7,6 +7,7 @@ email: service@kaimberg.com
 language: de
 role: admin
 history:
+  - kontakt
   - reinigung/grundreinigung
   - reinigung
 firstname: ""
