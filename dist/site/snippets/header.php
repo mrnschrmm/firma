@@ -5,7 +5,11 @@
                 <h1 class="logo">
                     <a href="<?php echo $site->url() ?>"><?php echo $site->title() ?></a>
                 </h1>
-                <p class="phone">Rufen Sie an: &nbsp;<em>0365 - 831 02 54</em></p>
+                <div class="phone">
+                    <p class="call">Rufen Sie an</p>
+                    <hr>
+                    <p class="tel">0365 - 831 02 54</p>
+                </div>
             </div>
         </div>
     </div>

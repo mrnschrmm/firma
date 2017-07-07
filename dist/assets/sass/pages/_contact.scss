@@ -2,17 +2,43 @@
 
 .contact .intro {
 
-    padding-bottom: 70px;
+
+
 }
-.contact .intro a {
+#contact {
 
-    color: $c-nav-link;
-    text-decoration: none;
+    .title {
 
+    }
 
-    &:hover {
+    .intro {
 
-        color: $c-nav-hover;
-        text-decoration: underline;
+        padding-bottom: 60px;
+
+        a {
+
+            color: $c-nav-link;
+            text-decoration: none;
+
+            &:hover {
+
+                color: $c-nav-hover;
+                text-decoration: underline;
+            }
+        }
+    }
+    .content {
+
+        a {
+
+            color: $c-white;
+            text-decoration: none;
+
+            &:hover {
+
+                color: $c-nav-hover;
+                text-decoration: underline;
+            }
+        }
     }
 }
