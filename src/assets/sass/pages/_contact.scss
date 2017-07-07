@@ -4,15 +4,34 @@
 
     padding-bottom: 70px;
 }
-.contact .intro a {
+#contact {
 
-    color: $c-nav-link;
-    text-decoration: none;
+    .intro {
 
+        a {
 
-    &:hover {
+            color: $c-nav-link;
+            text-decoration: none;
 
-        color: $c-nav-hover;
-        text-decoration: underline;
+            &:hover {
+
+                color: $c-nav-hover;
+                text-decoration: underline;
+            }
+        }
+    }
+    .content {
+
+        a {
+
+            color: $c-white;
+            text-decoration: none;
+
+            &:hover {
+
+                color: $c-nav-hover;
+                text-decoration: underline;
+            }
+        }
     }
 }

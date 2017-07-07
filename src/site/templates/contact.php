@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.min.css">
     <!--endbuild-->
 </head>
-<body>
+<body id="contact">
     <?php snippet('header') ?>
 
     <main>
@@ -31,7 +31,7 @@
                             <div class="col-6">
                                 <p>Tel:&nbsp;<?php echo $page->phone() ?></p>
                                 <p>Fax:&nbsp;<?php echo $page->fax() ?></p>
-                                <p><?php echo $page->email() ?></p>
+                                <p><a href="mailto:<?php echo $page->email() ?>"><?php echo $page->email() ?></a></p>
                             </div>
                             <div class="col-6">
                                 <p><?php echo $page->company() ?></p>
