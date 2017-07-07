@@ -20,7 +20,7 @@
 
         font-family: 'Simplon';
         font-size: 15px;
-        line-height: 30px;
+        line-height: 33px;
         font-weight: 300;
         color: $c-nav-link;
         text-decoration: none;
@@ -45,7 +45,6 @@
         }
     }
 }
-
 .nav-sub {
 
 
@@ -55,11 +54,14 @@
     display: block;
     height: 32px;
     margin-bottom: 40px;
+
     li {
+
         float: left;
         margin-right: 25px;
 
         a {
+
             font-size: 17px;
         }
     }
