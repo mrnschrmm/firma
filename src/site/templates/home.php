@@ -12,19 +12,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.min.css">
     <!--endbuild-->
 </head>
-<body class="home">
+<body id="home">
     <?php snippet('header') ?>
-
-        <main>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="intro">
-                            <p><?php echo $page->text() ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
     <?php snippet('footer') ?>
+</body>
+</html>

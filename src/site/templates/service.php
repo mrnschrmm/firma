@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.min.css">
     <!--endbuild-->
 </head>
-<body>
+<body id="service">
     <?php snippet('header') ?>
 
     <main>
@@ -38,4 +38,6 @@
         </div>
     </main>
 
-<?php snippet('footer') ?>
+    <?php snippet('footer') ?>
+</body>
+</html>
