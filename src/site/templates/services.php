@@ -33,4 +33,7 @@
 
     <?php snippet('footer') ?>
 </body>
+<!--build:js js/main.min.js -->
+<script src="../assets/js/main.min.js"></script>
+<!-- endbuild -->
 </html>
