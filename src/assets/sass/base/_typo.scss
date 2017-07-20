@@ -36,31 +36,31 @@ h1, h2, h3, h4, h5 {
 }
 h1 {
 
-    font-size: 18px;
+    font-size: 16px;
     line-height: 20px;
     font-weight: 300;
 
     @media screen and (min-width: 544px) {
 
-        font-size: 20px;
-        line-height: 30px;
+        font-size: 18px;
+        line-height: 25px;
 
     }
     @media screen and (min-width: 768px) {
 
-        font-size: 22px;
+        font-size: 20px;
         line-height: 30px;
 
     }
     @media screen and (min-width: 992px) {
 
-        font-size: 30px;
-        line-height: 40px;
+        font-size: 24px;
+        line-height: 30px;
 
     }
     @media screen and (min-width: 1200px) {
 
-        font-size: 40px;
-        line-height: 52px;
+        font-size: 30px;
+        line-height: 40px;
     }
 }

@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.min.css">
     <!--endbuild-->
 </head>
-<body id="contact">
+<body id="company">
     <?php snippet('header') ?>
 
     <main>
@@ -24,24 +24,6 @@
                     </div>
                     <div class="intro">
                         <p><?php echo $page->text() ?></p>
-                    </div>
-                    <div class="content">
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="contact-channel">
-                                    <p>Tel:&nbsp;<?php echo $page->phone() ?></p>
-                                    <p>Fax:&nbsp;<?php echo $page->fax() ?></p>
-                                    <p><a href="mailto:<?php echo $page->email() ?>"><?php echo $page->email() ?></a></p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="contact-address">
-                                    <p><?php echo $page->company() ?></p>
-                                    <p><?php echo $page->street() ?></p>
-                                    <p><?php echo $page->zip() ?>&nbsp;<?php echo $page->location() ?></p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
