@@ -18,7 +18,12 @@ p {
     font-size: 14px;
 
     margin: 0;
-    line-height: 25px;
+    line-height: 24px;
+
+    @media screen and (min-width: 840px) {
+
+        font-size: 15px;
+    }
 }
 a {
 
@@ -36,14 +41,11 @@ h1, h2, h3, h4, h5 {
 }
 h1 {
 
-    font-size: 16px;
+    font-size: 18px;
     line-height: 20px;
     font-weight: 300;
 
     @media screen and (min-width: 544px) {
-
-        font-size: 18px;
-        line-height: 25px;
 
     }
     @media screen and (min-width: 768px) {
@@ -60,7 +62,7 @@ h1 {
     }
     @media screen and (min-width: 1200px) {
 
-        font-size: 30px;
+        font-size: 28px;
         line-height: 40px;
     }
 }

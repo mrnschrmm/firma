@@ -1,54 +1,28 @@
 //  Navigation
 
-.menu {
-
-    list-style: none;
-    padding-left: 0;
-
-    a {
-
-        font-family: 'Simplon';
-        font-size: 15px;
-        line-height: 33px;
-        font-weight: 300;
-        color: $c-nav-link;
-        text-decoration: none;
-
-        &:hover {
-
-            color: $c-nav-hover;
-            text-decoration: underline;
-        }
-        &.active {
-
-            color: #FFF;
-
-            &:hover {
-
-                color: $c-nav-hover;
-                text-decoration: underline;
-            }
-        }
-    }
-}
 .nav-main {
 
     position: fixed;
+    top: auto;
     bottom: 15px;
-    left: 15px;
+    right: 15px;
 
     width: 12px;
     height: 20px;
 
+    overflow: visible;
+
     @media screen and (min-width: 840px) {
 
         position: absolute;
-        bottom: 20px;
-        left: 20px;
+        bottom: auto;
+        top: 0;
+        right: 20px;
 
         height: auto;
         width: auto;
 
+        overflow: auto;
     }
     .menu {
 
@@ -85,65 +59,104 @@
             height: auto;
             width: auto;
         }
-        a {
+        .menu-item {
 
-            text-align: center;
+            float: left;
+            margin-right: 20px;
 
-            @media screen and (min-width: 840px) {
+            line-height: 18px;
 
-                text-align: left;
+            &:last-child {
+
+                margin-right: 0;
+            }
+            a {
+
+                font-family: 'Simplon';
+                font-size: 15px;
+                line-height: 18px;
+                font-weight: 300;
+                text-decoration: none;
+                text-align: center;
+                color: $c-nav-link;
+
+                @media screen and (min-width: 840px) {
+
+                    text-align: left;
+                }
+
+                &:hover {
+
+                    color: $c-nav-hover;
+                    text-decoration: underline;
+                }
+                &.active {
+
+
+                    text-decoration: underline;
+
+                    &:hover {
+
+                        color: $c-nav-hover;
+                    }
+                }
             }
         }
     }
 }
 .nav-sub {
 
-    .dropbtn {
+    .menu-sub {
 
-        display: none;
-    }
-}
-.menu-sub {
+        list-style: none;
+        overflow: auto;
 
-    display: block;
-    margin-bottom: 40px;
+        display: block;
+        margin-bottom: 0;
+        padding-left: 0;
 
-    li {
+        li {
 
-        float: left;
-        margin-right: 30px;
-        margin-bottom: 30px;
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
 
-        a {
+            a {
 
-            font-size: 15px;
-            line-height: 116px;
-            color: #fff;
-            border: 3px solid #031A7F;
-
-            display: block;
-            height: 120px;
-
-            padding: 0 45px;
-
-            &:hover {
-
-                border-color: white;
+                font-family: 'Simplon';
+                font-size: 15px;
+                line-height: 116px;
+                font-weight: 300;
                 text-decoration: none;
-            }
-            &.active {
 
-                color: #FFF;
-                border-color: white;
+                color: $c-nav-link;
+                border: 3px solid #031A7F;
+
+                display: block;
+                height: 120px;
+                padding: 0 50px;
 
                 &:hover {
-                    color: #7A95FF;
-                    text-decoration: none;
+
+                    border-color: white;
+                }
+                &.active {
+
+                    text-decoration: underline;
+                    color: #FFF;
+                    border-color: white;
+
+                    &:hover {
+
+                        color: $c-nav-hover;
+                        text-decoration: none;
+                    }
                 }
             }
         }
     }
 }
+
 html.open {
 
     overflow: hidden;

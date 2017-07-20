@@ -12,8 +12,7 @@ if($root = $pages->findOpen()) {
 // only show the menu if items are available
 if($items and $items->count()): ?>
     <nav class="nav-sub">
-        <button class="dropbtn">Alle Leistungen</button>
-        <ul class="menu menu-sub">
+        <ul class="menu-sub">
             <?php foreach($items as $item): ?>
                 <li><a<?php e($item->isOpen(), ' class="active"') ?> href="<?php echo $item->url() ?>"><?php echo $item->title()->html() ?></a></li>
             <?php endforeach ?>
