@@ -6,62 +6,9 @@
         li {
 
             text-indent: -19px;
+            line-height: 25px;
+
             padding-left: 10px;
-        }
-    }
-
-    .nav-sub {
-
-        float: right;
-        position: relative;
-        display: inline-block;
-
-        .menu-sub {
-
-            display: none;
-            position: absolute;
-            top: 44px;
-            right: 0;
-            background-color: #031A7F;
-            border: 2px solid #031A7F;
-            width: 220px;
-            z-index: 1;
-            padding: 0;
-
-            li {
-
-                float: none;
-                margin: 0;
-
-                a {
-                    font-size: 14px;
-                    color: $c-nav-link;
-                    border: none;
-                    display: inline-block;
-                    line-height: 44px;
-                    text-align: center;
-
-                    padding: 0 16px;
-                    height: 44px;
-                    width: 216px;
-
-                    &:hover {
-                        color: white;
-                        background-color: $c-bg;
-                    }
-                    &.active {
-                        color: white;
-
-                        &:hover {
-
-                        }
-                    }
-                }
-            }
-        }
-        &:hover .menu-sub {
-
-            display: block;
         }
     }
 }

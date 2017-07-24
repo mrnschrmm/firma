@@ -1,1 +1,25 @@
 // Buttons
+
+.btn {
+
+    cursor: pointer;
+    border: 0;
+
+    padding: 0;
+
+    &:focus {
+
+        outline: 0;
+    }
+    &:hover {
+
+        #ico-menu {
+
+            color: $c-ico-link;
+        }
+        #ico-link {
+
+            color: $c-ico-hover;
+        }
+    }
+}

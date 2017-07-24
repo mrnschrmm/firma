@@ -20,7 +20,7 @@ p {
     margin: 0;
     line-height: 24px;
 
-    @media screen and (min-width: 840px) {
+    @include media-breakpoint-up(md) {
 
         font-size: 15px;
     }
@@ -64,4 +64,9 @@ h1 {
         font-size: 26px;
         line-height: 40px;
     }
+}
+h2 {
+
+    font-size: 15px;
+    margin-bottom: 25px;
 }

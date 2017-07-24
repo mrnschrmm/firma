@@ -3,6 +3,7 @@
     =================================================== */
 
 html {
+
     background-color: $c-bg;
 }
 body {
@@ -12,23 +13,55 @@ body {
 
     background-color: $c-bg;
 }
+ul {
+
+    list-style-position: inside;
+
+    padding: 0 0 0 0;
+    margin-left: 10px;
+
+    @include media-breakpoint-up(sm) {
+
+        padding: 0 0 0 0;
+    }
+    @include media-breakpoint-up(md) {
+
+        padding: 0 0 0 10px;
+    }
+    @include media-breakpoint-up(lg) {
+
+        padding: 0 0 0 20px;
+    }
+    li {
+
+        font-size: 14px;
+    }
+}
 .header-main {
 
-    padding: 20px 0;
+    padding: 15px 0;
 
+    @include media-breakpoint-up(md) {
+
+        padding: 20px 0;
+    }
     .logo {
 
-        width: 140px;
-        padding-left: 5px;
-
-        float: left;
         font-size: 15px;
-        line-height: 20px;
-
+        line-height: 18px;
         text-transform: uppercase;
 
+        float: left;
+        width: 140px;
+
+        @include media-breakpoint-up(md) {
+
+            padding-left: 5px;
+        }
         a {
-            color: #fff;
+
+            color: $c-nav-link;
+
             &:hover {
 
                 color: $c-nav-hover;
@@ -45,58 +78,102 @@ body {
             }
         }
     }
-    .phone {
+}
+.company-contact {
 
-        float: right;
-        text-align: right;
+    background-color: #051D87;
 
-        margin-right: 5px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 
-        hr {
+    width: 100%;
 
-            background-color: $c-white;
-            border-style: none;
+    padding: 15px 15px 13px 0;
 
-            width: 12px;
-            height: 2px;
-        }
+    z-index: 777;
 
-        .call {
+    @include media-breakpoint-up(md) {
 
-            float: left;
-            color: #fff;
-            font-style: normal;
-            font-size: 15px;
-            line-height: 20px;
-            padding-right: 5px;
+        background-color: transparent;
+
+        bottom: 15px;
+        right: 15px;
+
+        width: auto;
+        padding: 0;
+    }
+    p {
+
+        font-size: 14px;
+        line-height: 18px;
+        padding-left: 60px;
+
+        a {
+
+            display: block;
+            text-align: right;
+
+            &:hover {
+
+                color: $c-nav-hover;
+                text-decoration: underline;
+            }
         }
         .tel {
 
-            float: right;
-            text-align: right;
-            font-size: 15px;
-            line-height: 20px;
+            cursor: default;
 
-            color: #7A95FF;
+            &:hover {
+
+                color: $c-nav-link;
+                text-decoration: none;
+            }
         }
     }
 }
-
 main {
 
-    padding-top: 120px;
+    padding-top: 50px;
+    padding-bottom: 80px;
 
+    @include media-breakpoint-up(sm) {
+
+        padding-top: 70px;
+        padding-bottom: 60px;
+    }
+    @include media-breakpoint-up(md) {
+
+        padding-top: 90px;
+    }
+    @include media-breakpoint-up(lg) {
+
+        padding-top: 110px;
+    }
+    @include media-breakpoint-up(xl) {
+
+        padding-top: 130px;
+    }
     .title {
-        margin-bottom: 40px;
+
+        margin-bottom: 30px;
+
+        @include media-breakpoint-up(md) {
+
+            margin-bottom: 40px;
+        }
     }
     .intro {
 
-        padding-bottom: 10px;
-        clear: left;
-    }
-    .services-sub {
+        margin-bottom: 20px;
 
-        padding-top: 20px;
-    }
+        @include media-breakpoint-up(sm) {
 
+            margin-bottom: 30px;
+        }
+        @include media-breakpoint-up(lg) {
+
+            margin-bottom: 40px;
+        }
+    }
 }

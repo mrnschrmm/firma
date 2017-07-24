@@ -13,7 +13,7 @@
     overflow: visible;
     z-index: 999;
 
-    @media screen and (min-width: 840px) {
+    @include media-breakpoint-up(md) {
 
         position: absolute;
         bottom: auto;
@@ -47,7 +47,7 @@
         transform: translate3d(0, 0, 0);
         transition: all .5s cubic-bezier(0.80, 0.05, 0.35, 1.00);
 
-        @media screen and (min-width: 840px) {
+        @include media-breakpoint-up(md) {
 
             display: block;
 
@@ -68,7 +68,7 @@
 
             line-height: 30px;
 
-            @media screen and (min-width: 840px) {
+            @include media-breakpoint-up(md) {
 
                 float: left;
                 margin-right: 20px;
@@ -90,7 +90,7 @@
                 text-align: center;
                 color: $c-nav-link;
 
-                @media screen and (min-width: 840px) {
+                @include media-breakpoint-up(md) {
 
                     text-align: left;
                 }
@@ -177,19 +177,17 @@
                     height: 120px;
                     padding: 0 20px;
                 }
-
-
                 @include media-breakpoint-up(md) {
 
-                    padding: 0 30px;
+                    padding: 0 25px;
                 }
                 @include media-breakpoint-up(lg) {
 
-                    padding: 0 40px;
+                    padding: 0 32px;
                 }
                 @include media-breakpoint-up(xl) {
 
-                    padding: 0 50px;
+                    padding: 0 38px;
                 }
 
                 &:hover {
@@ -268,7 +266,7 @@ html.open {
 
     z-index: 2;
 
-    @media screen and (min-width: 840px) {
+    @include media-breakpoint-up(md) {
 
         display: none;
     }

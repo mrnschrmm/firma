@@ -8,7 +8,9 @@ language: de
 role: admin
 history:
   - kontakt
-  - reinigung/grundreinigung
-  - reinigung
+  - unternehmen
+  - reinigung/fahrzeugreinigung
+  - reinigung/baureinigung
+  - reinigung/polster-und-teppichreinigung
 firstname: ""
 lastname: ""

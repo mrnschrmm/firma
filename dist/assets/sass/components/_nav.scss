@@ -2,67 +2,272 @@
 
 .nav-main {
 
-    position: absolute;
+    position: fixed;
+    top: auto;
     bottom: 20px;
     left: 20px;
+
+    width: 12px;
+    height: 20px;
+
+    overflow: visible;
     z-index: 999;
 
-}
-.menu {
+    @include media-breakpoint-up(md) {
 
-    list-style: none;
-    text-align: left;
+        position: absolute;
+        bottom: auto;
+        left: auto;
+        top: 0;
+        right: 20px;
 
-    padding: 0;
-    margin: 0;
+        height: auto;
+        width: auto;
 
-    a {
+        overflow: auto;
+    }
+    .menu {
 
-        font-family: 'Simplon';
-        font-size: 15px;
-        line-height: 33px;
-        font-weight: 300;
-        color: $c-nav-link;
-        text-decoration: none;
+        display: none;
 
-        display: block;
-        position: relative;
+        list-style: none;
 
-        &:hover {
+        padding: 140px 0 0 80px;
+        margin: 0;
 
-            color: $c-nav-hover;
-            text-decoration: underline;
+        background: #041873;
+        opacity: 0;
+        visibility: hidden;
+
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        height: 100%;
+
+        transform: translate3d(0, 0, 0);
+        transition: all .5s cubic-bezier(0.80, 0.05, 0.35, 1.00);
+
+        @include media-breakpoint-up(md) {
+
+            display: block;
+
+            background: transparent;
+            opacity: 1;
+            visibility: visible;
+
+            position: relative;
+            padding: 0;
+
+            height: auto;
+            width: auto;
         }
-        &.active {
+        .menu-item {
 
-            color: #FFF;
+            float: none;
+            margin-right: 0;
 
-            &:hover {
+            line-height: 30px;
 
-                color: $c-nav-hover;
-                text-decoration: underline;
+            @include media-breakpoint-up(md) {
+
+                float: left;
+                margin-right: 20px;
+
+                line-height: 18px;
+
+                &:last-child {
+
+                    margin-right: 0;
+                }
+            }
+            a {
+
+                font-family: 'Simplon';
+                font-size: 15px;
+                line-height: 18px;
+                font-weight: 300;
+                text-decoration: none;
+                text-align: center;
+                color: $c-nav-link;
+
+                @include media-breakpoint-up(md) {
+
+                    text-align: left;
+                }
+
+                &:hover {
+
+                    color: $c-nav-hover;
+                    text-decoration: underline;
+                }
+                &.active {
+
+
+                    text-decoration: underline;
+
+                    &:hover {
+
+                        color: $c-nav-hover;
+                    }
+                }
             }
         }
     }
 }
 .nav-sub {
 
+    .menu-sub {
 
-}
-.menu-sub {
+        list-style: none;
+        overflow: auto;
 
-    display: block;
-    height: 32px;
-    margin-bottom: 40px;
+        display: block;
 
-    li {
+        margin: 0;
+        padding-left: 0;
 
-        float: left;
-        margin-right: 25px;
+        li {
 
-        a {
+            text-indent: 0;
+            padding-left: 0;
 
-            font-size: 17px;
+            float: left;
+
+            margin-right: 5px;
+            margin-bottom: 5px;
+
+            @include media-breakpoint-up(sm) {
+
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+            @include media-breakpoint-up(md) {
+
+                margin-right: 15px;
+                margin-bottom: 15px;
+            }
+            @include media-breakpoint-up(lg) {
+
+                margin-right: 20px;
+                margin-bottom: 20px;
+            }
+            @include media-breakpoint-up(xl) {
+
+            }
+            a {
+
+                font-family: 'Simplon';
+                font-size: 14px;
+                line-height: 70px;
+                font-weight: 300;
+                text-decoration: none;
+
+                color: $c-nav-link;
+                border: 2px solid #031A7F;
+
+                display: block;
+                height: 75px;
+                padding: 0 16px;
+
+                @include media-breakpoint-up(sm) {
+
+                    font-size: 14px;
+                    line-height: 116px;
+
+                    height: 120px;
+                    padding: 0 20px;
+                }
+                @include media-breakpoint-up(md) {
+
+                    padding: 0 25px;
+                }
+                @include media-breakpoint-up(lg) {
+
+                    padding: 0 32px;
+                }
+                @include media-breakpoint-up(xl) {
+
+                    padding: 0 38px;
+                }
+
+                &:hover {
+
+                    border-color: white;
+                }
+                &.active {
+
+                    text-decoration: underline;
+                    color: #FFF;
+                    border-color: white;
+
+                    &:hover {
+
+                        color: $c-nav-hover;
+                        text-decoration: none;
+                    }
+                }
+            }
         }
+    }
+}
+
+html.open {
+
+    overflow: hidden;
+
+    .nav-main {
+
+        top: 0;
+        left: 0;
+        bottom: auto;
+
+        z-index: 999;
+
+        width: 100vw;
+        height: 100vh;
+    }
+
+
+    .menu {
+
+        display: block;
+
+        opacity: 1;
+        visibility: visible;
+        transition: all .5s cubic-bezier(0.80, 0.05, 0.35, 1.00);
+    }
+    #btn-menu {
+
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+
+        z-index: 999;
+    }
+
+    #ico-object-top {
+
+        transform: translateY(9px);
+    }
+    #ico-object-bottom {
+
+        transform: translateY(-9px);
+    }
+}
+
+#btn-menu {
+
+    background-color: transparent;
+    color: white;
+
+    height: 20px;
+
+    position: static;
+
+    z-index: 2;
+
+    @include media-breakpoint-up(md) {
+
+        display: none;
     }
 }

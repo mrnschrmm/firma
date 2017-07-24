@@ -12,26 +12,18 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/main.min.css">
     <!--endbuild-->
 </head>
-<body id="service">
+<body id="company">
     <?php snippet('header') ?>
 
     <main>
-        <div class="container-fluid">
+        <div class="container-fluid contact">
             <div class="row">
-                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-7 offset-lg-2">
+                <div class="col-12 col-sm-7 offset-sm-2">
                     <div class="title">
                         <h1><?php echo $page->title() ?></h1>
                     </div>
                     <div class="intro">
                         <p><?php echo $page->text() ?></p>
-                    </div>
-                    <h2 class="heading-services-sub">Leistungsübersicht</h2>
-                    <div class="services-sub">
-                        <ul>
-                            <?php foreach($page->subservices()->toStructure() as $subservice): ?>
-                            <li><?php echo $subservice->subservice() ?></li>
-                            <?php endforeach ?>
-                        </ul>
                     </div>
                 </div>
             </div>

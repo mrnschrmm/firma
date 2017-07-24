@@ -1,0 +1,18 @@
+//  Contact
+
+#company {
+
+    .title {
+
+    }
+
+    .intro {
+
+        padding-bottom: 40px;
+
+        @media screen and (min-width: 840px) {
+
+            padding-bottom: 60px;
+        }
+    }
+}

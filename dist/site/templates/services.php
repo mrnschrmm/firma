@@ -17,8 +17,8 @@
 
     <main>
         <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-8">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2">
                     <div class="title">
                         <h1><?php echo $page->title() ?></h1>
                     </div>
@@ -33,4 +33,7 @@
 
     <?php snippet('footer') ?>
 </body>
+<!--build:js js/main.min.js -->
+<script src="../assets/js/main.min.js"></script>
+<!-- endbuild -->
 </html>
