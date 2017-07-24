@@ -3,3 +3,12 @@ Title: Polster- und Teppichreinigung
 ----
 
 Text: Eine regelmäßige Teppichreinigung mit dem Staubsauger entfernt zwar den gröbsten Schmutz, säubert allerdings nicht fasertief. Damit Sie möglichst lange etwas von Ihrem Teppich haben, sollten Sie ihn nach einiger Zeit gründlich aufbereiten lassen. Abhängig vom Grad der Verschmutzung und der Art des Bodens bieten wir Ihnen folgende Arten der Teppichreinigung in Gera und Umgebung.
+
+----
+
+Subservices: 
+
+- 
+  subservice: Teppich
+- 
+  subservice: Polstermöbel

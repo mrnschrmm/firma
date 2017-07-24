@@ -13,4 +13,4 @@ Subservices:
 - 
   subservice: Sanitärbereiche
 - 
-  subservice: Fenster und Glaselement
+  subservice: Fenster und Glaselemente

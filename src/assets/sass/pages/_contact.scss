@@ -27,7 +27,7 @@
 
             margin-bottom: 30px;
 
-            @media screen and (min-width: 840px) {
+            @include media-breakpoint-up(md) {
 
                 margin-bottom: 0;
             }

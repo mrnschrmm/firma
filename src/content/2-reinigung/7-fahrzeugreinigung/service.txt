@@ -7,3 +7,18 @@ Text: An einer regelmäßigen Fahrzeugreinigung kommt früher oder später kein 
 ----
 
 Subservices: 
+
+- 
+  subservice: Lackaufbereitung
+- 
+  subservice: Innenreinigung
+- 
+  subservice: Scheibenreinigung
+- 
+  subservice: Motorwäsche
+- 
+  subservice: Felgenreinigung
+- 
+  subservice: 'Türscharniere & Trittleisten'
+- 
+  subservice: Kunststoffpflege
