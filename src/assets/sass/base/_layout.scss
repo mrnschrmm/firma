@@ -5,13 +5,15 @@
 html {
 
     background-color: $c-bg;
+
+    // height: 100vh;
 }
 body {
 
+    background-color: $c-bg;
+
     position: relative;
     height: 100vh;
-
-    background-color: $c-bg;
 }
 ul {
 
@@ -66,6 +68,11 @@ ul {
 
                 color: $c-nav-hover;
                 text-decoration: underline;
+            }
+            &:visited {
+
+                color: $c-nav-link;
+                text-decoration: none;
             }
             &.active {
 
