@@ -6,9 +6,15 @@
         li {
 
             text-indent: -19px;
-            line-height: 25px;
+            line-height: 30px;
 
             padding-left: 10px;
+
+
+            @include media-breakpoint-up(sm) {
+
+                line-height: 35px;
+            }
         }
     }
 }

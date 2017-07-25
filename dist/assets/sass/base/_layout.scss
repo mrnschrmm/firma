@@ -5,13 +5,15 @@
 html {
 
     background-color: $c-bg;
+
+    // height: 100vh;
 }
 body {
 
+    background-color: $c-bg;
+
     position: relative;
     height: 100vh;
-
-    background-color: $c-bg;
 }
 ul {
 
@@ -39,16 +41,16 @@ ul {
 }
 .header-main {
 
-    padding: 15px 0;
+    padding: 20px 0;
 
     @include media-breakpoint-up(md) {
 
-        padding: 20px 0;
+        padding: 25px 0;
     }
     .logo {
 
         font-size: 15px;
-        line-height: 18px;
+        line-height: 17px;
         text-transform: uppercase;
 
         float: left;
@@ -56,7 +58,7 @@ ul {
 
         @include media-breakpoint-up(md) {
 
-            padding-left: 5px;
+            padding-left: 10px;
         }
         a {
 
@@ -66,6 +68,11 @@ ul {
 
                 color: $c-nav-hover;
                 text-decoration: underline;
+            }
+            &:visited {
+
+                color: $c-nav-link;
+                text-decoration: none;
             }
             &.active {
 
@@ -89,7 +96,7 @@ ul {
 
     width: 100%;
 
-    padding: 15px 15px 13px 0;
+    padding: 19px 15px 17px 0;
 
     z-index: 777;
 
@@ -97,8 +104,8 @@ ul {
 
         background-color: transparent;
 
-        bottom: 15px;
-        right: 15px;
+        bottom: 17px;
+        right: 25px;
 
         width: auto;
         padding: 0;
@@ -134,46 +141,70 @@ ul {
 }
 main {
 
-    padding-top: 50px;
-    padding-bottom: 80px;
+    padding-top: 40px;
+    padding-bottom: 100px;
 
     @include media-breakpoint-up(sm) {
 
-        padding-top: 70px;
-        padding-bottom: 60px;
+        padding-top: 80px;
+        padding-bottom: 100px;
     }
     @include media-breakpoint-up(md) {
 
-        padding-top: 90px;
+        padding-top: 100px;
     }
     @include media-breakpoint-up(lg) {
 
-        padding-top: 110px;
+        padding-top: 120px;
     }
     @include media-breakpoint-up(xl) {
 
-        padding-top: 130px;
+        padding-top: 140px;
     }
     .title {
 
-        margin-bottom: 30px;
+        margin-bottom: 40px;
 
+        @include media-breakpoint-up(xs) {
+
+            margin-bottom: 45px;
+        }
+        @include media-breakpoint-up(sm) {
+
+            margin-bottom: 45px;
+        }
         @include media-breakpoint-up(md) {
 
-            margin-bottom: 40px;
+            margin-bottom: 45px;
+        }
+        @include media-breakpoint-up(lg) {
+
+            margin-bottom: 55px;
         }
     }
     .intro {
 
-        margin-bottom: 20px;
+        margin-bottom: 40px;
 
+        @include media-breakpoint-up(xs) {
+
+            margin-bottom: 45px;
+        }
         @include media-breakpoint-up(sm) {
 
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+        }
+        @include media-breakpoint-up(md) {
+
+            margin-bottom: 50px;
         }
         @include media-breakpoint-up(lg) {
 
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+        }
+        @include media-breakpoint-up(xl) {
+
+            margin-bottom: 55px;
         }
     }
 }

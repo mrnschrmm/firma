@@ -3,5 +3,21 @@
 #home {
 
     background: url(../images/logo_2017.svg) no-repeat center;
-    background-size: 238px 360px;
+    background-size: 140px;
+
+    height: 85vh;
+
+    @include media-breakpoint-up(sm) {
+
+        background-size: 200px;
+        height: 100vh;
+    }
+    @include media-breakpoint-up(md) {
+
+        background-size: 220px;
+    }
+    @include media-breakpoint-up(lg) {
+
+        background-size: 240px;
+    }
 }
