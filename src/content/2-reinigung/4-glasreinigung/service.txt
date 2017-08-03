@@ -19,16 +19,10 @@ Subservices:
 - 
   subservice: Glasbausteine
 - 
-  subservice: Photovoltaikanlagen
-- 
   subservice: Schaufenster
-- 
-  subservice: Lichtkuppeln
 - 
   subservice: Wintergärten
 - 
   subservice: Glaswände
 - 
   subservice: Glasvordächer
-- 
-  subservice: Leuchtschriften

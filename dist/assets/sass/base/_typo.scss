@@ -69,10 +69,10 @@ h1 {
 h2 {
 
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
-    @include media-breakpoint-up(xs) {
+    @include media-breakpoint-up(sm) {
 
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 }

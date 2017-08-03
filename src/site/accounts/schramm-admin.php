@@ -7,10 +7,10 @@ email: service@kaimberg.com
 language: de
 role: admin
 history:
-  - reinigung/polster-und-teppichreinigung
-  - kontakt
   - unternehmen
-  - reinigung/fahrzeugreinigung
+  - reinigung/polster-und-teppichreinigung
+  - reinigung/glasreinigung
+  - kontakt
   - reinigung/baureinigung
 firstname: ""
 lastname: ""

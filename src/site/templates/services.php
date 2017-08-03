@@ -18,14 +18,14 @@
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 col-sm-10 offset-sm-1 col-xl-8 offset-xl-2">
+                <div class="col-10 offset-1">
                     <div class="title">
                         <h1><?php echo $page->title() ?></h1>
                     </div>
-                    <?php snippet('submenu') ?>
                     <div class="intro">
                         <p><?php echo $page->text() ?></p>
                     </div>
+                    <?php snippet('submenu') ?>
                 </div>
             </div>
         </div>

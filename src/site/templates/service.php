@@ -25,7 +25,7 @@
                     <div class="intro">
                         <p><?php echo $page->text() ?></p>
                     </div>
-                    <h2 class="heading-services-sub">Leistungsübersicht</h2>
+                    <h2 class="heading-services-sub">Dienstleistungen</h2>
                     <div class="services-sub">
                         <ul>
                             <?php foreach($page->subservices()->toStructure() as $subservice): ?>
