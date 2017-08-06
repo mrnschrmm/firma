@@ -76,7 +76,7 @@
             @include media-breakpoint-up(md) {
 
                 float: left;
-                margin-right: 30px;
+                margin-right: 40px;
 
                 line-height: 18px;
 
@@ -138,21 +138,18 @@
             text-indent: 0;
 
             float: left;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
 
             @include media-breakpoint-up(sm) {
 
-                // margin-right: 15px;
-                // margin-bottom: 15px;
+                margin-bottom: 30px;
             }
             @include media-breakpoint-up(md) {
 
-                // margin-right: 20px;
                 // margin-bottom: 20px;
             }
             @include media-breakpoint-up(lg) {
 
-                // margin-right: 25px;
                 // margin-bottom: 25px;
             }
             @include media-breakpoint-up(xl) {
@@ -176,16 +173,16 @@
 
                 @include media-breakpoint-up(sm) {
 
-                    line-height: 140px;
+                    line-height: 130px;
 
-                    height: 140px;
+                    height: 130px;
                     padding: 0 20px;
                 }
                 @include media-breakpoint-up(md) {
 
-                    line-height: 160px;
+                    line-height: 140px;
 
-                    height: 160px;
+                    height: 140px;
                     padding: 0;
                 }
                 @include media-breakpoint-up(lg) {

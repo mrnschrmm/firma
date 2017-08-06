@@ -2,27 +2,25 @@ Title: Büroreinigung
 
 ----
 
-Text: Büroreinigung beinhaltet die Säuberung der PC-Arbeitsplätze, Teppiche und Büromöbel sowie Abfallentsorgung. So haben Schädlinge und Ungeziefer in Ihrem Gebäude keine Chance. Zu einem gereinigten Bürokomplex gehören selbstverständlich auch gepflegte Sanitäranlagen. Diese werden von uns nicht nur geputzt, sondern auch regelmäßig desinfiziert.
+Text: 
+
+Büroreinigung beinhaltet die Säuberung der PC-Arbeitsplätze, Teppiche und Büromöbel sowie Abfallentsorgung. So haben Schädlinge und Ungeziefer in Ihrem Gebäude keine Chance.
+<br><br>
+Zu einem gereinigten Bürokomplex gehören selbstverständlich auch gepflegte Sanitäranlagen. Diese werden von uns nicht nur geputzt, sondern auch regelmäßig desinfiziert.
 
 ----
 
 Subservices: 
 
 - 
-  subservice: Schreibtisch
-- 
-  subservice: Ablageflächen
+  subservice: 'Schreibtisch & Ablageflächen'
 - 
   subservice: Sanitärbereich
 - 
+  subservice: 'Küche & Kaffeemaschine'
+- 
   subservice: Tagungsräume
 - 
-  subservice: Gläser einsammeln
-- 
-  subservice: Küche
-- 
-  subservice: Kaffeemaschine reinigen
+  subservice: Regale
 - 
   subservice: Mülleimer leeren
-- 
-  subservice: Regale
