@@ -13,16 +13,8 @@ Wir entfernen mit einem passenden Reinigungsmittel zuverlässig alle Verschmutzu
 Subservices: 
 
 - 
-  subservice: Fenster
+  subservice: Fenster, Schaufenster, Glasfronten
 - 
-  subservice: Glasfronten
+  subservice: 'Glasbausteine & Glaswände'
 - 
-  subservice: Glasbausteine
-- 
-  subservice: Schaufenster
-- 
-  subservice: Wintergärten
-- 
-  subservice: Glaswände
-- 
-  subservice: Glasvordächer
+  subservice: 'Wintergärten & Glasvordächer'
