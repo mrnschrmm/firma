@@ -13,18 +13,14 @@ Mit der richtigen Pflege erhöhen sich zudem der Wert und die Lebensdauer der Ob
 Subservices: 
 
 - 
-  subservice: >
-    Grundreinigung und Versieglung aller
-    Hartbodenbeläge
+  subservice: Grundreinigung aller Hartbodenbeläge
+- 
+  subservice: 'Grundreinigung & Versieglung aller elastischen wasserfesten Bodenbeläge'
+- 
+  subservice: Grundreinigung textiler Bodenbeläge
+- 
+  subservice: 'Küchen-, Herd- & Abzugshauben (Entfernung von Öl-Flecken, Essensresten etc.)'
+- 
+  subservice: 'Sanitärbereich (Beseitigung von Kalk, Urin- und Braunstein)'
 - 
   subservice: Fensterrahmengrundreinigung
-- 
-  subservice: 'Sanitärbereichsgrundreinigung (Beseitigung von Kalk, Urin- und Braunstein)'
-- 
-  subservice: 'Herd- und Abzugshaubengrundreinigung'
-- 
-  subservice: >
-    Küchengrundreinigung (Entfernung von
-    Öl-Flecken, Essensresten etc.)
-- 
-  subservice: 'Grundreinigung von Klein- und Großküchen sowie Industrieküchen'

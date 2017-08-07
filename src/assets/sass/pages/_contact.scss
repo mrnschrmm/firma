@@ -2,45 +2,68 @@
 
 #contact {
 
-    .title {
+    main {
 
-    }
+        padding-bottom: 74px;
 
-    .intro {
+        .title {
+
+        }
+
+        .intro {
 
 
-        a {
+            a {
 
-            color: $c-nav-link;
-            text-decoration: none;
+                color: $c-nav-link;
+                text-decoration: none;
 
-            &:hover {
+                &:hover {
 
-                color: $c-nav-hover;
-                text-decoration: underline;
+                    color: $c-nav-hover;
+                    text-decoration: underline;
+                }
             }
         }
-    }
-    .content {
+        .content {
 
-        .contact-channel {
+            .contact-channel {
 
-            margin-bottom: 30px;
+                margin-bottom: 30px;
+
+                @include media-breakpoint-up(md) {
+
+                    margin-bottom: 0;
+                }
+            }
+            a {
+
+                color: $c-white;
+                text-decoration: none;
+
+                &:hover {
+
+                    color: $c-nav-hover;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        #gmap {
+
+            background-color: #062299;
+
+            width: 100vw;
+            height: 75vh;
+
+            margin-top: 60px;
 
             @include media-breakpoint-up(md) {
 
-                margin-bottom: 0;
-            }
-        }
-        a {
+                width: 75vw;
+                height: 65vh;
 
-            color: $c-white;
-            text-decoration: none;
-
-            &:hover {
-
-                color: $c-nav-hover;
-                text-decoration: underline;
+                margin-top: 120px;
             }
         }
     }

@@ -3,13 +3,13 @@
 #service {
 
     .services-sub {
+
         li {
 
             text-indent: -19px;
             line-height: 26px;
 
             padding-left: 10px;
-
 
             @include media-breakpoint-up(sm) {
 
