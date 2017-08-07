@@ -13,11 +13,9 @@ Mit der richtigen Pflege erhöhen sich zudem der Wert und die Lebensdauer der Ob
 Subservices: 
 
 - 
-  subservice: Grundreinigung aller Hartbodenbeläge
+  subservice: 'Grundreinigung aller Hartbodenbeläge & textiler Bodenbeläge'
 - 
   subservice: 'Grundreinigung & Versieglung aller elastischen wasserfesten Bodenbeläge'
-- 
-  subservice: Grundreinigung textiler Bodenbeläge
 - 
   subservice: 'Küchen-, Herd- & Abzugshauben (Entfernung von Öl-Flecken, Essensresten etc.)'
 - 

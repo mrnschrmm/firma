@@ -13,8 +13,8 @@ Besonders wichtig ist die gründliche und fachgerechte Bearbeitung aller Beläge
 Subservices: 
 
 - 
-  subservice: 'Oberflächen & Fußbodenbeläge'
-- 
   subservice: 'Fenster & Glaselemente'
+- 
+  subservice: 'Oberflächen & Bodenbeläge'
 - 
   subservice: Sanitärbereiche

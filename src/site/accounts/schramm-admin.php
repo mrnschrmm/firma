@@ -7,10 +7,10 @@ email: service@kaimberg.com
 language: de
 role: admin
 history:
-  - unternehmen
-  - reinigung/glasreinigung
-  - reinigung/baureinigung
   - reinigung/grundreinigung
+  - reinigung/baureinigung
+  - reinigung/glasreinigung
+  - unternehmen
   - reinigung/bueroreinigung
 firstname: ""
 lastname: ""
