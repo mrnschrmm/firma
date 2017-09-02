@@ -49,7 +49,7 @@ gulp.task('browserSync',['connect'], function() {
 
         ui: false,
         notify: false,
-        injectChanges: false,
+        injectChanges: true,
         ghostMode: false,
         scrollProportionally: false,
 

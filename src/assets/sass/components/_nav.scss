@@ -51,7 +51,6 @@
 
             padding: 220px 0 0 220px;
         }
-
         @include media-breakpoint-up(md) {
 
             display: block;
@@ -99,21 +98,13 @@
 
                     text-align: left;
                 }
-
                 &:hover {
 
                     color: $c-nav-hover;
-                    text-decoration: underline;
                 }
                 &.active {
 
-
-                    text-decoration: underline;
-
-                    &:hover {
-
-                        color: $c-nav-hover;
-                    }
+                    color: $c-nav-active;
                 }
             }
         }
@@ -171,6 +162,11 @@
                 height: 100px;
                 padding: 0 15px;
 
+                &:hover {
+
+                    border-color: $c-nav-hover;
+                }
+
                 @include media-breakpoint-up(sm) {
 
                     line-height: 130px;
@@ -193,23 +189,6 @@
                 @include media-breakpoint-up(xl) {
 
 
-                }
-
-                &:hover {
-
-                    border-color: white;
-                }
-                &.active {
-
-                    text-decoration: underline;
-                    color: #FFF;
-                    border-color: white;
-
-                    &:hover {
-
-                        color: $c-nav-hover;
-                        text-decoration: none;
-                    }
                 }
             }
         }

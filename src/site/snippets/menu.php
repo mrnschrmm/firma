@@ -9,7 +9,7 @@
         </svg>
     </button>
     <ul class="menu">
-        <?php foreach($pages->visible() as $item): ?>
+        <?php foreach($pages->visible()->without("home") as $item): ?>
         <li class="menu-item">
             <a <?php e($item->isOpen(), ' class="active"') ?> href="<?= $item->url() ?>"><?= $item->title()->html() ?></a>
         </li>
