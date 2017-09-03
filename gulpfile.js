@@ -27,21 +27,21 @@ var browserSync     = require('browser-sync').create();
 gulp.task('connect', function() {
     connect.server({
         base: './src',
-        hostname: 'firma.dev',
         port: 8011,
 
-        keepalive: false,
+        keepalive: true,
         open: false,
 
         bin: '/usr/local/bin/php',
-        ini: '/usr/local/etc/php/7.1/php.ini'
+        ini: '/usr/local/etc/php/7.1/php.ini',
+        debug: true
   });
 });
 gulp.task('browserSync',['connect'], function() {
     browserSync.init({
         host: 'firma.dev',
-        proxy: 'firma.dev',
-        port: 8011,
+        proxy: 'firma.dev:8011',
+        port: 8081,
 
         open: 'external',
         browser: 'google chrome',
@@ -49,7 +49,7 @@ gulp.task('browserSync',['connect'], function() {
 
         ui: false,
         notify: false,
-        injectChanges: true,
+        injectChanges: false,
         ghostMode: false,
         scrollProportionally: false,
 
@@ -80,7 +80,7 @@ gulp.task('sass', function () {
 });
 gulp.task('watch', ['browserSync', 'sass'], function () {
     gulp.watch('./src/assets/sass/**/*.scss', ['sass'])
-    gulp.watch('./src/*.php', browserSync.reload)
+    gulp.watch('./src/site/**/*.php', browserSync.reload)
     gulp.watch('./src/content/**/*.txt', browserSync.reload)
     gulp.watch('./src/assets/js/**/*.js', browserSync.reload);
 });
