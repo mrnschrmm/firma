@@ -40,9 +40,7 @@
     </main>
 
     <?php snippet('footer') ?>
-    <!--build:js js/main.min.js -->
     <script src="../assets/js/main.min.js"></script>
-    <!-- endbuild -->
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp06-CNwgZLQCKHL7aOlg8xoCoW0qed5U&callback=initMap">
     </script>
