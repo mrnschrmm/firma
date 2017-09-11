@@ -75,9 +75,9 @@
             @include media-breakpoint-up(md) {
 
                 float: left;
-                margin-right: 35px;
+                margin-right: 32px;
 
-                line-height: 18px;
+                line-height: 16px;
 
                 &:last-child {
 
@@ -87,8 +87,8 @@
             a {
 
                 font-family: 'Simplon';
-                font-size: 15px;
-                line-height: 18px;
+                font-size: 14px;
+                line-height: 16px;
                 font-weight: 300;
                 text-decoration: none;
                 text-align: center;

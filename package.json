@@ -17,30 +17,28 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "bootstrap": "^4.0.0-beta"
+        "bootstrap": "^4.0.0-beta",
+        "jquery": "^3.2.1",
+        "popper.js": "^1.11.0"
     },
     "devDependencies": {
         "browser-sync": "^2.18.13",
-        "del": "^3.0.0",
+        "del": "*",
         "gulp": "^3.9.1",
         "gulp-autoprefixer": "^4.0.0",
         "gulp-cache": "^0.4.6",
+        "gulp-concat": "^2.6.1",
         "gulp-connect-php": "1.0.1",
         "gulp-cssnano": "^2.1.2",
         "gulp-if": "^2.0.2",
-        "gulp-imagemin": "^3.3.0",
+        "gulp-imagemin": "^3.1.1",
         "gulp-load-plugins": "^1.5.0",
-        "gulp-npm-files": "^0.1.3",
         "gulp-rename": "^1.2.2",
         "gulp-sass": "^3.1.0",
         "gulp-sourcemaps": "^2.6.1",
-        "gulp-svg-sprite": "^1.3.7",
         "gulp-uglify": "^3.0.0",
-        "gulp-useref": "^3.1.2",
         "gulp-util": "^3.0.8",
-        "gulp-watch": "^4.3.11",
-        "rsyncwrapper": "^2.0.1",
-        "run-sequence": "^2.0.0",
+        "run-sequence": "^2.1.0",
         "vinyl-ftp": "^0.6.0"
     }
 }
