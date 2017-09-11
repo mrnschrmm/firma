@@ -37,7 +37,7 @@ gulp.task('connect', function() {
 gulp.task('browserSync',['connect'], function() {
     browserSync.init({
         host: 'firma.dev',
-        proxy: 'portfolio-h.dev:8011',
+        proxy: 'firma.dev:8011',
         port: 8081,
 
         open: 'external',
