@@ -18,6 +18,8 @@ var runSequence         = require('run-sequence');
 var ftp                 = require('vinyl-ftp');
 var del                 = require('del');
 
+var gulpftp             = require('./glp/config.js');
+
 //  development
 
 gulp.task('connect', function() {
@@ -144,6 +146,40 @@ gulp.task('base', function() {
     .pipe(gulp.dest('dist'));
 });
 
+// deploy
+
+gulp.task( 'clean:ftp', function ( cb ) {
+    var conn                = ftp.create( {
+        host:               gulpftp.config.host,
+        user:               gulpftp.config.user,
+        password:           gulpftp.config.pass,
+        parallel:           3,
+        maxConnections:     3,
+        secure:             false,
+        //debug:              gutil.log,
+        log:                gutil.log
+    } );
+    conn.rmdir( './dist', cb );
+});
+gulp.task( 'upload:ftp', [ 'clean:ftp' ], function () {
+    var conn                = ftp.create( {
+        host:               gulpftp.config.host,
+        user:               gulpftp.config.user,
+        password:           gulpftp.config.pass,
+        parallel:           3,
+        maxConnections:     3,
+        secure:             false,
+        //debug:              gutil.log,
+        log:                gutil.log
+    } );
+    var globs = [
+        'dist/**/*',
+        'dist/**'
+    ];
+    return gulp.src( globs, { base: '.', buffer: false } )
+        .pipe( conn.dest( '/' ) );
+} );
+
 //  sequences
 
 gulp.task('default', function (callback) {
@@ -152,4 +188,6 @@ gulp.task('default', function (callback) {
 gulp.task('build', function (callback) {
     runSequence('clean:dist','clear:cache',['sass','js','assets-avatars','assets-css','assets-fonts','assets-images','assets-js','content','kirby','panel','site','thumbs','base'],callback);
 });
-gulp.task('deploy', require('./glp/deploy')(gulp, plugins));
+gulp.task('deploy', function (callback) {
+    runSequence('clean:ftp',['upload:ftp'],callback);
+});
