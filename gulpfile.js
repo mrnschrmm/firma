@@ -27,7 +27,7 @@ gulp.task('connect', function() {
         base: './src',
          
         hostname: 'firma.dev',
-        port: 8011,
+        port: 8030,
 
         keepalive: false,
         open: false,
@@ -39,7 +39,7 @@ gulp.task('connect', function() {
 gulp.task('browserSync',['connect'], function() {
     browserSync.init({
         host: 'firma.dev',
-        proxy: 'firma.dev:8011',
+        proxy: 'firma.dev:8030',
         port: 8081,
 
         open: 'external',
