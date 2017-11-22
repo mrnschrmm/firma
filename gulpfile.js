@@ -212,7 +212,7 @@ gulp.task('dist:content', function() {
 
 //  deploy
 
-gulp.task('clean:ftp', function (cb) {
+gulp.task('clean:ftp', function () {
     var conn                = ftp.create( {
         host:               gulpftp.config.host,
         user:               gulpftp.config.user,
@@ -223,7 +223,7 @@ gulp.task('clean:ftp', function (cb) {
         // debug:              gutil.log,
         log:                gutil.log
     })
-    conn.rmdir('.', cb);
+    conn.rmdir('.');
 });
 
 gulp.task('upload:ftp', function () {
