@@ -1,193 +1,290 @@
-'use strict';
+"use strict";
 
-var gulp                = require('gulp');
-var gutil               = require('gulp-util');
-var connect             = require('gulp-connect-php');
-var sass                = require('gulp-sass');
-var cssnano             = require('gulp-cssnano');
-var sourcemaps          = require('gulp-sourcemaps');
-var autoprefixer        = require('gulp-autoprefixer');
-var rename              = require('gulp-rename');
-var concat              = require('gulp-concat');
-var gulpIf              = require('gulp-if');
-var imagemin            = require('gulp-imagemin');
-var cache               = require('gulp-cache');
-var plugins             = require('gulp-load-plugins')();
-var browserSync         = require('browser-sync').create();
-var runSequence         = require('run-sequence');
-var ftp                 = require('vinyl-ftp');
-var del                 = require('del');
+const pkg                       = require('./package.json');
 
-var gulpftp             = require('./glp/config.js');
+const gulp                      = require('gulp');
+
+const $                         = require('gulp-load-plugins')({
+
+    pattern: ['*'],
+    scope: ['devDependencies']
+    
+});
+
+var gutil                       = require('gulp-util');
+var connect                     = require('gulp-connect-php');
+var browserSync                 = require('browser-sync').create();
+var ftp                         = require('vinyl-ftp');
+var gulpftp                     = require('./glp/config.js');
 
 //  development
 
 gulp.task('connect', function() {
-    connect.server({
-        base: './src',
-         
-        hostname: 'firma.dev',
-        port: 8030,
+    return connect.server({
+        base:                   pkg.paths.src.base,
+        hostname:               'firma.dev',
+        port:                   8030,
 
-        keepalive: false,
-        open: false,
+        keepalive:              false,
+        open:                   false,
 
-        bin: '/usr/local/bin/php',
-        ini: '/usr/local/etc/php/7.1/php.ini'
+        bin:                    '/usr/local/bin/php',
+        ini:                    '/usr/local/etc/php/7.1/php.ini'
     });
 });
-gulp.task('browserSync',['connect'], function() {
+
+gulp.task('browserSync', function () {
     browserSync.init({
-        host: 'firma.dev',
-        proxy: 'firma.dev:8030',
-        port: 8081,
+        host:                   'firma.dev',
+        proxy:                  'firma.dev:8030',
+        port:                   8090,
 
-        open: 'external',
-        browser: 'google chrome',
-        logLevel: 'warn',
+        open:                   false,
+        logLevel:               'info',
+        logPrefix:              'firma',
 
-        ui: false,
-        notify: false,
-        injectChanges: false,
-        ghostMode: false,
-        scrollProportionally: false,
+        ui:                     false,
+        notify:                 false,
+        injectChanges:          false,
+        ghostMode:              false,
+        scrollProportionally:   false,
+        reloadOnRestart:        true,
 
         routes: {
-            '/node_modules': 'node_modules',
-            '/browser-sync': 'browser-sync'
+            '/node_modules':    'node_modules',
+            '/browser-sync':    'browser-sync'
         }
     });
 });
-gulp.task('sass', function () {
-    gulp.src('./src/assets/sass/**/*.scss')
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer({
-        browsers: ['last 2 versions'],
-        cascade: false
+
+gulp.task('scss', () => {
+    return gulp.src(pkg.paths.src.scss + pkg.vars.scssName)
+    .pipe($.sourcemaps.init({loadMaps: true}))
+    .pipe($.sass().on('error', $.sass.logError))
+    .pipe($.autoprefixer())
+    .pipe($.cssnano({
+        discardComments: {
+            removeAll: true
+        },
+        discardDuplicates: true,
+        discardEmpty: true,
+        minifyFontValues: true,
+        minifySelectors: true
     }))
-    .pipe(cssnano())
-    .pipe(rename('main.min.css'))
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./src/assets/css'))
-    .pipe(browserSync.reload({
-        stream: true
-    }));
+    .pipe($.rename(pkg.vars.cssName))
+    .pipe($.sourcemaps.write('./'))
+    .pipe($.size({gzip: true, showFiles: true}))
+    .pipe(gulp.dest(pkg.paths.src.css))
+    .pipe(browserSync.stream());
 });
-gulp.task('js', function () {
-    gulp.src([
-        'node_modules/jquery/dist/jquery.slim.min.js',
-        'node_modules/popper.js/dist/popper.min.js',
-        'node_modules/bootstrap/dist/js/bootstrap.js',
-        './src/assets/js/**/*.js'
-    ])
-    .pipe(concat('main.min.js'))
-    .pipe(gulp.dest('./src/assets/js'));
+
+gulp.task('plugin:js', function () {
+    return gulp.src(pkg.globs.pluginJs).pipe(gulp.dest(pkg.paths.src.js))
 });
-gulp.task('watch', ['browserSync', 'sass'], function () {
-    gulp.watch('./src/assets/sass/**/*.scss', ['sass'])
-    gulp.watch('./src/site/**/*.php', browserSync.reload);
-    gulp.watch('./src/content/**/*.txt', browserSync.reload);
+
+gulp.task('js', () => {
+    return gulp.src(pkg.paths.src.js + pkg.vars.jsName)
+    .pipe($.uglify())
+    .pipe($.rename({suffix: '.min'}))
+    .pipe($.size({gzip: true, showFiles: true}))
+    .pipe(gulp.dest(pkg.paths.src.js))
+    .pipe(browserSync.stream());    
+});
+
+gulp.task('favicons:base', () => {
+    return gulp.src(pkg.paths.favicon.src).pipe($.favicons({
+        appName: pkg.name,
+        appDescription: pkg.description,
+        developerName: pkg.author,
+        developerURL: pkg.urls.live,
+        background: '#FFFFFF',
+        path: pkg.paths.favicon.basepath,
+        url: pkg.urls.live,
+        display: 'standalone',
+        orientation: 'portrait',
+        version: pkg.version,
+        logging: true,
+        online: false,
+        replace: true,
+        icons: {
+            android: false, 
+            appleIcon: false, 
+            appleStartup: false, 
+            coast: false, 
+            favicons: false,
+            firefox: false, 
+            windows: false, 
+            yandex: false 
+        }
+    }))  
+    .pipe(gulp.dest(pkg.paths.favicon.basedest));
+});
+
+gulp.task('favicons:platforms', () => {
+    return gulp.src(pkg.paths.favicon.src).pipe($.favicons({
+        appName: pkg.name,
+        appDescription: pkg.description,
+        developerName: pkg.author,
+        developerURL: pkg.urls.live,
+        background: '#FFFFFF',
+        path: pkg.paths.favicon.platformspath,
+        url: pkg.urls.live,
+        display: 'standalone',
+        orientation: 'portrait',
+        version: pkg.version,
+        logging: true,
+        online: false,
+        html: pkg.paths.src.favicons + 'platforms.html',
+        replace: true,
+        icons: {
+            android: true, 
+            appleIcon: true, 
+            appleStartup: true, 
+            coast: true, 
+            favicons: false,
+            firefox: true, 
+            windows: true, 
+            yandex: true 
+        }
+    }))  
+    .pipe(gulp.dest(pkg.paths.favicon.platformsdest));
 });
 
 //  production
 
-gulp.task('clear:cache', function (callback) {
-    return cache.clearAll(callback);
+
+gulp.task('dist:base', function() {
+    return gulp.src(pkg.globs.src).pipe(gulp.dest(pkg.paths.dist.base));
 });
+
+gulp.task('dist:js', function() {
+    return gulp.src(pkg.globs.js).pipe(gulp.dest(pkg.paths.dist.js));
+});
+
+gulp.task('dist:css', function() {
+    return gulp.src(pkg.paths.src.css + '*.css').pipe(gulp.dest(pkg.paths.dist.css));
+});
+
+gulp.task('dist:fonts', () => {
+    return gulp.src(pkg.paths.src.fonts + '**/*.{eot,ttf,woff,woff2}').pipe(gulp.dest(pkg.paths.dist.fonts));
+});
+
+gulp.task('dist:avatars', function() {
+    return gulp.src(pkg.paths.src.avatars + '**/*').pipe(gulp.dest(pkg.paths.dist.avatars));
+});
+
+gulp.task('dist:kirby', function() {
+    return gulp.src(pkg.paths.src.kirby + '**/*').pipe(gulp.dest(pkg.paths.dist.kirby));
+});
+
+gulp.task('dist:panel', function() {
+    return gulp.src(pkg.paths.src.panel + '**/*').pipe(gulp.dest(pkg.paths.dist.panel));
+});
+
+gulp.task('dist:site', function() {
+    return gulp.src(pkg.paths.src.site + '**/*').pipe(gulp.dest(pkg.paths.dist.site));
+});
+
+gulp.task('dist:favicons', () => {
+    return gulp.src(pkg.paths.src.favicons + '*').pipe(gulp.dest(pkg.paths.dist.favicons));
+});
+
+gulp.task('dist:thumbs', function() {
+    return gulp.src(pkg.paths.src.thumbs + '**/*').pipe(gulp.dest(pkg.paths.dist.thumbs));
+});
+
+gulp.task('dist:content', function() {
+    return gulp.src(pkg.paths.src.content + '**/*')
+    .pipe(gulpIf('*.{png,jpg,jpeg,gif,svg}', imagemin({
+        progressive: true,
+        interlaced: true,
+        optimizationLevel: 7,
+        svgoPlugins: [{removeViewBox: false}],
+        verbose: true,
+        use: []
+    })))
+    .pipe(gulp.dest(pkg.paths.dist.content));
+});
+
+//  deploy
+
+gulp.task('clean:ftp', function () {
+    var conn                = ftp.create( {
+        host:               gulpftp.config.host,
+        user:               gulpftp.config.user,
+        password:           gulpftp.config.pass,
+        parallel:           3,
+        maxConnections:     3,
+        secure:             false,
+        debug:              gutil.log,
+        log:                gutil.log
+    })
+    return conn.rmdir(pkg.globs.serverCleanup, {base:'/', buffer: false});
+});
+
+gulp.task('upload:ftp', function () {
+    var conn                = ftp.create( {
+        host:               gulpftp.config.host,
+        user:               gulpftp.config.user,
+        password:           gulpftp.config.pass,
+        parallel:           3,
+        maxConnections:     3,
+        secure:             false,
+        log:                gutil.log
+    })
+    return gulp.src(pkg.globs.serverDeploy, {base:'/dist/', buffer: false}).pipe(conn.dest('/dist'));
+});
+
+gulp.task('content:ftp', function () {
+    var conn                = ftp.create( {
+        host:               gulpftp.config.host,
+        user:               gulpftp.config.user,
+        password:           gulpftp.config.pass,
+        parallel:           3,
+        maxConnections:     3,
+        secure:             false,
+        log:                gutil.log
+    })
+    return conn.src(pkg.globs.serverContent, {base:'/dist/content/', buffer: false}).pipe(gulp.dest(pkg.paths.src.content));
+});
+
+//  cleanup
+
+
 gulp.task('clean:dist', function() {
-    return del.sync('dist');
-});
-gulp.task('assets-avatars', function() {
-    return gulp.src('./src/assets/avatars/*')
-    .pipe(gulp.dest('dist/assets/avatars'));
-});
-gulp.task('assets-css', function() {
-    return gulp.src('./src/assets/css/*')
-    .pipe(gulp.dest('dist/assets/css'));
-});
-gulp.task('assets-fonts', function() {
-    return gulp.src('./src/assets/fonts/*')
-    .pipe(gulp.dest('dist/assets/fonts'));
-});
-gulp.task('assets-images', function() {
-    return gulp.src('./src/assets/images/*')
-    .pipe(gulp.dest('dist/assets/images'));
-});
-gulp.task('assets-js', function() {
-    return gulp.src('./src/assets/js/*')
-    .pipe(gulp.dest('dist/assets/js'));
-});
-gulp.task('content', function() {
-    return gulp.src('./src/content/**/*')
-    .pipe(gulp.dest('dist/content'));
-});
-gulp.task('kirby', function() {
-    return gulp.src('./src/kirby/**/*')
-    .pipe(gulp.dest('dist/kirby'));
-});
-gulp.task('panel', function() {
-    return gulp.src('./src/panel/**/*')
-    .pipe(gulp.dest('dist/panel'));
-});
-gulp.task('site', function() {
-    return gulp.src('./src/site/**/*')
-    .pipe(gulp.dest('dist/site'));
-});
-gulp.task('thumbs', function() {
-    return gulp.src('./src/thumbs/**/*')
-    .pipe(gulp.dest('dist/thumbs'));
-});
-gulp.task('base', function() {
-    return gulp.src([
-        './src/.htaccess',
-        './src/index.php',
-    ])
-    .pipe(gulp.dest('dist'));
+    return $.del.sync('dist');
 });
 
-// deploy
-
-gulp.task( 'clean:ftp', function ( cb ) {
-    var conn                = ftp.create( {
-        host:               gulpftp.config.host,
-        user:               gulpftp.config.user,
-        password:           gulpftp.config.pass,
-        parallel:           3,
-        maxConnections:     3,
-        secure:             false,
-        //debug:              gutil.log,
-        log:                gutil.log
-    } );
-    conn.rmdir( './dist', cb );
+gulp.task('clean:content', function() {
+    return $.del.sync('src/content/**/*');
 });
-gulp.task( 'upload:ftp', [ 'clean:ftp' ], function () {
-    var conn                = ftp.create( {
-        host:               gulpftp.config.host,
-        user:               gulpftp.config.user,
-        password:           gulpftp.config.pass,
-        parallel:           3,
-        maxConnections:     3,
-        secure:             false,
-        //debug:              gutil.log,
-        log:                gutil.log
-    } );
-    var globs = [
-        'dist/**/*',
-        'dist/**'
-    ];
-    return gulp.src( globs, { base: '.', buffer: false } )
-        .pipe( conn.dest( '/' ) );
-} );
+
+//  watch
+
+gulp.task('watch', ['browserSync'], () => {
+    gulp.watch([pkg.paths.src.scss + '*.scss'], ['scss']);
+    gulp.watch([pkg.paths.src.js + 'main.js'], ['js']);
+    gulp.watch([pkg.paths.src.site + '**/*.{php, yml}'], browserSync.reload);
+});
 
 //  sequences
 
-gulp.task('default', function (callback) {
-    runSequence('clear:cache',['sass','js','connect','browserSync','watch'],callback);
+gulp.task('content:sync', function (cb) {
+    $.runSequence('clean:content', ['content:ftp'], cb);
 });
-gulp.task('build', function (callback) {
-    runSequence('clean:dist','clear:cache',['sass','js','assets-avatars','assets-css','assets-fonts','assets-images','assets-js','content','kirby','panel','site','thumbs','base'],callback);
+
+gulp.task('favicons', function (cb) {
+    $.runSequence('favicons:base', ['favicons:platforms'], cb);
 });
-gulp.task('deploy', function (callback) {
-    runSequence('clean:ftp',['upload:ftp'],callback);
+
+gulp.task('build', function (cb) {
+    $.runSequence('clean:dist', ['dist:base', 'dist:js', 'dist:css', 'dist:favicons', 'dist:fonts', 'dist:avatars', 'dist:kirby', 'dist:panel', 'dist:site', 'dist:thumbs', 'dist:content'], cb);
+});
+
+gulp.task('deploy', function (cb) {
+    $.runSequence('clean:ftp', ['upload:ftp'], cb);
+});
+
+gulp.task('default', function (cb) {
+    $.runSequence('connect', 'plugin:js', ['scss', 'js', 'watch'], cb);
 });
