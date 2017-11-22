@@ -13,7 +13,7 @@
             "js": "./src/assets/js/",
             "favicons": "./src/assets/favicons/",
             "fonts": "./src/assets/fonts/",
-            "img": "./src/assets/imgages/",
+            "img": "./src/assets/images/",
             "avatars": "./src/assets/avatars/",
             "content": "./src/content/",
             "kirby": "./src/kirby/",
@@ -27,7 +27,8 @@
             "js": "./dist/assets/js/",
             "favicons": "./dist/assets/favicons/",
             "fonts": "./dist/assets/fonts/",
-            "img": "./dist/assets/imgages/",
+            "img": "./dist/assets/images/",
+            "avatars": "./dist/assets/avatars/",
             "content": "./dist/content/",
             "kirby": "./dist/kirby/",
             "panel": "./dist/panel/",
@@ -55,32 +56,25 @@
             "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map"
         ],
         "js": [
-            "./src/js/jquery.min.js",
-            "./src/js/bootstrap.bundle.min.js",
-            "./src/js/main.min.js"
+            "./src/assets/js/jquery.min.js",
+            "./src/assets/js/bootstrap.bundle.min.js",
+            "./src/assets/js/main.min.js"
         ],
         "src": [
             "./src/index.php",
             "./src/*.{png,ico}"
         ],
         "serverCleanup": [
-            "public_html/assets",
-            "public_html/site",
-            "public_html/*"
+
         ],
         "serverContent": [
-            "public_html/content/**/*",
-            "public_html/content/**/",
-            "public_html/content/*"
+            "content/**/*",
+            "content/**/",
+            "content/*"
         ],
         "serverDeploy": [
-            "public_html/assets/**/*",
-            "public_html/assets/**/",
-            "public_html/assets/*",
-            "public_html/site/**/*",
-            "public_html/site/**/",
-            "public_html/site/*",
-            "public_html/*"
+            "dist/**/*",
+            "dist/*"
         ]
     },
     "urls": {

@@ -1,0 +1,19 @@
+title: Page
+pages:
+  template:
+      - service
+      - company
+      - contact
+files: false
+options:
+    preview: true
+    status: false
+    url: true
+    delete: false
+fields:
+  title:
+    label: Title
+    type:  text
+  text:
+    label: Text
+    type:  textarea

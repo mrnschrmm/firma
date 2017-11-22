@@ -1,0 +1,26 @@
+title: Service
+pages: false
+files: true
+
+options:
+    preview: true
+    status: true
+
+fields:
+    title:
+        label: Titel
+        type: title
+    text:
+        label: Text
+        type: textarea
+    subservices:
+        label: Dienstleistungen
+        type: structure
+        style: table
+        modalsize: small
+        entry: >
+          {{subservice}}
+        fields:
+            subservice:
+                label: Dienstleistung
+                type: text

@@ -111,7 +111,7 @@ gulp.task('favicons:base', () => {
             appleIcon: false, 
             appleStartup: false, 
             coast: false, 
-            favicons: false,
+            favicons: true,
             firefox: false, 
             windows: false, 
             yandex: false 
@@ -170,7 +170,7 @@ gulp.task('dist:fonts', () => {
 });
 
 gulp.task('dist:avatars', function() {
-    return gulp.src(pkg.paths.src.avatars + '**/*').pipe(gulp.dest(pkg.paths.dist.avatars));
+    return gulp.src(pkg.paths.src.avatars + '*').pipe(gulp.dest(pkg.paths.dist.avatars));
 });
 
 gulp.task('dist:kirby', function() {
@@ -189,13 +189,17 @@ gulp.task('dist:favicons', () => {
     return gulp.src(pkg.paths.src.favicons + '*').pipe(gulp.dest(pkg.paths.dist.favicons));
 });
 
+gulp.task('dist:img', () => {
+    return gulp.src(pkg.paths.src.img + '*').pipe(gulp.dest(pkg.paths.dist.img));
+});
+
 gulp.task('dist:thumbs', function() {
     return gulp.src(pkg.paths.src.thumbs + '**/*').pipe(gulp.dest(pkg.paths.dist.thumbs));
 });
 
 gulp.task('dist:content', function() {
     return gulp.src(pkg.paths.src.content + '**/*')
-    .pipe(gulpIf('*.{png,jpg,jpeg,gif,svg}', imagemin({
+    .pipe($.if('*.{png,jpg,jpeg,gif,svg}', $.imagemin({
         progressive: true,
         interlaced: true,
         optimizationLevel: 7,
@@ -208,18 +212,18 @@ gulp.task('dist:content', function() {
 
 //  deploy
 
-gulp.task('clean:ftp', function () {
+gulp.task('clean:ftp', function (cb) {
     var conn                = ftp.create( {
         host:               gulpftp.config.host,
         user:               gulpftp.config.user,
         password:           gulpftp.config.pass,
-        parallel:           3,
-        maxConnections:     3,
+        parallel:           2,
+        maxConnections:     2,
         secure:             false,
-        debug:              gutil.log,
+        // debug:              gutil.log,
         log:                gutil.log
     })
-    return conn.rmdir(pkg.globs.serverCleanup, {base:'/', buffer: false});
+    conn.rmdir('.', cb);
 });
 
 gulp.task('upload:ftp', function () {
@@ -227,12 +231,12 @@ gulp.task('upload:ftp', function () {
         host:               gulpftp.config.host,
         user:               gulpftp.config.user,
         password:           gulpftp.config.pass,
-        parallel:           3,
-        maxConnections:     3,
+        parallel:           2,
+        maxConnections:     2,
         secure:             false,
         log:                gutil.log
     })
-    return gulp.src(pkg.globs.serverDeploy, {base:'/dist/', buffer: false}).pipe(conn.dest('/dist'));
+    return gulp.src(pkg.globs.serverDeploy, {base:'./dist', buffer: false}).pipe(conn.dest('/'));
 });
 
 gulp.task('content:ftp', function () {
@@ -240,12 +244,12 @@ gulp.task('content:ftp', function () {
         host:               gulpftp.config.host,
         user:               gulpftp.config.user,
         password:           gulpftp.config.pass,
-        parallel:           3,
-        maxConnections:     3,
+        parallel:           2,
+        maxConnections:     2,
         secure:             false,
         log:                gutil.log
     })
-    return conn.src(pkg.globs.serverContent, {base:'/dist/content/', buffer: false}).pipe(gulp.dest(pkg.paths.src.content));
+    return conn.src(pkg.globs.serverContent, {base:'/content/', buffer: false}).pipe(gulp.dest(pkg.paths.src.content));
 });
 
 //  cleanup
@@ -278,7 +282,7 @@ gulp.task('favicons', function (cb) {
 });
 
 gulp.task('build', function (cb) {
-    $.runSequence('clean:dist', ['dist:base', 'dist:js', 'dist:css', 'dist:favicons', 'dist:fonts', 'dist:avatars', 'dist:kirby', 'dist:panel', 'dist:site', 'dist:thumbs', 'dist:content'], cb);
+    $.runSequence('clean:dist', ['dist:base', 'dist:js', 'dist:css', 'dist:favicons', 'dist:fonts', 'dist:avatars', 'dist:kirby', 'dist:panel', 'dist:site', 'dist:img', 'dist:thumbs', 'dist:content'], cb);
 });
 
 gulp.task('deploy', function (cb) {
