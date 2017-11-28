@@ -66,7 +66,10 @@
             "./src/*.{png,ico}"
         ],
         "serverCleanup": [
-
+            "/schramm-reinigung.de/www/assets/",
+            "/schramm-reinigung.de/www/content/",
+            "/schramm-reinigung.de/www/site/",
+            "/schramm-reinigung.de/www/*"
         ],
         "serverContent": [
             "content/**/*",
@@ -74,8 +77,11 @@
             "content/*"
         ],
         "serverDeploy": [
-            "dist/**/*",
-            "dist/*"
+            "dist/assets/**/*",
+            "dist/content/**/*",
+            "dist/site/**/*",
+            "dist/*",
+            "dist/.htaccess"
         ]
     },
     "urls": {

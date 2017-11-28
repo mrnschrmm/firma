@@ -34,17 +34,26 @@
                             </div>
                         </div>
                     </div>
-                    <div id="gmap"></div>
                 </div>
+                <div id="map"></div>
             </div>
         </main>
-
+        
         <?php snippet('footer') ?>
+        <script>
+            var map;
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 50.8723318, lng: 12.0732785},
+                zoom: 16,
+                disableDefaultUI: true,
+                gestureHandling: "none"
+                });
+            }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp06-CNwgZLQCKHL7aOlg8xoCoW0qed5U&callback=initMap"></script>
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/js/main.min.js"></script>
-        <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp06-CNwgZLQCKHL7aOlg8xoCoW0qed5U&callback=initMap">
-        </script>
     </body>
 </html>

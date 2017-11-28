@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="logo">
-                    <a href="<?php echo $site->url() ?>"><?php echo $site->title() ?></a>
+                    <a href="<?php echo $site->url() ?>">Glas- &amp; Gebäudereinigung Uwe Schramm</a>
                 </h1>
                 <?php snippet('menu') ?>
             </div>

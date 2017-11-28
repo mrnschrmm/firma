@@ -220,10 +220,10 @@ gulp.task('clean:ftp', function () {
         parallel:           2,
         maxConnections:     2,
         secure:             false,
-        // debug:              gutil.log,
+        debug:              gutil.log,
         log:                gutil.log
     })
-    conn.rmdir('.');
+    conn.rmdir('/schramm-reinigung.de/www/', {base:'.', buffer: false});
 });
 
 gulp.task('upload:ftp', function () {
@@ -236,7 +236,7 @@ gulp.task('upload:ftp', function () {
         secure:             false,
         log:                gutil.log
     })
-    return gulp.src(pkg.globs.serverDeploy, {base:'./dist', buffer: false}).pipe(conn.dest('/'));
+    return gulp.src(pkg.globs.serverDeploy, {base:'./dist', buffer: false}).pipe(conn.dest('/schramm-reinigung.de/www'));
 });
 
 gulp.task('content:ftp', function () {
@@ -266,7 +266,7 @@ gulp.task('clean:content', function() {
 //  watch
 
 gulp.task('watch', ['browserSync'], () => {
-    gulp.watch([pkg.paths.src.scss + '*.scss'], ['scss']);
+    gulp.watch([pkg.paths.src.scss + '**/*.scss'], ['scss']);
     gulp.watch([pkg.paths.src.js + 'main.js'], ['js']);
     gulp.watch([pkg.paths.src.site + '**/*.{php, yml}'], browserSync.reload);
 });

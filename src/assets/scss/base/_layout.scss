@@ -46,7 +46,7 @@ ul {
 
     @include media-breakpoint-up(md) {
 
-        padding: 40px 0;
+        padding: 35px 0;
     }
     .logo {
 
@@ -55,7 +55,7 @@ ul {
         text-transform: uppercase;
 
         float: left;
-        width: 140px;
+        width: 180px;
 
         @include media-breakpoint-up(md) {
 
