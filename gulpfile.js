@@ -1,13 +1,11 @@
 "use strict";
 
 const pkg                       = require('./package.json');
-
 const gulp                      = require('gulp');
-
 const $                         = require('gulp-load-plugins')({
 
-    pattern: ['*'],
-    scope: ['devDependencies']
+        pattern: ['*'],
+        scope: ['devDependencies']
     
 });
 
@@ -16,6 +14,17 @@ var connect                     = require('gulp-connect-php');
 var browserSync                 = require('browser-sync').create();
 var ftp                         = require('vinyl-ftp');
 var gulpftp                     = require('./glp/config.js');
+
+var conn                        = ftp.create( {
+    host:                       gulpftp.config.host,
+    user:                       gulpftp.config.user,
+    password:                   gulpftp.config.pass,
+    parallel:                   2,
+    maxConnections:             2,
+    secure:                     false,
+    debug:                      gutil.log,
+    log:                        gutil.log
+});
 
 //  development
 
@@ -210,57 +219,36 @@ gulp.task('dist:content', function() {
     .pipe(gulp.dest(pkg.paths.dist.content));
 });
 
-//  deploy
-
-gulp.task('clean:ftp', function () {
-    var conn                = ftp.create( {
-        host:               gulpftp.config.host,
-        user:               gulpftp.config.user,
-        password:           gulpftp.config.pass,
-        parallel:           2,
-        maxConnections:     2,
-        secure:             false,
-        debug:              gutil.log,
-        log:                gutil.log
-    })
-    conn.rmdir('/schramm-reinigung.de/www/', {base:'.', buffer: false});
-});
-
-gulp.task('upload:ftp', function () {
-    var conn                = ftp.create( {
-        host:               gulpftp.config.host,
-        user:               gulpftp.config.user,
-        password:           gulpftp.config.pass,
-        parallel:           2,
-        maxConnections:     2,
-        secure:             false,
-        log:                gutil.log
-    })
-    return gulp.src(pkg.globs.serverDeploy, {base:'./dist', buffer: false}).pipe(conn.dest('/schramm-reinigung.de/www'));
-});
-
-gulp.task('content:ftp', function () {
-    var conn                = ftp.create( {
-        host:               gulpftp.config.host,
-        user:               gulpftp.config.user,
-        password:           gulpftp.config.pass,
-        parallel:           2,
-        maxConnections:     2,
-        secure:             false,
-        log:                gutil.log
-    })
-    return conn.src(pkg.globs.serverContent, {base:'/content/', buffer: false}).pipe(gulp.dest(pkg.paths.src.content));
-});
-
 //  cleanup
 
-
-gulp.task('clean:dist', function() {
+gulp.task('clean:local:dist', function() {
     return $.del.sync('dist');
 });
 
-gulp.task('clean:content', function() {
+gulp.task('clean:local:content', function() {
     return $.del.sync('src/content/**/*');
+});
+
+gulp.task('clean:server:assets', function (cb) {
+    conn.rmdir(pkg.paths.server.assets, cb);
+});
+
+gulp.task('clean:server:content', function (cb) {
+    conn.rmdir(pkg.paths.server.content, cb);
+});
+
+gulp.task('clean:server:site', function (cb) {
+    conn.rmdir(pkg.paths.server.site, cb);
+});
+
+//  deploy
+
+gulp.task('deploy:server', function () {
+    return gulp.src(pkg.globs.serverDeploy, {base:'./dist', buffer: false}).pipe(conn.dest('/'));
+});
+
+gulp.task('download:server:content', function () {
+    return conn.src(pkg.globs.serverContent, {base:'/content/', buffer: false}).pipe(gulp.dest(pkg.paths.src.content));
 });
 
 //  watch
@@ -274,7 +262,7 @@ gulp.task('watch', ['browserSync'], () => {
 //  sequences
 
 gulp.task('content:sync', function (cb) {
-    $.runSequence('clean:content', ['content:ftp'], cb);
+    $.runSequence('clean:local:content', ['download:server:content'], cb);
 });
 
 gulp.task('favicons', function (cb) {
@@ -282,11 +270,15 @@ gulp.task('favicons', function (cb) {
 });
 
 gulp.task('build', function (cb) {
-    $.runSequence('clean:dist', ['dist:base', 'dist:js', 'dist:css', 'dist:favicons', 'dist:fonts', 'dist:avatars', 'dist:kirby', 'dist:panel', 'dist:site', 'dist:img', 'dist:thumbs', 'dist:content'], cb);
+    $.runSequence('clean:local:dist', ['dist:base', 'dist:js', 'dist:css', 'dist:favicons', 'dist:fonts', 'dist:avatars', 'dist:kirby', 'dist:panel', 'dist:site', 'dist:img', 'dist:thumbs', 'dist:content'], cb);
+});
+
+gulp.task('clean:server', function (cb) {
+    $.runSequence('clean:server:assets', 'clean:server:content', 'clean:server:site', cb);
 });
 
 gulp.task('deploy', function (cb) {
-    $.runSequence('clean:ftp', ['upload:ftp'], cb);
+    $.runSequence('clean:server', ['deploy:server'], cb);
 });
 
 gulp.task('default', function (cb) {

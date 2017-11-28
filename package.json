@@ -35,6 +35,11 @@
             "site": "./dist/site/",
             "thumbs": "./dist/thumbs/"
         },
+        "server": {
+            "assets": "assets",
+            "content": "content",
+            "site": "site"
+        },
         "favicon": {
             "src": "./src/assets/favicons/favicon_src.png",
             "basedest": "./src/",
@@ -64,12 +69,6 @@
             "./src/index.php",
             "./src/.htaccess",
             "./src/*.{png,ico}"
-        ],
-        "serverCleanup": [
-            "/schramm-reinigung.de/www/assets/",
-            "/schramm-reinigung.de/www/content/",
-            "/schramm-reinigung.de/www/site/",
-            "/schramm-reinigung.de/www/*"
         ],
         "serverContent": [
             "content/**/*",
