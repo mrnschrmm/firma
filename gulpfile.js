@@ -207,14 +207,12 @@ gulp.task('dist:thumbs', function() {
 });
 
 gulp.task('dist:content', function() {
-    return gulp.src(pkg.paths.src.content + '**/*')
-    .pipe($.if('*.{png,jpg,jpeg,gif,svg}', $.imagemin({
+    return gulp.src(pkg.paths.src.content + '**/*').pipe($.if('**/*.{png,jpg,jpeg,gif,svg}', $.imagemin({
         progressive: true,
         interlaced: true,
         optimizationLevel: 7,
         svgoPlugins: [{removeViewBox: false}],
-        verbose: true,
-        use: []
+        verbose: true
     })))
     .pipe(gulp.dest(pkg.paths.dist.content));
 });
