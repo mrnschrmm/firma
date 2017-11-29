@@ -239,6 +239,10 @@ gulp.task('clean:server:site', function (cb) {
     conn.rmdir(pkg.paths.server.site, cb);
 });
 
+gulp.task('clean:server', function (cb) {
+    $.runSequence('clean:server:assets', 'clean:server:content', 'clean:server:site', cb);
+});
+
 //  deploy
 
 gulp.task('deploy:server', function () {
@@ -269,10 +273,6 @@ gulp.task('favicons', function (cb) {
 
 gulp.task('build', function (cb) {
     $.runSequence('clean:local:dist', ['dist:base', 'dist:js', 'dist:css', 'dist:favicons', 'dist:fonts', 'dist:avatars', 'dist:kirby', 'dist:panel', 'dist:site', 'dist:img', 'dist:thumbs', 'dist:content'], cb);
-});
-
-gulp.task('clean:server', function (cb) {
-    $.runSequence('clean:server:assets', 'clean:server:content', 'clean:server:site', cb);
 });
 
 gulp.task('deploy', function (cb) {
