@@ -31,24 +31,24 @@ var conn                        = ftp.create( {
 gulp.task('connect', function() {
     return connect.server({
         base:                   pkg.paths.src.base,
-        hostname:               'firma.dev',
-        port:                   8030,
+        hostname:               'firma.test',
+        port:                   8010,
 
         keepalive:              false,
         open:                   false,
 
         bin:                    '/usr/local/bin/php',
-        ini:                    '/usr/local/etc/php/7.1/php.ini'
+        ini:                    '/usr/local/etc/php/7.2/php.ini'
     });
 });
 
 gulp.task('browserSync', function () {
     browserSync.init({
-        host:                   'firma.dev',
-        proxy:                  'firma.dev:8030',
-        port:                   8090,
+        host:                   'firma.test',
+        proxy:                  'firma.test:8010',
+        port:                   9010,
 
-        open:                   false,
+        open:                   "external",
         logLevel:               'info',
         logPrefix:              'firma',
 

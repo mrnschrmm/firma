@@ -7,7 +7,7 @@
         <main>
             <div class="container-fluid contact">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-sm-8 col-md-9 col-lg-7">
+                    <div class="col-12 col-sm-9 col-md-8 col-lg-7">
                         <div class="title">
                             <h1><?php echo $page->title() ?></h1>
                         </div>
