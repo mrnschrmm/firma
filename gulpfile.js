@@ -6,7 +6,7 @@ const $                         = require('gulp-load-plugins')({
 
         pattern: ['*'],
         scope: ['devDependencies']
-    
+
 });
 
 var gutil                       = require('gulp-util');
@@ -37,10 +37,12 @@ gulp.task('connect', function() {
         keepalive:              false,
         open:                   false,
 
-        bin:                    '/usr/local/bin/php',
-        ini:                    '/usr/local/etc/php/7.2/php.ini'
+        bin:                    '/Applications/MAMP/bin/php/php7.2.1/bin',
+        ini:                    '/Applications/MAMP/bin/php/php7.2.1/conf/php.ini'
     });
 });
+
+
 
 gulp.task('browserSync', function () {
     browserSync.init({
@@ -97,7 +99,7 @@ gulp.task('js', () => {
     .pipe($.rename({suffix: '.min'}))
     .pipe($.size({gzip: true, showFiles: true}))
     .pipe(gulp.dest(pkg.paths.src.js))
-    .pipe(browserSync.stream());    
+    .pipe(browserSync.stream());
 });
 
 gulp.task('favicons:base', () => {
@@ -116,16 +118,16 @@ gulp.task('favicons:base', () => {
         online: false,
         replace: true,
         icons: {
-            android: false, 
-            appleIcon: false, 
-            appleStartup: false, 
-            coast: false, 
+            android: false,
+            appleIcon: false,
+            appleStartup: false,
+            coast: false,
             favicons: true,
-            firefox: false, 
-            windows: false, 
-            yandex: false 
+            firefox: false,
+            windows: false,
+            yandex: false
         }
-    }))  
+    }))
     .pipe(gulp.dest(pkg.paths.favicon.basedest));
 });
 
@@ -146,16 +148,16 @@ gulp.task('favicons:platforms', () => {
         html: pkg.paths.src.favicons + 'platforms.html',
         replace: true,
         icons: {
-            android: true, 
-            appleIcon: true, 
-            appleStartup: true, 
-            coast: true, 
+            android: true,
+            appleIcon: true,
+            appleStartup: true,
+            coast: true,
             favicons: false,
-            firefox: true, 
-            windows: true, 
-            yandex: true 
+            firefox: true,
+            windows: true,
+            yandex: true
         }
-    }))  
+    }))
     .pipe(gulp.dest(pkg.paths.favicon.platformsdest));
 });
 
