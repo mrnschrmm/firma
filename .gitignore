@@ -30,29 +30,11 @@ Thumbs.db
 *.log
 *.sql
 *.sqlite
-
-# Wordpress #
-#############
-
-sitemap.xml
-sitemap.xml.gz
-wp-config.php
-wp-content/advanced-cache.php
-wp-content/backup-db/
-wp-content/backups/
-wp-content/blogs.dir/
-wp-content/cache/
-wp-content/upgrade/
-wp-content/uploads/
-wp-content/wp-cache-config.php
-wp-content/plugins/hello.php
-
 /readme.html
 /license.txt
 
 # Temporary #
 #############
-
 tmp
 .grunt
 
@@ -66,6 +48,7 @@ tmp
 
 node_modules/
 bower_components/
+dist/
 
 # SASS #
 ########
@@ -86,3 +69,6 @@ vendor/
 glp/
 src/thumbs/
 src/site/accounts/
+bootstrap.bundle.min.js
+bootstrap.bundle.min.js.map
+main.min.css
