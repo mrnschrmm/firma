@@ -1,127 +1,34 @@
 {
-    "name": "firma",
-    "version": "1.0.0",
-    "description": "Company Website",
-    "main": "gulpfile.js",
-    "author": "Marian Schramm",
-    "license": "ISC",
-    "paths": {
-        "src": {
-            "base": "./src/",
-            "scss": "./src/assets/scss/",
-            "css": "./src/assets/css/",
-            "js": "./src/assets/js/",
-            "favicons": "./src/assets/favicons/",
-            "fonts": "./src/assets/fonts/",
-            "img": "./src/assets/images/",
-            "avatars": "./src/assets/avatars/",
-            "content": "./src/content/",
-            "kirby": "./src/kirby/",
-            "panel": "./src/panel/",
-            "site": "./src/site/",
-            "thumbs": "./src/thumbs/"
-        },
-        "dist": {
-            "base": "./dist/",
-            "css": "./dist/assets/css/",
-            "js": "./dist/assets/js/",
-            "favicons": "./dist/assets/favicons/",
-            "fonts": "./dist/assets/fonts/",
-            "img": "./dist/assets/images/",
-            "avatars": "./dist/assets/avatars/",
-            "content": "./dist/content/",
-            "kirby": "./dist/kirby/",
-            "panel": "./dist/panel/",
-            "site": "./dist/site/",
-            "thumbs": "./dist/thumbs/"
-        },
-        "server": {
-            "assets": "assets",
-            "content": "content",
-            "site": "site"
-        },
-        "favicon": {
-            "src": "./src/assets/favicons/favicon_src.png",
-            "basedest": "./src/",
-            "basepath": "/",
-            "platformsdest": "./src/assets/favicons",
-            "platformspath": "/assets/favicons"
-        }
-    },
-    "vars": {
-        "scssName": "main.scss",
-        "cssName": "main.min.css",
-        "jsName": "main.js"
-    },
-    "globs": {
-        "pluginJs": [
-            "node_modules/jquery/dist/jquery.min.js",
-            "node_modules/jquery/dist/jquery.min.map",
-            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map"
-        ],
-        "js": [
-            "./src/assets/js/jquery.min.js",
-            "./src/assets/js/bootstrap.bundle.min.js",
-            "./src/assets/js/main.min.js"
-        ],
-        "src": [
-            "./src/index.php",
-            "./src/.htaccess",
-            "./src/*.{png,ico}"
-        ],
-        "serverContent": [
-            "content/**/*",
-            "content/**/",
-            "content/*"
-        ],
-        "serverDeploy": [
-            "dist/assets/**/*",
-            "dist/content/**/*",
-            "dist/site/**/*",
-            "dist/*",
-            "dist/.htaccess"
-        ]
-    },
-    "urls": {
-        "live": "http://www.schramm-reinigung.de/",
-        "local": "http://firma.dev/"
-    },
-    "dependencies": {
-        "bootstrap": "^4.0.0",
-        "jquery": "^3.3.1",
-        "popper.js": "^1.14.1"
-    },
-    "devDependencies": {
-        "browser-sync": "^2.24.4",
-        "del": "^3.0.0",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "^5.0.0",
-        "gulp-concat": "^2.6.1",
-        "gulp-connect-php": "1.0.3",
-        "gulp-cssnano": "^2.1.2",
-        "gulp-favicons": "^2.2.7",
-        "gulp-if": "^2.0.2",
-        "gulp-imagemin": "^4.1.0",
-        "gulp-load-plugins": "^1.5.0",
-        "gulp-rename": "^1.2.2",
-        "gulp-sass": "^3.2.1",
-        "gulp-size": "^3.0.0",
-        "gulp-sourcemaps": "^2.6.4",
-        "gulp-uglify": "^3.0.0",
-        "gulp-util": "^3.0.8",
-        "run-sequence": "^2.2.1",
-        "vinyl-ftp": "^0.6.1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/mrnschrmm/firma.git"
-    },
-    "bugs": {
-        "url": "https://github.com/mrnschrmm/firma/issues"
-    },
-    "scripts": {
-        "start": "gulp",
-        "build": "gulp build"
-    }
+  "name": "firma",
+  "description": "clean",
+  "author": "Marian Schramm",
+  "version": "1.1.0",
+  "license": "ISC",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "jquery": "3.4.1"
+  },
+  "devDependencies": {
+    "browser-sync": "2.26.7",
+    "delete": "1.1.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "6.1.0",
+    "gulp-favicons": "2.3.1",
+    "gulp-imagemin": "6.0.0",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "gulp-uglify": "3.0.2",
+    "node-sass": "4.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrnschrmm/firma.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mrnschrmm/firma/issues"
+  },
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build"
+  }
 }
