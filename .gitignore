@@ -1,21 +1,28 @@
-# OSX system files #
-####################
+# FOLDER
+node_modules/
+app/access/
+app/dist/
+app/vendor/
+
+# FILES
+.vscode
+
+# SYSTEM
 .DS_Store
 .DS_Store?
-.vscode
 ._*
 .Spotlight-V100
 .Trashes
 ehthumbs.db
 Thumbs.db
 
-# Git #
-#######
-
+# GIT/LOGS/DB
 *.git
+*.log
+*.sql
+*.sqlite
 
-# Packages #
-############
+# PACKAGES
 *.7z
 *.dmg
 *.gz
@@ -24,51 +31,3 @@ Thumbs.db
 *.rar
 *.tar
 *.zip
-
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-/readme.html
-/license.txt
-
-# Temporary #
-#############
-tmp
-.grunt
-
-# PHPStorm #
-############
-
-.idea/
-
-# NPM & BOWER #
-###############
-
-node_modules/
-bower_components/
-dist/
-
-# SASS #
-########
-
-.sass-cache/
-*.css.map
-
-# Composer #
-############
-
-composer.phar
-composer.lock
-vendor/
-
-# CUSTOM #
-##########
-
-glp/
-src/thumbs/
-src/site/accounts/
-bootstrap.bundle.min.js
-bootstrap.bundle.min.js.map
-main.min.css
