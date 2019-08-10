@@ -1,0 +1,12 @@
+[data-is='block-map'] {
+  #map {
+    background-color: #062299;
+    width: 100vw;
+    height: 75vh;
+
+    @media (min-width: $breakpoint-m) {
+      width: 100vw;
+      height: 75vh;
+    }
+  }
+}

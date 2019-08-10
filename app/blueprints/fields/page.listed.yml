@@ -1,0 +1,15 @@
+type: pages
+status: listed
+layout: cards
+size: tiny
+image:
+  back: white
+  ratio: 9/10
+empty: 
+  en: No entries
+  de: Keine Einträge
+templates:
+  - compartments
+  - company
+  - contact
+  - default

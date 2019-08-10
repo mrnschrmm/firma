@@ -1,0 +1,49 @@
+.block-page-footer {
+  .company-contact {
+    background-color: #051D87;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 19px 15px 17px 0;
+    z-index: 777;
+
+    @media (min-width: $breakpoint-s) {
+      padding: 19px 30px 17px 0;
+    }
+
+    @media (min-width: $breakpoint-m) {
+      background-color: transparent;
+      bottom: 17px;
+      right: 25px;
+      width: auto;
+      padding: 0;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 18px;
+      padding-left: 80px;
+
+      a {
+        display: block;
+        text-align: right;
+        line-height: 19px;
+
+        &:hover {
+          color: $c-nav-hover;
+          text-decoration: underline;
+        }
+      }
+
+      .tel {
+        cursor: default;
+
+        &:hover {
+          color: $c-nav-link;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

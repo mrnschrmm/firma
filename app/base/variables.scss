@@ -1,0 +1,54 @@
+// VARIABLES
+// =============================================================
+
+// FONT
+// -------------------------------------------------------------
+
+$global-font-base-size: 16;
+$global-font-base-weight: 400;
+$global-font-base-line-height: 1.5;
+$global-font-heading-line-height: 1.25;
+
+// LAYOUT
+// -------------------------------------------------------------
+
+// DOCUMENT
+$global-document-max-width: 2560px;
+
+// CONTAINER
+$global-container-max-width: 1600px;
+$global-container-padding: 32px;
+
+// GRID
+$global-gutter-width: 0;
+
+// BREAKPOINTS
+$breakpoint-xxs: 375px;
+$breakpoint-xs: 480px;
+$breakpoint-s: 576px;
+$breakpoint-m: 768px;
+$breakpoint-l: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// COLOR
+// -------------------------------------------------------------
+
+$c-white: #fff;
+$c-1: #C8CBD2;
+$c-2: #B4B7BF;
+$c-bg: #062299;
+$c-headline : #fff;
+$c-text: #fff;
+$c-link: #fff;
+$c-hover: #18181A;
+$c-nav-link: #FFF;
+$c-nav-hover: #04F799;
+$c-nav-active: #04F799;
+$c-nav-bg: #FFF;
+$c-btn-link: #18181A;
+$c-btn-hover: #04F799;
+$c-ico-link: #FFF;
+$c-ico-hover: #04F799;
+$c-bg-object: #FFF;
+

@@ -1,0 +1,31 @@
+title:
+  en: Compartment
+  de: Fachbereich
+
+icon: template
+
+status:
+  draft: true
+  listed: true
+
+options:
+  changeSlug: true
+  changeStatus: true
+  changeTitle: true
+  delete: true
+  duplicate: true
+  preview: true
+  update: true
+
+fields:
+  text:
+    label:
+      en: Description
+      de: Beschreibung
+    type: textarea
+
+  services:
+    extends: fields/services
+    label:
+      en: Services
+      de: Leistungen

@@ -1,0 +1,11 @@
+type: pages
+status: draft
+layout: list
+empty: 
+  en: No entries
+  de: Keine Einträge
+templates:
+  - compartments
+  - company
+  - contact
+  - default

@@ -1,0 +1,22 @@
+title: Dashboard
+
+columns:
+  left:
+    width: 2/3
+    sections:
+      header:
+        type: fields
+        fields:
+          headling:
+            label: 
+              en: Pages
+              de: Seiten
+            type: headline
+      published:
+        extends: fields/page.listed
+
+  right:
+    width: 1/3
+    sections:
+      drafts:
+        extends: fields/page.drafts

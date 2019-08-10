@@ -1,0 +1,27 @@
+title: 
+  en: Company
+  de: Unternehmen
+  
+preset: page
+
+pages: false
+files: false
+
+options:
+  changeSlug: true
+  changeStatus: true
+  changeTitle: true
+  delete: true
+  duplicate: true
+  preview: true
+  update: true
+
+fields:
+  title:
+    label: Titel
+    type:  text
+
+  text:
+    label: Text
+    type:  textarea
+    size: medium

@@ -1,0 +1,187 @@
+// THEME
+// =============================================================
+
+.theme-default {
+  &,
+  body {
+    background-color: $c-bg;
+    color: $c-white;
+    font-family: 'Simplon', Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+
+  &.context-content {
+
+    // PARAGRAPH
+    // -------------------------------------------------------------
+
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+
+      @media (min-width: $breakpoint-m) {
+        font-size: 0.9375rem;
+      }
+    }
+
+    a {
+      color: $c-link;
+
+      &:focus {
+        outline: 0;
+      }
+
+      &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+      }
+    }
+
+    // HEADLINE
+    // -------------------------------------------------------------
+
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+      color: $c-headline;
+      line-height: 1.25;
+    }
+
+    h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6 {
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 300;
+
+      @media (min-width: $breakpoint-s) {
+        font-size: 1.375rem;
+      }
+
+      @media (min-width: $breakpoint-m) {
+        font-size: 1.5rem;
+      }
+
+      @media (min-width: $breakpoint-l) {
+        font-size: 1.625rem;
+      }
+
+      @media (min-width: $breakpoint-xl) {
+        font-size: 1.875rem;
+      }
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+
+    // LIST
+    // -------------------------------------------------------------
+
+    ul > li {
+      list-style-type: disc;
+
+      ul > li {
+        list-style-type: circle;
+
+        ul > li {
+          list-style-type: circle;
+        }
+      }
+    }
+
+    ol > li {
+      ul > li {
+        list-style-type: disc;
+
+        ul > li {
+          list-style-type: circle;
+        }
+      }
+    }
+
+    // INLINE
+    // -------------------------------------------------------------
+
+    b,
+    strong,
+    code,
+    kbd,
+    samp,
+    dt {
+      font-size: inherit;
+      font-weight: 700;
+    }
+
+    abbr,
+    dfn,
+    var {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    abbr,
+    dfn {
+      text-decoration: underline;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    mark {
+      background-color: $c-link;
+      color: white;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    kbd {
+      background-color: $c-link;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    hr {
+      border: 0;
+      display: block;
+      height: 1px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+    }
+
+    pre > code {
+      background-color: transparent;
+      display: block;
+    }
+
+    // QUOTE
+    // -------------------------------------------------------------
+
+    q,
+    blockquote {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    blockquote + figcaption {
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    cite {
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    figcaption {
+      font-weight: 400;
+    }
+
+    img + figcaption {
+      text-align: left;
+    }
+  }
+}

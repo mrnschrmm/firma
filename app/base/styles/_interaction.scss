@@ -1,0 +1,85 @@
+// INTERACTION
+// =============================================================
+
+// ANCHOR
+// -------------------------------------------------------------
+
+a {
+  &:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+  }
+}
+
+// BUTTON
+// -------------------------------------------------------------
+
+// BADGE
+// -------------------------------------------------------------
+
+.badge {
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-width: 2px;
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.15;
+  padding: 0.5625rem 1rem;
+  text-align: center;
+  transition: background-color 250ms, border-color 250ms;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  @at-root a#{&} {
+    &,
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+
+  &--solid {
+    background-color: $c-btn-link;
+    border-color: $c-btn-link;
+
+    @at-root a#{&} {
+      color: $c-btn-link;
+
+      &:hover,
+      &:focus {
+        background-color: $c-btn-hover;
+        border-color: $c-btn-hover;
+        color: $c-hover;
+      }
+    }
+  }
+
+  &--outline {
+    background-color: rgba($c-white, 0);
+    border-color: $c-white;
+
+    @at-root a#{&} {
+      color: $c-white;
+
+      &:hover,
+      &:focus {
+        background-color: $c-btn-hover;
+        border-color: $c-btn-hover;
+        color: $c-hover;
+      }
+    }
+  }
+
+  &-isActive {
+    background-color: $c-btn-hover;
+    border-color: $c-btn-hover;
+    color: $c-hover;
+  }
+
+  &--pill {
+    border-radius: 10rem;
+    padding-left: 1.625rem;
+    padding-right: 1.625rem;
+  }
+}

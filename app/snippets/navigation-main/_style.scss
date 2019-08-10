@@ -1,0 +1,27 @@
+[data-is='navigation-main'] {
+  .brand {
+    color: $c-nav-link;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      outline: 0;
+    }
+  }
+
+  .list-link {
+    &,
+    &:visited {
+      color: $c-nav-link;
+      outline: 0;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
+      color: $c-nav-hover;
+      outline: 0;
+    }
+  }
+}
