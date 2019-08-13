@@ -3,46 +3,46 @@
     width: 100%;
 
     .list {
-      list-style: none;
-      overflow: auto;
       display: block;
+      list-style: none;
       margin: 0;
+      overflow: auto;
       padding-left: 0;
 
       li {
-        text-indent: 0;
         float: left;
         margin-bottom: 15px;
+        text-indent: 0;
 
         @media (min-width: $breakpoint-s) {
           margin-bottom: 30px;
         }
 
         a {
+          border: 1px solid #03176e;
+          color: $c-nav-link;
+          display: block;
           font-family: 'Simplon';
           font-size: 14px;
-          line-height: 100px;
           font-weight: 300;
-          text-decoration: none;
-          text-align: center;
-          color: $c-nav-link;
-          border: 1px solid #03176E;
-          display: block;
           height: 100px;
+          line-height: 100px;
           padding: 0 15px;
+          text-align: center;
+          text-decoration: none;
 
           &:hover {
             border-color: $c-nav-hover;
           }
 
           @media (min-width: $breakpoint-s) {
-            line-height: 130px;
             height: 130px;
+            line-height: 130px;
             padding: 0 20px;
           }
           @media (min-width: $breakpoint-m) {
-            line-height: 140px;
             height: 140px;
+            line-height: 140px;
             padding: 0;
           }
           @media (min-width: $breakpoint-l) {
@@ -53,9 +53,9 @@
     }
   }
 
-  #btn-menu {
+  #btn-menu { /* stylelint-disable-line */
     background-color: transparent;
-    color: white;
+    color: $c-white;
     height: 20px;
     position: static;
     z-index: 2;

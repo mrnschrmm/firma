@@ -5,23 +5,20 @@
 
     &:hover,
     &:focus {
-      text-decoration: underline;
       outline: 0;
+      text-decoration: underline;
     }
   }
 
-  .list-link {
-    &,
-    &:visited {
-      color: $c-nav-link;
-      outline: 0;
-      text-decoration: none;
+  .menu {
+    // display: flex;
+
+    &-main {
+      @import 'partials/main/style';
     }
 
-    &:hover,
-    &:focus {
-      color: $c-nav-hover;
-      outline: 0;
+    &-lang {
+      @import 'partials/lang/style';
     }
   }
 }
