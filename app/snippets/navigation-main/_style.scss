@@ -1,7 +1,16 @@
 [data-is='navigation-main'] {
+  .navigation-main {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.25;
+    position: relative;
+  }
+
   .brand {
     color: $c-nav-link;
     text-decoration: none;
+    width: 180px;
 
     &:hover,
     &:focus {
@@ -10,14 +19,29 @@
     }
   }
 
+  .toggle {
+    display: none;
+  }
+
   .menu {
-    // display: flex;
+    display: flex;
+    justify-content: flex-end;
 
     &-main {
       @import 'partials/main/style';
     }
 
     &-lang {
+      margin: 0 0 0 2rem;
+
+      @media (min-width: $breakpoint-m) {
+        margin-left: 4rem;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
       @import 'partials/lang/style';
     }
   }
