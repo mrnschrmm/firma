@@ -1,34 +1,86 @@
 {
   "name": "firma",
   "description": "clean",
-  "author": "Marian Schramm",
   "version": "1.1.0",
-  "license": "ISC",
-  "main": "gulpfile.js",
+  "main": "gulpfile.babel.js",
+  "scripts": {
+    "start": "gulp --dev",
+    "build": "gulp --prod"
+  },
+  "browserslist": {
+    "production": [
+      "defaults"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "@babel/register": "7.5.5",
+    "browser-sync": "2.26.7",
+    "del": "5.0.0",
+    "eslint": "6.1.0",
+    "eslint-config-standard": "12.0.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.0",
+    "gulp": "4.0.2",
+    "gulp-autoprefixer": "6.1.0",
+    "gulp-concat": "2.6.1",
+    "gulp-debug": "4.0.0",
+    "gulp-eslint": "6.0.0",
+    "gulp-favicons": "2.3.1",
+    "gulp-if": "3.0.0",
+    "gulp-imagemin": "6.0.0",
+    "gulp-phpcs": "3.0.0",
+    "gulp-rename": "1.4.0",
+    "gulp-sass": "4.0.2",
+    "gulp-stylelint": "9.0.0",
+    "gulp-uglify": "3.0.2",
+    "node-sass": "4.12.0",
+    "stylelint": "10.1.0",
+    "stylelint-order": "3.0.1",
+    "stylelint-scss": "3.9.3",
+    "yargs": "13.3.0"
+  },
   "dependencies": {
     "jquery": "3.4.1"
   },
-  "devDependencies": {
-    "browser-sync": "2.26.7",
-    "delete": "1.1.0",
-    "gulp": "4.0.2",
-    "gulp-autoprefixer": "6.1.0",
-    "gulp-favicons": "2.3.1",
-    "gulp-imagemin": "6.0.0",
-    "gulp-rename": "1.4.0",
-    "gulp-sass": "4.0.2",
-    "gulp-uglify": "3.0.2",
-    "node-sass": "4.12.0"
+  "stylelint": {
+    "extends": "./.stylelintrc",
+    "ignoreFiles": [
+      "app/dist/**",
+      "app/vendor/**"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true
+    },
+    "extends": "eslint-config-standard",
+    "rules": {
+      "camelcase": "off",
+      "no-unneeded-ternary": "off",
+      "no-unused-vars": "off",
+      "spaced-comment": "off"
+    }
+  },
+  "eslintIgnore": [
+    "app/dist/**",
+    "app/vendor/**"
+  ],
+  "author": "Marian Schramm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrnschrmm/firma/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrnschrmm/firma.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mrnschrmm/firma/issues"
-  },
-  "scripts": {
-    "start": "gulp",
-    "build": "gulp build"
   }
 }
