@@ -1,8 +1,8 @@
 # FOLDER
-/node_modules
-/app/access
-/app/dist
-/app/vendor
+node_modules
+app/access
+app/dist
+app/vendor
 
 # FILES
 .vscode

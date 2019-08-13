@@ -25,6 +25,7 @@ import bs from 'browser-sync'
 const path = prep(config.path)
 const root = path.root
 const dist = path.dist
+const sync = bs.create()
 
 const DEBUG = false
 const PROD = yargs.argv.prod
@@ -34,26 +35,25 @@ const PROD = yargs.argv.prod
 ////////////////////////////////////////////////////////////////////////////////
 
 function browsersync (done) {
-  const sync = bs.create()
-
   sync.init({
-    proxy: {
-      target: config.host.local,
-      ws: false
-    },
+    host: config.host.local,
+    proxy: config.host.local,
+    logLevel: DEBUG ? 'debug' : 'info',
+    logFileChanges: DEBUG ? true : false,
+    logPrefix: 'firma',
     ghostMode: false,
     open: false,
     notify: false,
-    logFileChanges: false,
     ui: false,
+    online: false,
     injectChanges: true,
-    reloadDebounce: 1000
+    reloadDelay: 1000
   })
   done()
 }
 
 function reload (done) {
-  bs.reload()
+  sync.reload()
   done()
 }
 
@@ -480,13 +480,13 @@ function generate__styles () {
 };
 
 function lint__styles () {
-  return src(styles__src + '**/*.scss', snippets__src + '**/*.scss')
+  return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: !PROD ? true : false }))
+    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? true : false }))
 };
 
 function w__styles () {
-  watch(styles__src + '**/*.scss', series(styles, reload))
+  watch([styles__src + '**/*.scss'], series(styles, reload))
 };
 
 ////////////////////////////////////////////////////////////////////////////////
