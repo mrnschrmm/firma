@@ -2,7 +2,7 @@
   "name": "mrnschrmm/firma",
   "description": "web",
   "require": {
-    "getkirby/cms": "^3.2.3"
+    "getkirby/cms": "3.2.3"
   },
   "config": {
     "vendor-dir": "app/vendor",
@@ -12,5 +12,8 @@
   "extra": {
     "kirby-cms-path": "app/dist/kirby",
     "kirby-plugin-path": "app/dist/plugins"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.4"
   }
 }

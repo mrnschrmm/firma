@@ -1,47 +1,30 @@
 module.exports = {
-  urls: {
-    local: 'http://firma.local.blee.ch/',
-    live: 'http://www.schramm-reinigung.de/',
+  host: {
+    live: 'schramm-reinigung.de',
+    local: 'firma.local.blee.ch'
   },
-  paths: {
-    src: {
-      config: 'app/site/config/',
-      site: 'app/site/',
-      languages: 'app/site/languages/',
-      fonts: 'app/base/assets/fonts/',
-      icons: 'app/base/assets/icons/',
-      images: 'app/base/assets/images/',
-      favicons: 'app/base/assets/favicons/',
-      controllers: 'app/controllers/',
-      collections: 'app/collections/',
-      blueprints: 'app/blueprints/',
-      templates: 'app/templates/',
-      snippets: 'app/snippets/',
-      scripts: 'app/base/',
-      style: 'app/base/',
-    },
-    dist: {
-      vendor: 'app/dist/base/vendor/',
-      config: 'app/dist/site/config/',
-      site: 'app/dist/site/',
-      languages: 'app/dist/site/languages/',
-      fonts: 'app/dist/base/assets/fonts/',
-      icons: 'app/dist/base/assets/icons/',
-      images: 'app/dist/base/assets/images/',
-      favicons: 'app/dist/base/assets/favicons/',
-      controllers: 'app/dist/controllers/',
-      collections: 'app/dist/collections/',
-      blueprints: 'app/dist/blueprints/',
-      templates: 'app/dist/templates/',
-      snippets: 'app/dist/snippets/',
-      scripts: 'app/dist/base/',
-      style: 'app/dist/base/',
-    },
-    content: [
-      'app/access/content/',
-    ],
-    vendor: [
-      'node_modules/jquery/dist/jquery.min.{js,map}',
-    ],
+  path: {
+    root: 'app',
+    dist: 'app/dist',
+    configs: 'site/config',
+    languages: 'site/languages',
+    fonts: 'base/assets/fonts',
+    icons: 'base/assets/icons',
+    images: 'base/assets/images',
+    favicons: 'base/assets/favicons',
+    controllers: 'controllers',
+    collections: 'collections',
+    blueprints: 'blueprints',
+    templates: 'templates',
+    snippets: 'snippets',
+    scripts: 'base',
+    styles: 'base',
+    content: 'access/content'
   },
+  vendor: {
+    dest: 'base/vendor',
+    src: [
+      'node_modules/jquery/dist/jquery.min.{js,map}'
+    ]
+  }
 }

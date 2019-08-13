@@ -1,20 +1,11 @@
 # FOLDER
-node_modules/
-app/access/
-app/dist/
-app/vendor/
+node_modules
+app/access
+app/dist
+app/vendor
 
 # FILES
 .vscode
-
-# SYSTEM
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
 
 # GIT/LOGS/DB
 *.git
@@ -31,3 +22,22 @@ Thumbs.db
 *.rar
 *.tar
 *.zip
+
+# SYSTEM
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+.apdisk
+Network Trash Folder
+Temporary Items
+Icon
