@@ -509,18 +509,6 @@ if (PROD) {
 // HELPER
 ////////////////////////////////////////////////////////////////////////////////
 
-function error (error) {
-  const message = error.message
-  const plugin = error.plugin
-  const code = error.code
-  const stack = error.stack
-  const file = (error.fileName ? error.fileName : (error.file ? error.file : (error.relativePath ? error.relativePath : ''))).replace(process.cwd(), '')
-
-  let note = `############### Error in ${plugin}: \n ${message ? message.replace(process.cwd(), '') : error.toString()} \n File: ${file} \n Code: ${code} \n Code: ${stack}`
-
-  console.log(error)
-}
-
 function prep (paths) {
   for (let p in paths) {
     let value = paths[p]
