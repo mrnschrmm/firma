@@ -1,3 +1,4 @@
-<?php snippet('document-header/index') ?>
-<?php snippet('layout-compartments/index') ?>
-<?php snippet('document-footer/index') ?>
+<?php
+snippet('document-header/index');
+snippet('layout-compartments/index');
+snippet('document-footer/index');
