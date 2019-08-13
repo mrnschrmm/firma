@@ -92,7 +92,7 @@ const configs__dest = (dist + path.configs).replace('//', '/')
 // TASKS -------------------------------------------------------------
 
 function clean__configs () {
-  return del([configs__src])
+  return del([configs__dest])
 }
 
 function copy__configs () {
@@ -289,7 +289,7 @@ const fonts__dest = (dist + path.fonts).replace('//', '/')
 // TASKS -------------------------------------------------------------
 
 function clean__fonts () {
-  return del([fonts__src])
+  return del([fonts__dest])
 };
 
 function copy__fonts () {
