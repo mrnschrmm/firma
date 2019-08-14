@@ -1,17 +1,17 @@
 module.exports = {
   host: {
-    live: 'schramm-reinigung.de',
-    local: 'firma.local.blee.ch'
+    local: 'firma.local.blee.ch',
+    live: 'schramm-reinigung.de'
   },
   path: {
     root: 'app',
     dist: 'app/dist',
-    configs: 'site/config',
+    assets: 'base/assets',
+    fonts: 'fonts',
+    icons: 'icons',
+    images: 'images',
+    favicons: 'favicons',
     languages: 'site/languages',
-    fonts: 'base/assets/fonts',
-    icons: 'base/assets/icons',
-    images: 'base/assets/images',
-    favicons: 'base/assets/favicons',
     controllers: 'controllers',
     collections: 'collections',
     blueprints: 'blueprints',
@@ -19,6 +19,7 @@ module.exports = {
     snippets: 'snippets',
     scripts: 'base',
     styles: 'base',
+    configs: 'site/config',
     content: 'access/content'
   },
   vendor: {
