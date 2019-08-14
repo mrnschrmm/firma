@@ -1,0 +1,33 @@
+.list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &-item {
+    margin: 0 0 0 1rem;
+
+    @media (min-width: $breakpoint-m) {
+      margin-left: 1.5rem;
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &-link {
+    &,
+    &:visited {
+      color: $c-nav-link;
+      outline: 0;
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
+      color: $c-nav-hover;
+      outline: 0;
+    }
+  }
+}

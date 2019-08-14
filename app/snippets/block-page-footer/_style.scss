@@ -1,11 +1,11 @@
 .block-page-footer {
   .company-contact {
-    background-color: #051D87;
-    position: fixed;
+    background-color: #051d87;
     bottom: 0;
+    padding: 19px 15px 17px 0;
+    position: fixed;
     right: 0;
     width: 100%;
-    padding: 19px 15px 17px 0;
     z-index: 777;
 
     @media (min-width: $breakpoint-s) {
@@ -15,9 +15,9 @@
     @media (min-width: $breakpoint-m) {
       background-color: transparent;
       bottom: 17px;
+      padding: 0;
       right: 25px;
       width: auto;
-      padding: 0;
     }
 
     p {
@@ -27,8 +27,8 @@
 
       a {
         display: block;
-        text-align: right;
         line-height: 19px;
+        text-align: right;
 
         &:hover {
           color: $c-nav-hover;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-default">
+<html lang="<?= $kirby->language()->code() ?>" class="theme-default">
     <head>
         <title><?php echo $site->title() ?></title>
         <meta charset="utf-8">
