@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'debug'  => true,
+    'debug' => true,
     'languages' => true,
     'panel' => [
         'css' => '../../../dist/base/panel.min.css',
