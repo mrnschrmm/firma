@@ -2,70 +2,8 @@
   .navigation-sub {
     width: 100%;
 
-    .list {
-      display: block;
-      list-style: none;
-      margin: 0;
-      overflow: auto;
-      padding-left: 0;
-
-      li {
-        float: left;
-        margin-bottom: 15px;
-        text-indent: 0;
-
-        @media (min-width: $breakpoint-s) {
-          margin-bottom: 30px;
-        }
-
-        a {
-          border: 1px solid #03176e;
-          color: $c-nav-link;
-          display: block;
-          font-family: 'Simplon';
-          font-size: 14px;
-          font-weight: 300;
-          height: 100px;
-          line-height: 100px;
-          padding: 0 15px;
-          text-align: center;
-          text-decoration: none;
-
-          &:hover {
-            border-color: $c-nav-hover;
-          }
-
-          @media (min-width: $breakpoint-s) {
-            height: 130px;
-            line-height: 130px;
-            padding: 0 20px;
-          }
-          @media (min-width: $breakpoint-m) {
-            height: 140px;
-            line-height: 140px;
-            padding: 0;
-          }
-          @media (min-width: $breakpoint-l) {
-            font-size: 15px;
-          }
-        }
-      }
-    }
-  }
-
-  #btn-menu { /* stylelint-disable-line */
-    background-color: transparent;
-    color: $c-white;
-    height: 20px;
-    position: static;
-    z-index: 2;
-
-    @media (min-width: $breakpoint-m) {
-      display: none;
+    .menu {
+      @import 'partials/list/style';
     }
   }
 }
-
-
-
-
