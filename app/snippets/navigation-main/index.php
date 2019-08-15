@@ -1,9 +1,7 @@
-<div class="snippet-component" data-is="navigation-main">
+<div class="snippet-component" is="navigation-main">
     <div class="navigation-main">
         <a class="brand" href="<?= $site->url() ?>"><?= $site->title() ?></a>
-        <button class="toggle" type="button">
-            <span class="toggle-icon"></span>
-        </button>
+        <button class="toggle" type="button"></button>
         <nav class="menu">
             <div class="menu-main">
                 <?php snippet('navigation-main/partials/main/index', ['pages' => $pages]) ?>
