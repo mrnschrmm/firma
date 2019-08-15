@@ -5,7 +5,6 @@
   <main class="main">
     <?php snippet('block-page-header/index') ?>
     <?php snippet('list-services/index') ?>
-    </div>
   </main>
   <footer class="footer">
     <?php snippet('card-contact/index') ?>
