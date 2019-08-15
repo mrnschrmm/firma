@@ -1,12 +1,17 @@
 [is='block-map'] {
+  .container {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+  }
+
   #map { /* stylelint-disable-line */
     background-color: #062299;
     height: 75vh;
-    width: 100vw;
+    width: 100%;
 
     @media (min-width: $breakpoint-m) {
       height: 75vh;
-      width: 100vw;
     }
   }
 }
