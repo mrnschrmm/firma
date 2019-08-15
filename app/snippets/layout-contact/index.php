@@ -1,4 +1,4 @@
-<section class="snippet-layout" data-is="layout-contact">
+<section class="snippet-layout" is="layout-contact">
     <header class="header">
         <?php snippet('navigation-main/index') ?>
     </header>

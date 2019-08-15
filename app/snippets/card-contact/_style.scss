@@ -1,3 +1,16 @@
-[data-is='card-contact'] {
-  // style
+[is='card-contact'] {
+  .card-contact {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .details {
+    text-align: right;
+
+    &-tel,
+    &-mail {
+      color: $c-white;
+      display: block;
+    }
+  }
 }
