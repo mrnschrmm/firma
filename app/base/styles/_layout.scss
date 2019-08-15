@@ -1,7 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
 // LAYOUT
-// =============================================================
+////////////////////////////////////////////////////////////////////////////////
 
 body {
   margin: 0;
 }
 
+.snippet-layout {
+  > .footer {
+    background-color: #051d87;
+    bottom: 0;
+    padding: 1.25rem 0;
+    position: fixed;
+    width: 100%;
+    z-index: 66;
+
+    @media (min-width: $breakpoint-m) {
+      background-color: transparent;
+    }
+  }
+}

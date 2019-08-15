@@ -1,9 +1,13 @@
+var $ = window.jQuery
 
 class BlockMap extends window.HTMLDivElement {
-  constructor (self) {
-    self = super(self)
-    self.resolveElements()
+  constructor (...args) {
+    const self = super(...args)
+    self.init()
     return self
+  }
+
+  init () {
   }
 
   resolveElements () {
