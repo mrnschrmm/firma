@@ -1,15 +1,43 @@
+var $ = window.jQuery
+const { disableBodyScroll, enableBodyScroll } = window.bodyScrollLock
+
 class NavigationMain extends window.HTMLDivElement {
-  constructor (self) {
-    self = super(self)
-    self.resolveElements()
+  constructor (...args) {
+    const self = super(...args)
+    self.init()
     return self
   }
 
+  init () {
+    this.$ = $(this)
+    this.bindFunctions()
+    this.bindEvents()
+    this.resolveElements()
+  }
+
+  bindFunctions () {
+    this.toggleMenu = this.toggleMenu.bind(this)
+  }
+
+  bindEvents () {
+    this.$.on('click', '.toggle', this.toggleMenu)
+  }
+
   resolveElements () {
+    this.$menu = $('.menu', this)
   }
 
   connectedCallback () {
     console.log('### NAVIGATION-MAIN - SCRIPT.JS ###')
+  }
+
+  toggleMenu (e) {
+    this.$.toggleClass('snippet-component-isOpen')
+    if (this.$.hasClass('snippet-component-isOpen')) {
+      disableBodyScroll(this.$menu.get(0))
+    } else {
+      enableBodyScroll(this.$menu.get(0))
+    }
   }
 }
 

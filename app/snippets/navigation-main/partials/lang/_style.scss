@@ -1,14 +1,18 @@
 .list {
-  display: flex;
+  display: block;
   list-style: none;
   margin: 0;
   padding: 0;
 
+  @media (min-width: $breakpoint-m) {
+    display: flex;
+  }
+
   &-item {
-    margin: 0 0 0 1rem;
+    margin: 0;
 
     @media (min-width: $breakpoint-m) {
-      margin-left: 1.5rem;
+      margin: 0 0 0 1.5rem;
     }
 
     &:first-child {

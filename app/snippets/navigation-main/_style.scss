@@ -22,11 +22,10 @@
     background: url('../base/assets/icons/icon-menu.svg') no-repeat center;
     background-size: 16px 11px;
     border: 0;
-    bottom: 0;
-    cursor: pointer;
+    bottom: 1.5625rem;
     height: 33px;
-    left: 0;
-    position: absolute;
+    left: 1rem;
+    position: fixed;
     width: 32px;
     z-index: 99;
 
@@ -38,9 +37,33 @@
   .menu {
     display: none;
 
+    @at-root .snippet-component-isOpen#{&} {
+      align-items: center;
+      background-color: #051d87;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      left: 0;
+      line-height: 1.875;
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 77;
+    }
+
     @media (min-width: $breakpoint-m) {
       display: flex;
       justify-content: flex-end;
+    }
+
+    &-main,
+    &-lang {
+      width: 140px;
+
+      @media (min-width: $breakpoint-m) {
+        width: auto;
+      }
     }
 
     &-main {
@@ -48,11 +71,10 @@
     }
 
     &-lang {
-      margin: 0 0 0 2rem;
-
+      margin: 0;
 
       @media (min-width: $breakpoint-m) {
-        margin-left: 4rem;
+        margin: 0 0 0 4rem;
       }
 
       &:first-child {
