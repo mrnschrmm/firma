@@ -8,6 +8,6 @@
     </div>
     </main>
     <footer class="footer">
-        <?php snippet('navigation-footer/index') ?>
+        <?php snippet('card-contact/index') ?>
     </footer>
 </section>

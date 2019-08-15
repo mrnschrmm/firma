@@ -16,15 +16,4 @@
   @media (min-width: $breakpoint-l) {
     background-size: 240px;
   }
-
-  .footer {
-    background-color: #051d87;
-    bottom: 0;
-    position: fixed;
-    width: 100%;
-
-    @media (min-width: $breakpoint-m) {
-      background-color: transparent;
-    }
-  }
 }
