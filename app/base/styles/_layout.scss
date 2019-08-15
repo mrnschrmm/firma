@@ -6,7 +6,22 @@ body {
   margin: 0;
 }
 
+.container {
+  margin: 0 auto;
+  max-width: $global-container-max-width;
+  width: 100%;
+}
+
 .snippet-layout {
+  > .page,
+  > .main {
+    padding: 5rem 0 5.5rem;
+
+    // @media (min-width: $breakpoint-m) {
+    //   background-color: transparent;
+    // }
+  }
+
   > .footer {
     background-color: #051d87;
     bottom: 0;
@@ -17,6 +32,12 @@ body {
 
     @media (min-width: $breakpoint-m) {
       background-color: transparent;
+    }
+
+    @at-root [is='layout-contact']#{&} {
+      @media (min-width: $breakpoint-m) {
+        background-color: #051d87;
+      }
     }
   }
 }
