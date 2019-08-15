@@ -2,25 +2,22 @@
 // GULP
 ////////////////////////////////////////////////////////////////////////////////
 
-import { series, parallel, src, dest, watch } from 'gulp'
+const { series, parallel, src, dest, watch } = require('gulp')
 
-import config from './config'
-import del from 'del'
-import minimist from 'minimist'
-import autoprefixer from 'gulp-autoprefixer'
-import stylelint from 'gulp-stylelint'
-import imagemin from 'gulp-imagemin'
-import favicon from 'gulp-favicons'
-import eslint from 'gulp-eslint'
-import uglify from 'gulp-uglify'
-import concat from 'gulp-concat'
-import rename from 'gulp-rename'
-import gulpif from 'gulp-if'
-import phpcs from 'gulp-phpcs'
-import debug from 'gulp-debug'
-import sass from 'gulp-sass'
-import sass_node from 'node-sass'
-import sync from 'browser-sync'
+const config = require('./config')
+const del = require('del')
+const minimist = require('minimist')
+const autoprefixer = require('gulp-autoprefixer')
+const imagemin = require('gulp-imagemin')
+const favicon = require('gulp-favicons')
+const uglify = require('gulp-uglify')
+const concat = require('gulp-concat')
+const rename = require('gulp-rename')
+const gulpif = require('gulp-if')
+const debug = require('gulp-debug')
+const sass = require('gulp-sass')
+const sass_node = require('node-sass')
+const sync = require('browser-sync')
 
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS['prod']) ? true : false
@@ -117,6 +114,7 @@ function clean__templates () { return del([templates__dest]) }
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
+  const phpcs = require('gulp-phpcs')
   return src(['./app/{collections,controllers,templates,snippets,site}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'app/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
@@ -303,17 +301,10 @@ function clean__scripts__panel () { return del(scripts__dest + 'panel.min.{js,js
 
 // LINT -------------------------------------------------------------
 
-function lint__scripts__main () {
-  return src([scripts__src + 'main.js', snippets__src + '**/script.js'])
+function lint__scripts () {
+  const eslint = require('gulp-eslint')
+  return src([scripts__src + 'main.js', scripts__src + 'panel.js', snippets__src + '**/script.js'])
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(gulpif(PROD, eslint.failAfterError()))
-}
-
-function lint__scripts__panel () {
-  return src([scripts__src + 'panel.js'])
-    .pipe(gulpif(DEBUG, debug({ title: '## PANEL:' })))
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(gulpif(PROD, eslint.failAfterError()))
@@ -325,7 +316,7 @@ function process__scripts__main () {
   return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? true : false })
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
     .pipe(concat('main.js'))
-    .pipe(gulpif(PROD, uglify()))
+    // .pipe(gulpif(PROD, uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
 };
@@ -364,6 +355,7 @@ function clean__styles () { return del(styles__dest + '*.min.{css,css.map}') }
 // LINT -------------------------------------------------------------
 
 function lint__styles () {
+  const stylelint = require('gulp-stylelint')
   return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
     .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? true : false }))
@@ -411,7 +403,7 @@ function watch__content () {
 const LOGIC = series(parallel(blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
 const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
-const LINT = series(lint__logic, lint__styles, lint__scripts__main, lint__scripts__panel)
+const LINT = series(lint__logic, lint__styles, lint__scripts)
 const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 if (PROD) {
