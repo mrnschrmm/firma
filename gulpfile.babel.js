@@ -20,7 +20,7 @@ import phpcs from 'gulp-phpcs'
 import debug from 'gulp-debug'
 import sass from 'gulp-sass'
 import sass_node from 'node-sass'
-import bs from 'browser-sync'
+import sync from 'browser-sync'
 
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS['prod']) ? true : false
@@ -34,10 +34,10 @@ const dist = path.dist
 // BROWSERSYNC
 ////////////////////////////////////////////////////////////////////////////////
 
-const sync = bs.create()
+const browser = sync.create()
 
 function browsersync (done) {
-  sync.init({
+  browser.init({
     host: config.host.local,
     proxy: config.host.local,
     logLevel: DEBUG ? 'debug' : 'info',
@@ -55,7 +55,7 @@ function browsersync (done) {
 }
 
 function reload (done) {
-  sync.reload()
+  browser.reload()
   done()
 }
 
@@ -408,7 +408,7 @@ function watch__content () {
 // COMPOSITION
 ////////////////////////////////////////////////////////////////////////////////
 
-const LOGIC = series(parallel(blueprints, configs, collections, controllers, languages, snippets, templates))
+const LOGIC = series(parallel(blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
 const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const LINT = series(lint__logic, lint__styles, lint__scripts__main, lint__scripts__panel)

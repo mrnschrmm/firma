@@ -23,7 +23,7 @@ module.exports = {
     content: 'access/content'
   },
   vendor: {
-    dest: 'base/vendor',
+    dest: 'app/dist/base/vendor',
     src: [
       'node_modules/jquery/dist/jquery.min.{js,map}'
     ]
