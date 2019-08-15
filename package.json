@@ -51,6 +51,7 @@
     "stylelint-scss": "3.9.3"
   },
   "dependencies": {
+    "body-scroll-lock": "2.6.4",
     "jquery": "3.4.1"
   },
   "stylelint": {
