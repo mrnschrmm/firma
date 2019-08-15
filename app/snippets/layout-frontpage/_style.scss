@@ -1,12 +1,12 @@
-[data-is='layout-frontpage'] {
+[is='layout-frontpage'] {
   background: url('../base/assets/icons/logo_2017.svg') no-repeat center;
   background-size: 140px;
-  height: 85vh;
+  height: 100vh;
+  position: relative;
   width: 100%;
 
   @media (min-width: $breakpoint-s) {
     background-size: 200px;
-    height: 100vh;
   }
 
   @media (min-width: $breakpoint-m) {
@@ -15,5 +15,16 @@
 
   @media (min-width: $breakpoint-l) {
     background-size: 240px;
+  }
+
+  .footer {
+    background-color: #051d87;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+
+    @media (min-width: $breakpoint-m) {
+      background-color: transparent;
+    }
   }
 }
