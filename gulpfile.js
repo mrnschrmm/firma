@@ -409,7 +409,7 @@ const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__sty
 if (PROD) {
   exports.default = series(LINT, LOGIC, STYLE, ASSET)
 } else {
-  exports.default = series(LINT, LOGIC, STYLE, ASSET, RUN)
+  exports.default = series(LOGIC, STYLE, ASSET, RUN)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
