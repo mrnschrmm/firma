@@ -22,10 +22,14 @@ body {
 }
 
 .snippet-layout {
+  > .header,
+  > .footer {
+    height: 5.5rem;
+  }
+
   > .header {
     display: flex;
     flex-direction: column;
-    height: 5.5rem;
     justify-content: center;
     padding: 0 $global-container-padding-s;
 
