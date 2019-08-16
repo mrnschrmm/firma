@@ -5,13 +5,22 @@
   }
 
   .details {
-    padding: 0 1.5rem 0 0;
     text-align: right;
 
     &-tel,
     &-mail {
       color: $c-white;
       display: block;
+      font-size: 0.9375rem;
+
+      @media (min-width: $breakpoint-l) {
+        font-size: 1rem;
+      }
+
+      &:hover,
+      &:focus {
+        color: $c-nav-hover;
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-<div class="snippet-component" is="block-map">
+<div class="snippet" is="block-map">
   <div class="container">
     <div id="map"></div>
   </div>

@@ -13,12 +13,14 @@ $global-font-heading-line-height: 1.25;
 // LAYOUT
 // -------------------------------------------------------------
 
-// DOCUMENT
+// WIDTH
 $global-document-max-width: 2560px;
+$global-container-max-width: 1080px;
 
-// CONTAINER
-$global-container-max-width: 1600px;
-$global-container-padding: 32px;
+// PADDING
+$global-container-padding-s: 16px;
+$global-container-padding-m: 24px;
+$global-container-padding-l: 32px;
 
 // GRID
 $global-gutter-width: 2rem;

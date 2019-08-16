@@ -1,12 +1,31 @@
 [is='block-map'] {
+  margin: 1.75rem 0 0;
+
+  @media (min-width: $breakpoint-s) {
+    margin-top: 2rem;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    margin-top: 2.5rem;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  .container {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+  }
+
   #map { /* stylelint-disable-line */
     background-color: #062299;
     height: 75vh;
-    width: 100vw;
+    width: 100%;
 
     @media (min-width: $breakpoint-m) {
       height: 75vh;
-      width: 100vw;
     }
   }
 }

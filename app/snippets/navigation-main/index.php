@@ -1,4 +1,4 @@
-<div class="snippet-component" is="navigation-main">
+<div class="snippet" is="navigation-main">
     <div class="navigation-main">
         <a class="brand" href="<?= $site->url() ?>"><?= $site->title() ?></a>
         <button class="toggle" data-toggle-menu type="button"></button>

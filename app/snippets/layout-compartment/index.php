@@ -4,8 +4,8 @@
   </header>
   <main class="main">
     <?php snippet('block-page-header/index') ?>
+    <?php snippet('block-wysiwyg/index') ?>
     <?php snippet('list-services/index') ?>
-    </div>
   </main>
   <footer class="footer">
     <?php snippet('card-contact/index') ?>

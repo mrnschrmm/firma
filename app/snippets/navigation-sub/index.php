@@ -5,17 +5,11 @@ if ($root = $pages->findOpen()) {
 }
 
 if ($items and $items->count()) : ?>
-<div class="snippet-component" is="navigation-sub">
+<div class="snippet" is="navigation-sub">
   <div class="container">
     <div class="navigation-sub">
       <nav class="menu">
-        <ul class="list">
-          <?php foreach ($items as $item) : ?>
-          <li class="list-item">
-            <a<?php e($item->isOpen(), ' class="active"') ?> href="<?php echo $item->url() ?>"><?php echo $item->title()->html() ?></a>
-          </li>
-          <?php endforeach ?>
-        </ul>
+        <?php snippet('navigation-sub/partials/list/index', ['items' => $items]) ?>
       </nav>
     </div>
   </div>
