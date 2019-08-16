@@ -8,12 +8,16 @@
 
   .brand {
     color: $c-nav-link;
+    font-size: 0.9375rem;
     text-decoration: none;
     width: 180px;
 
+    @media (min-width: $breakpoint-l) {
+      font-size: 1rem;
+    }
+
     &:hover,
     &:focus {
-      outline: 0;
       text-decoration: underline;
     }
   }
