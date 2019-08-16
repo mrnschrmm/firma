@@ -61,19 +61,31 @@ function reload (done) {
 // VENDOR
 ////////////////////////////////////////////////////////////////////////////////
 
-const vendor = series(clean__vendor, copy__vendor)
+const vendor = series(clean__vendor, process__vendor_head, process__vendor)
 
 // CLEAN -------------------------------------------------------------
 
 function clean__vendor () {
-  return del([config.vendor.dest])
+  return del([config.vendor.dest + '{vendor.head,vendor}.min.js'])
 }
 
-// COPY -------------------------------------------------------------
+// PROCESS -------------------------------------------------------------
 
-function copy__vendor () {
+function process__vendor_head () {
+  return src(config.vendor.head)
+    .pipe(gulpif(DEBUG, debug({ title: '## VENDOR.HEAD:' })))
+    .pipe(concat('vendor.head.js'))
+    .pipe(gulpif(PROD, uglify()))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(dest(config.vendor.dest))
+}
+
+function process__vendor () {
   return src(config.vendor.src)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR:' })))
+    .pipe(concat('vendor.js'))
+    .pipe(gulpif(PROD, uglify()))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
 

@@ -23,11 +23,13 @@ module.exports = {
     content: 'access/content'
   },
   vendor: {
-    dest: 'app/dist/base/vendor',
+    dest: 'app/dist/base',
+    head: [
+      'node_modules/document-register-element/build/document-register-element.js'
+    ],
     src: [
       'node_modules/jquery/dist/jquery.js',
-      'node_modules/body-scroll-lock/lib/bodyScrollLock.js',
-      'node_modules/document-register-element/build/document-register-element.js'
+      'node_modules/body-scroll-lock/lib/bodyScrollLock.js'
     ]
   }
 }
