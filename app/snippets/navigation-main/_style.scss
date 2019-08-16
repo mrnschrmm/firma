@@ -37,7 +37,7 @@
   .menu {
     display: none;
 
-    @at-root .snippet-component-isOpen#{&} {
+    @at-root .snippet-isOpen#{&} {
       align-items: center;
       background-color: #051d87;
       bottom: 0;

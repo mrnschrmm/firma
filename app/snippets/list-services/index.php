@@ -1,4 +1,4 @@
-<div class="snippet-component" is="list-services">
+<div class="snippet" is="list-services">
   <div class="container">
     <div class="list-services">
       <h3 class="title"><?php echo ucfirst($page->services()->key()) ?></h3>

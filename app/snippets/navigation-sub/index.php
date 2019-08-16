@@ -5,7 +5,7 @@ if ($root = $pages->findOpen()) {
 }
 
 if ($items and $items->count()) : ?>
-<div class="snippet-component" is="navigation-sub">
+<div class="snippet" is="navigation-sub">
   <div class="container">
     <div class="navigation-sub">
       <nav class="menu">

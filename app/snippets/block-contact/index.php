@@ -1,4 +1,4 @@
-<div class="snippet-component" is="block-contact">
+<div class="snippet" is="block-contact">
   <div class="container">
     <div class="columns">
       <div class="column column-isHalf">

@@ -32,8 +32,8 @@ class NavigationMain extends window.HTMLDivElement {
   }
 
   toggleMenu (e) {
-    this.$.toggleClass('snippet-component-isOpen')
-    if (this.$.hasClass('snippet-component-isOpen')) {
+    this.$.toggleClass('snippet-isOpen')
+    if (this.$.hasClass('snippet-isOpen')) {
       disableBodyScroll(this.$menu.get(0))
     } else {
       enableBodyScroll(this.$menu.get(0))
