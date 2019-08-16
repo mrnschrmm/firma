@@ -1,12 +1,12 @@
 [is='block-map'] {
-  margin: 1.75rem 0 0;
+  margin: 3rem 0 0;
 
   @media (min-width: $breakpoint-s) {
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 
   @media (min-width: $breakpoint-xl) {
-    margin-top: 2.5rem;
+    margin-top: 5rem;
   }
 
   &:first-child {
