@@ -79,7 +79,11 @@ body {
 
   > .page,
   > .main {
-    padding: 5rem 0 9.5rem;
+    padding: 3rem 0 9.5rem;
+
+    @media (min-width: $breakpoint-l) {
+      padding-top: 5rem;
+    }
 
     @media (min-width: $breakpoint-xl) {
       padding: 0 0 7.5rem;

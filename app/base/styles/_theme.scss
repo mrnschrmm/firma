@@ -55,13 +55,9 @@
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.625rem;
 
       @media (min-width: $breakpoint-m) {
-        font-size: 1.625rem;
-      }
-
-      @media (min-width: $breakpoint-xl) {
         font-size: 2rem;
       }
     }
