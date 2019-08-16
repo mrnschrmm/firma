@@ -12,4 +12,15 @@
   &:first-child {
     margin-top: 0;
   }
+
+  .columns {
+    @include grid-scale(2, flex-start, 1rem, 1rem);
+  }
+
+  .address,
+  .channel {
+    span {
+      display: block;
+    }
+  }
 }
