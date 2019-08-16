@@ -7,17 +7,6 @@ const { series, parallel, src, dest, watch } = require('gulp')
 const config = require('./config')
 const del = require('del')
 const minimist = require('minimist')
-const autoprefixer = require('gulp-autoprefixer')
-const imagemin = require('gulp-imagemin')
-const favicon = require('gulp-favicons')
-const uglify = require('gulp-uglify')
-const concat = require('gulp-concat')
-const rename = require('gulp-rename')
-const gulpif = require('gulp-if')
-const debug = require('gulp-debug')
-const sass = require('gulp-sass')
-const sass_node = require('node-sass')
-const sync = require('browser-sync')
 
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS['prod']) ? true : false
@@ -26,6 +15,18 @@ const DEBUG = (ARGS['debug']) ? true : false
 const path = prep(config.path)
 const root = path.root
 const dist = path.dist
+
+const autoprefixer = require('gulp-autoprefixer')
+const imagemin = require('gulp-imagemin')
+const favicon = require('gulp-favicons')
+const concat = require('gulp-concat')
+const gulpif = require('gulp-if')
+const rename = require('gulp-rename')
+const uglify = require('gulp-uglify')
+const debug = require('gulp-debug')
+const sass = require('gulp-sass')
+const sass_node = require('node-sass')
+const sync = require('browser-sync')
 
 ////////////////////////////////////////////////////////////////////////////////
 // BROWSERSYNC
