@@ -1,43 +1,11 @@
-.list {
-  display: block;
-  list-style: none;
-  margin: 0;
+.select {
+  background-image: url('../../base/assets/icons/ico-ui-earth-24x24.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  border: 0;
+  font-size: 0;
+  height: 24px;
   padding: 0;
-
-  @media (min-width: $breakpoint-m) {
-    display: flex;
-  }
-
-  &-item {
-    margin: 0;
-
-    @media (min-width: $breakpoint-m) {
-      margin: 0 0 0 1.5rem;
-    }
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-
-  &-link {
-    font-size: 0.9375rem;
-
-    @media (min-width: $breakpoint-l) {
-      font-size: 1rem;
-    }
-
-    &,
-    &:visited {
-      color: $c-nav-link;
-      outline: 0;
-      text-decoration: none;
-    }
-
-    &:hover,
-    &:focus {
-      color: $c-nav-hover;
-      outline: 0;
-    }
-  }
+  width: 24px;
 }

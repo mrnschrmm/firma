@@ -1,7 +1,7 @@
 <div class="snippet" is="navigation-main">
     <div class="navigation-main">
         <a class="brand" href="<?= $site->url() ?>"><?= $site->title() ?></a>
-        <button class="toggle" data-toggle-menu type="button"><?php echo svg('base/assets/icons/ico-ui-menu-24x18.svg') ?></button>
+        <button class="toggle" data-toggle-menu type="button"><?= svg('base/assets/icons/ico-ui-menu-24x18.svg') ?></button>
         <nav class="menu">
             <div class="menu-main">
                 <?php snippet('navigation-main/partials/main/index', ['pages' => $pages]) ?>
