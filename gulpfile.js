@@ -370,7 +370,7 @@ function process__styles () {
   return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? true : false })
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
     .pipe(sass({ outputStyle: PROD ? 'compressed' : 'expanded' }).on('error', sass.logError))
-    .pipe(gulpif(PROD, autoprefixer())).pipe(rename({ suffix: '.min' }))
+    .pipe(autoprefixer()).pipe(rename({ suffix: '.min' }))
     .pipe(dest(styles__dest, { sourcemaps: !PROD ? '.' : false }))
 }
 
