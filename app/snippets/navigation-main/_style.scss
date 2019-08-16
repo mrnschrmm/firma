@@ -13,7 +13,7 @@
     width: 180px;
 
     @media (min-width: $breakpoint-l) {
-      font-size: 1rem;
+      margin-top: 2px;
     }
 
     &:hover,
@@ -23,15 +23,29 @@
   }
 
   .toggle {
-    background: url('../base/assets/icons/icon-menu.svg') no-repeat center;
-    background-size: 16px 11px;
+    background-color: transparent;
     border: 0;
-    bottom: 1.5625rem;
-    height: 33px;
-    left: 1rem;
+    bottom: 2rem;
+    color: $c-ico-link;
+    height: 18px;
+    left: $global-container-padding-s;
+    padding: 0;
     position: fixed;
-    width: 32px;
+    width: 24px;
     z-index: 99;
+
+    svg {
+      display: block;
+    }
+
+    &:hover,
+    &:focus {
+      color: $c-ico-hover;
+    }
+
+    @media (min-width: $breakpoint-s) {
+      left: $global-container-padding-m;
+    }
 
     @media (min-width: $breakpoint-m) {
       display: none;
@@ -72,17 +86,22 @@
 
     &-main {
       @import 'partials/main/style';
+      margin-top: 2px;
     }
 
     &-lang {
+      bottom: 29px;
       margin: 0;
+      position: absolute;
+      right: $global-container-padding-s;
+      width: 24px;
 
-      @media (min-width: $breakpoint-m) {
-        margin: 0 0 0 4rem;
+      @media (min-width: $breakpoint-s) {
+        right: $global-container-padding-m;
       }
 
-      &:first-child {
-        margin-left: 0;
+      @media (min-width: $breakpoint-m) {
+        display: none;
       }
 
       @import 'partials/lang/style';

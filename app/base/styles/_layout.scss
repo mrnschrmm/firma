@@ -2,6 +2,9 @@
 // LAYOUT
 ////////////////////////////////////////////////////////////////////////////////
 
+// GENERAL
+// -------------------------------------------------------------
+
 body {
   margin: 0;
 }
@@ -20,6 +23,38 @@ body {
     padding: 0 $global-container-padding-l;
   }
 }
+
+// MAIN - FULL HEIGHT
+// -------------------------------------------------------------
+
+@media (min-width: $breakpoint-xl) {
+  body {
+    height: 100vh;
+  }
+
+  .snippet-layout {
+    &:not([is='layout-contact']) {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+
+      .header {
+        flex: 0 0 auto;
+      }
+
+      .page,
+      .main {
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// STYLE
+// -------------------------------------------------------------
 
 .snippet-layout {
   > .header,
@@ -44,12 +79,29 @@ body {
 
   > .page,
   > .main {
-    padding: 5rem 0 9.5rem;
+    padding: 3rem 0 8.5rem;
+
+    @media (min-width: $breakpoint-s) {
+      padding-bottom: 10rem;
+      padding-top: 5rem;
+    }
+
+    @media (min-width: $breakpoint-m) {
+      padding-top: 7rem;
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      padding: 0 0 8rem;
+    }
   }
 
   > .main {
     @at-root [is='layout-contact']#{&} {
-      padding-bottom: 7.5rem;
+      padding-bottom: 5.5rem;
+
+      @media (min-width: $breakpoint-xl) {
+        padding-top: 7rem;
+      }
     }
   }
 
@@ -63,6 +115,15 @@ body {
 
     @media (min-width: $breakpoint-s) {
       padding: 1.25rem $global-container-padding-m;
+    }
+
+    @media (max-width: $breakpoint-m) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (min-width: $breakpoint-m) {
+      @include grid-scale(2, flex-start, 1rem, 1rem);
     }
 
     @media (min-width: $breakpoint-l) {

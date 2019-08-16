@@ -1,8 +1,7 @@
 [is='card-contact'] {
-  .card-contact {
-    display: flex;
-    justify-content: flex-end;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .details {
     text-align: right;
@@ -12,10 +11,6 @@
       color: $c-white;
       display: block;
       font-size: 0.9375rem;
-
-      @media (min-width: $breakpoint-l) {
-        font-size: 1rem;
-      }
 
       &:hover,
       &:focus {

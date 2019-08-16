@@ -1,9 +1,5 @@
-<ul class="list list--lang">
-    <?php foreach ($kirby->languages() as $language) : ?>
-        <li class="list-item <?= e($kirby->language() == $language, 'list-item-isActive') ?>">
-            <a class="list-link" href="<?= $page->url($language->code()) ?>" hreflang="<?= $language->code() ?>">
-                <?= html($language->name()) ?>
-            </a>
-        </li>
-    <?php endforeach ?>
-</ul>
+<select class="select" onchange="window.location.href = this.value">
+  <?php foreach ($kirby->languages() as $language): ?>
+  <option value="<?= $page->url($language->code()) ?>"<?= e($kirby->language() == $language, ' selected="selected"') ?> hreflang="<?= $language->code() ?>"><?= html($language->name()) ?></option>
+  <?php endforeach ?>
+</select>

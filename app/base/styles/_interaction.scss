@@ -94,3 +94,55 @@ button {
     padding-right: 1.625rem;
   }
 }
+
+// FORM
+// -------------------------------------------------------------
+
+// GENERAL
+
+label,
+input,
+select,
+textarea,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.25;
+
+  &::placeholder {
+    color: #999;
+    font-size: inherit;
+    font-weight: 400;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+// FIELD
+
+$input-padding-vertical: 5px;
+$input-padding-horizontal: 10px;
+$input-padding: ($input-padding-vertical + 1px) $input-padding-horizontal $input-padding-vertical $input-padding-horizontal;
+
+input:not([type='checkbox']):not([type='radio']),
+select,
+textarea {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid $c-white;
+  border-radius: 0;
+  color: $c-white;
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  padding: $input-padding;
+
+  &:hover,
+  &:focus {
+    border-color: $c-btn-hover;
+    color: $c-white;
+    cursor: pointer;
+  }
+}
