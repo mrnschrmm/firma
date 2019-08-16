@@ -72,7 +72,7 @@ body {
       padding: 0 $global-container-padding-m;
     }
 
-    @media (min-width: $breakpoint-xxl) {
+    @media (min-width: $breakpoint-l) {
       padding: 0 $global-container-padding-l;
     }
   }
