@@ -25,14 +25,12 @@ body {
   > .page,
   > .main {
     padding: 5rem 0 9.5rem;
+  }
 
+  > .main {
     @at-root [is='layout-contact']#{&} {
       padding-bottom: 7.5rem;
     }
-
-    // @media (min-width: $breakpoint-m) {
-    //   background-color: transparent;
-    // }
   }
 
   > .footer {
