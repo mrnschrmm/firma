@@ -11,6 +11,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/dist/base/assets/favicons/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/dist/base/assets/favicons/favicon-32x32.png">
   <link rel="stylesheet" href="/dist/base/main.min.css">
+  <script src='/dist/base/vendor/document-register-element.js'></script>
 </head>
 
 <body>

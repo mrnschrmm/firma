@@ -26,7 +26,8 @@ module.exports = {
     dest: 'app/dist/base/vendor',
     src: [
       'node_modules/jquery/dist/jquery.js',
-      'node_modules/body-scroll-lock/lib/bodyScrollLock.js'
+      'node_modules/body-scroll-lock/lib/bodyScrollLock.js',
+      'node_modules/document-register-element/build/document-register-element.js'
     ]
   }
 }

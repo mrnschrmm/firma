@@ -22,6 +22,7 @@
   "devDependencies": {
     "browser-sync": "2.26.7",
     "del": "5.0.0",
+    "document-register-element": "^1.14.3",
     "eslint": "6.1.0",
     "eslint-config-standard": "13.0.1",
     "eslint-plugin-import": "2.18.2",
