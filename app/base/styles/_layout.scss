@@ -79,7 +79,12 @@ body {
 
   > .page,
   > .main {
-    padding: 3rem 0 9.5rem;
+    padding: 2.5rem 0 8.5rem;
+
+    @media (min-width: $breakpoint-m) {
+      padding-bottom: 9.5rem;
+      padding-top: 3rem;
+    }
 
     @media (min-width: $breakpoint-l) {
       padding-top: 5rem;
@@ -92,7 +97,11 @@ body {
 
   > .main {
     @at-root [is='layout-contact']#{&} {
-      padding: 5rem 0 5.5rem;
+      padding-bottom: 5.5rem;
+
+      @media (min-width: $breakpoint-xl) {
+        padding-top: 5rem;
+      }
     }
   }
 
