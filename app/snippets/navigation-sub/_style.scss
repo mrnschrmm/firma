@@ -1,4 +1,18 @@
 [is='navigation-sub'] {
+  margin: 1.75rem 0 0;
+
+  @media (min-width: $breakpoint-s) {
+    margin-top: 2rem;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    margin-top: 2.5rem;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
   .navigation-sub {
     width: 100%;
 

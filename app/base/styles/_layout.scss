@@ -9,8 +9,16 @@ body {
 .container {
   margin: 0 auto;
   max-width: $global-container-max-width;
-  padding: 0 $global-container-padding;
+  padding: 0 $global-container-padding-s;
   width: 100%;
+
+  @media (min-width: $breakpoint-s) {
+    padding: 0 $global-container-padding-m;
+  }
+
+  @media (min-width: $breakpoint-xxl) {
+    padding: 0 $global-container-padding-l;
+  }
 }
 
 .snippet-layout {
@@ -19,7 +27,15 @@ body {
     flex-direction: column;
     height: 5.5rem;
     justify-content: center;
-    padding: 0 $global-container-padding;
+    padding: 0 $global-container-padding-s;
+
+    @media (min-width: $breakpoint-s) {
+      padding: 0 $global-container-padding-m;
+    }
+
+    @media (min-width: $breakpoint-xxl) {
+      padding: 0 $global-container-padding-l;
+    }
   }
 
   > .page,
@@ -36,10 +52,18 @@ body {
   > .footer {
     background-color: #051d87;
     bottom: 0;
-    padding: 1.25rem $global-container-padding;
+    padding: 1.25rem $global-container-padding-s;
     position: fixed;
     width: 100%;
     z-index: 66;
+
+    @media (min-width: $breakpoint-s) {
+      padding: 1.25rem $global-container-padding-m;
+    }
+
+    @media (min-width: $breakpoint-l) {
+      padding: 1.25rem $global-container-padding-l;
+    }
 
     @media (min-width: $breakpoint-xxl) {
       background-color: transparent;
