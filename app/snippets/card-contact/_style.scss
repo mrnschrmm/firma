@@ -1,8 +1,7 @@
 [is='card-contact'] {
-  .card-contact {
-    display: flex;
-    justify-content: flex-end;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .details {
     text-align: right;
