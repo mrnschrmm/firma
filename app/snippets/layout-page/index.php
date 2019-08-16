@@ -7,6 +7,7 @@
       <?php snippet('block-page-header/index') ?>
     </header>
     <main class="page-main">
+      <?php snippet('block-wysiwyg/index') ?>
     </main>
     <footer class="page-footer">
       <?php snippet('block-page-footer/index') ?>

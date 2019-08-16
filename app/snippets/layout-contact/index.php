@@ -4,6 +4,7 @@
   </header>
   <main class="main">
     <?php snippet('block-page-header/index') ?>
+    <?php snippet('block-wysiwyg/index') ?>
     <?php snippet('block-contact/index') ?>
     <?php snippet('block-map/index') ?>
   </main>
