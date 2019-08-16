@@ -1,3 +1,4 @@
+<?php ?>
 <div class="snippet" is="card-contact">
   <div class="card-contact">
     <div class="details">

@@ -1,3 +1,4 @@
+<?php ?>
 <div class="snippet" is="block-map">
   <div class="container">
     <div id="map"></div>
