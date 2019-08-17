@@ -1,5 +1,5 @@
 <?php
-include 'vendor/autoload.php';
+include __DIR__ . '/dist/kirby/bootstrap.php';
 
 $root = __DIR__;
 
