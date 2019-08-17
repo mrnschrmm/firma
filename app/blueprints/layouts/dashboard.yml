@@ -7,8 +7,8 @@ columns:
       header:
         type: fields
         fields:
-          headling:
-            label: 
+          headline:
+            label:
               en: Pages
               de: Seiten
             type: headline

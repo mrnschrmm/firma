@@ -4,6 +4,7 @@
       <div class="column">
         <div class="address">
           <span class="address-company"><?= $page->company() ?></span>
+          <span class="address-extra"><?= $page->extra() ?></span>
           <span class="address-street"><?= $page->street() ?></span>
           <span class="address-zip"><?= $page->zip() ?>&nbsp;<?= $page->location() ?></span>
         </div>

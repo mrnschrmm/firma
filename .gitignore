@@ -3,6 +3,7 @@ node_modules
 app/access
 app/dist
 app/vendor
+backup
 
 # FILES
 .vscode

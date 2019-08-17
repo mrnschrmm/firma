@@ -11,7 +11,7 @@ module.exports = {
     icons: 'icons',
     images: 'images',
     favicons: 'favicons',
-    languages: 'site/languages',
+    languages: 'languages',
     controllers: 'controllers',
     collections: 'collections',
     blueprints: 'blueprints',
@@ -19,11 +19,14 @@ module.exports = {
     snippets: 'snippets',
     scripts: 'base',
     styles: 'base',
-    configs: 'site/config',
+    configs: 'config',
     content: 'access/content'
   },
   vendor: {
-    dest: 'app/dist/base/vendor',
+    dest: 'app/dist/base',
+    head: [
+      'node_modules/document-register-element/build/document-register-element.js'
+    ],
     src: [
       'node_modules/jquery/dist/jquery.js',
       'node_modules/body-scroll-lock/lib/bodyScrollLock.js'

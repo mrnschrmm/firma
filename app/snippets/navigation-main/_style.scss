@@ -12,10 +12,6 @@
     text-decoration: none;
     width: 180px;
 
-    @media (min-width: $breakpoint-l) {
-      margin-top: 2px;
-    }
-
     &:hover,
     &:focus {
       text-decoration: underline;
@@ -63,7 +59,7 @@
       flex-direction: column;
       justify-content: center;
       left: 0;
-      line-height: 1.875;
+      line-height: 2.5;
       position: fixed;
       right: 0;
       top: 0;

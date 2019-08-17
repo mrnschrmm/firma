@@ -28,6 +28,7 @@
     "eslint-plugin-node": "9.1.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.0",
+    "esm": "3.2.25",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "6.1.0",
     "gulp-concat": "2.6.1",
@@ -40,7 +41,7 @@
     "gulp-rename": "1.4.0",
     "gulp-sass": "4.0.2",
     "gulp-stylelint": "9.0.0",
-    "gulp-uglify": "3.0.2",
+    "gulp-uglify-es": "1.0.4",
     "minimist": "1.2.0",
     "node-sass": "4.12.0",
     "stylelint": "10.1.0",
@@ -49,13 +50,15 @@
   },
   "dependencies": {
     "body-scroll-lock": "2.6.4",
+    "document-register-element": "1.14.3",
     "jquery": "3.4.1"
   },
   "stylelint": {
     "extends": "./.stylelintrc",
     "ignoreFiles": [
       "app/dist/**",
-      "app/vendor/**"
+      "app/vendor/**",
+      "backup/**"
     ]
   },
   "eslintConfig": {
@@ -72,7 +75,8 @@
   },
   "eslintIgnore": [
     "app/dist/**",
-    "app/vendor/**"
+    "app/vendor/**",
+    "backup/**"
   ],
   "author": "Marian Schramm",
   "license": "ISC",

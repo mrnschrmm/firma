@@ -1,5 +1,5 @@
 <?php
-include 'vendor/autoload.php';
+include __DIR__ . '/dist/kirby/bootstrap.php';
 
 $root = __DIR__;
 
@@ -9,13 +9,16 @@ $kirby = new Kirby([
         'media' => 'http://firma.local.blee.ch/access/media',
     ],
     'roots' => [
-        'cache' => $root . '/access/cache',
         'site' => $root . '/dist/site',
+        'kirby' => $root . '/dist/kirby',
+        'cache' => $root . '/access/cache',
+        'config' => $root . '/dist/config',
         'accounts' => $root . '/access/accounts',
         'sessions' => $root . '/access/sessions',
+        'blueprints' => $root . '/dist/blueprints',
         'controllers' => $root . '/dist/controllers',
         'collections' => $root . '/dist/collections',
-        'blueprints' => $root . '/dist/blueprints',
+        'languages' => $root . '/dist/languages',
         'templates' => $root . '/dist/templates',
         'snippets' => $root . '/dist/snippets',
         'plugins' => $root . '/dist/plugins',

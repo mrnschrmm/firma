@@ -2,11 +2,26 @@
 // GULP
 ////////////////////////////////////////////////////////////////////////////////
 
-const { series, parallel, src, dest, watch } = require('gulp')
+import { series, parallel, src, dest, watch } from 'gulp'
 
-const config = require('./config')
-const del = require('del')
-const minimist = require('minimist')
+import autoprefixer from 'gulp-autoprefixer'
+import stylelint from 'gulp-stylelint'
+import imagemin from 'gulp-imagemin'
+import favicon from 'gulp-favicons'
+import concat from 'gulp-concat'
+import rename from 'gulp-rename'
+import uglify from 'gulp-uglify-es'
+import eslint from 'gulp-eslint'
+import gulpif from 'gulp-if'
+import phpcs from 'gulp-phpcs'
+import debug from 'gulp-debug'
+import scss from 'gulp-sass'
+import sass from 'node-sass'
+import sync from 'browser-sync'
+
+import del from 'del'
+import config from './config'
+import minimist from 'minimist'
 
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS['prod']) ? true : false
@@ -15,18 +30,6 @@ const DEBUG = (ARGS['debug']) ? true : false
 const path = prep(config.path)
 const root = path.root
 const dist = path.dist
-
-const autoprefixer = require('gulp-autoprefixer')
-const imagemin = require('gulp-imagemin')
-const favicon = require('gulp-favicons')
-const concat = require('gulp-concat')
-const gulpif = require('gulp-if')
-const rename = require('gulp-rename')
-const uglify = require('gulp-uglify')
-const debug = require('gulp-debug')
-const sass = require('gulp-sass')
-const sass_node = require('node-sass')
-const sync = require('browser-sync')
 
 ////////////////////////////////////////////////////////////////////////////////
 // BROWSERSYNC
@@ -61,19 +64,31 @@ function reload (done) {
 // VENDOR
 ////////////////////////////////////////////////////////////////////////////////
 
-const vendor = series(clean__vendor, copy__vendor)
+const vendor = series(clean__vendor, process__vendor_head, process__vendor)
 
 // CLEAN -------------------------------------------------------------
 
 function clean__vendor () {
-  return del([config.vendor.dest])
+  return del([config.vendor.dest + '{vendor.head,vendor}.min.js'])
 }
 
-// COPY -------------------------------------------------------------
+// PROCESS -------------------------------------------------------------
 
-function copy__vendor () {
+function process__vendor_head () {
+  return src(config.vendor.head)
+    .pipe(gulpif(DEBUG, debug({ title: '## VENDOR_HEAD:' })))
+    .pipe(concat('vendor.head.js'))
+    .pipe(gulpif(PROD, uglify()))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(dest(config.vendor.dest))
+}
+
+function process__vendor () {
   return src(config.vendor.src)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR:' })))
+    .pipe(concat('vendor.js'))
+    .pipe(gulpif(PROD, uglify()))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
 
@@ -115,7 +130,6 @@ function clean__templates () { return del([templates__dest]) }
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
-  const phpcs = require('gulp-phpcs')
   return src(['./app/{collections,controllers,templates,snippets,site}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'app/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
@@ -303,7 +317,6 @@ function clean__scripts__panel () { return del(scripts__dest + 'panel.min.{js,js
 // LINT -------------------------------------------------------------
 
 function lint__scripts () {
-  const eslint = require('gulp-eslint')
   return src([scripts__src + 'main.js', scripts__src + 'panel.js', snippets__src + '**/script.js'])
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
     .pipe(eslint())
@@ -317,7 +330,7 @@ function process__scripts__main () {
   return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? true : false })
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
     .pipe(concat('main.js'))
-    // .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif(PROD, uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
 };
@@ -356,7 +369,6 @@ function clean__styles () { return del(styles__dest + '*.min.{css,css.map}') }
 // LINT -------------------------------------------------------------
 
 function lint__styles () {
-  const stylelint = require('gulp-stylelint')
   return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
     .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? true : false }))
@@ -365,11 +377,10 @@ function lint__styles () {
 // PROCESS -------------------------------------------------------------
 
 function process__styles () {
-  sass.compiler = sass_node
-
+  scss.compiler = sass
   return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? true : false })
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(sass({ outputStyle: PROD ? 'compressed' : 'expanded' }).on('error', sass.logError))
+    .pipe(scss({ outputStyle: PROD ? 'compressed' : 'expanded' }).on('error', scss.logError))
     .pipe(autoprefixer()).pipe(rename({ suffix: '.min' }))
     .pipe(dest(styles__dest, { sourcemaps: !PROD ? '.' : false }))
 }

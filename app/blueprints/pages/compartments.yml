@@ -1,14 +1,14 @@
-title: 
-  en: Compartments
+title:
   de: Fachbereiche
-  
+  en: Compartments
+
 preset: pages
 
 drafts:
   extends: sections/compartments
-  empty: 
-    en: No Compartments
+  empty:
     de: Es bestehen keine Einträge
+    en: No Compartments
 
 listed:
   extends: sections/compartments
@@ -17,7 +17,7 @@ listed:
   image:
     back: white
     ratio: 21/9
-  empty: 
+  empty:
     en: No Compartments
     de: Keine Fachbereiche
 

@@ -200,9 +200,18 @@
     ul,
     ol {
       margin: 0.625rem 0 0;
+      padding: 0 0 0 1.25rem;
 
       @media (min-width: $breakpoint-s) {
         margin-top: 0.875rem;
+      }
+
+      @media (min-width: $breakpoint-m) {
+        padding-left: 2rem;
+      }
+
+      @media (min-width: $breakpoint-l) {
+        padding-left: 2.25rem;
       }
 
       @media (min-width: $breakpoint-xl) {

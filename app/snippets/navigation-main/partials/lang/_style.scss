@@ -1,5 +1,5 @@
 .select {
-  background-image: url('../../base/assets/icons/ico-ui-earth-24x24.svg');
+  background-image: url('../../dist/base/assets/icons/ico-ui-earth-color-24x24.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 24px 24px;
@@ -8,4 +8,8 @@
   height: 24px;
   padding: 0;
   width: 24px;
+
+  &:hover {
+    background-image: url('../../dist/base/assets/icons/ico-ui-earth-white-24x24.svg');
+  }
 }
