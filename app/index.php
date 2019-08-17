@@ -10,9 +10,10 @@ $kirby = new Kirby([
     ],
     'roots' => [
         'site' => $root . '/dist/site',
+        'kirby' => $root . '/dist/kirby',
         'cache' => $root . '/access/cache',
-        'accounts' => $root . '/access/accounts',
         'config' => $root . '/dist/config',
+        'accounts' => $root . '/access/accounts',
         'sessions' => $root . '/access/sessions',
         'blueprints' => $root . '/dist/blueprints',
         'controllers' => $root . '/dist/controllers',
