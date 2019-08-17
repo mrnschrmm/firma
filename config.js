@@ -11,7 +11,7 @@ module.exports = {
     icons: 'icons',
     images: 'images',
     favicons: 'favicons',
-    languages: 'site/languages',
+    languages: 'languages',
     controllers: 'controllers',
     collections: 'collections',
     blueprints: 'blueprints',
@@ -19,7 +19,7 @@ module.exports = {
     snippets: 'snippets',
     scripts: 'base',
     styles: 'base',
-    configs: 'site/config',
+    configs: 'config',
     content: 'access/content'
   },
   vendor: {
