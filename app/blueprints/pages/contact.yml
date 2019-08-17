@@ -1,8 +1,8 @@
-title: 
-  en: Contact
+title:
   de: Kontakt
+  en: Contact
 
-preset: page
+icon: page
 
 pages: false
 files: false
@@ -14,38 +14,64 @@ options:
   delete: true
   duplicate: true
   preview: true
+  read: true
   update: true
+  changeTemplate:
+    - default
 
 fields:
-  title:
-    label: Titel
-    type: title
   text:
-    label: Text
+    label:
+      de: Text
+      en: Text
     type: textarea
+    size: medium
+  line_a:
+    type: line
   company:
-    label: Firma
+    label:
+      de: Firma
+      en: Company
+    type: text
+  extra:
+    label:
+      de: Zusatz
+      en: Additional
     type: text
   street:
-    label: Straße
+    label:
+      de: Straße
+      en: Street
     type: text
   zip:
-    label: PLZ
+    label:
+      de: Postleitzahl
+      en: ZIP Code
     type: number
-    width: 1/4
+    width: 1/2
   location:
-    label: Stadt
+    label:
+      de: Stadt
+      en: City
     type: text
-    width: 3/4
+    width: 1/2
+  line_b:
+    type: line
   phone:
-    label: Telefon
+    label:
+      de: Telefon
+      en: Phone
     type: tel
     width: 1/2
   fax:
-    label: Fax
+    label:
+      de: Fax
+      en: Fax
     type: tel
     width: 1/2
   email:
-    label: Email
+    label:
+      de: E-Mail
+      en: Mail
     type: email
     width: 1/2

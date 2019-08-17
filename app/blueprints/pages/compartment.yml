@@ -1,6 +1,6 @@
 title:
-  en: Compartment
   de: Fachbereich
+  en: Compartment
 
 icon: template
 
@@ -20,12 +20,12 @@ options:
 fields:
   text:
     label:
-      en: Description
       de: Beschreibung
+      en: Description
     type: textarea
 
   services:
     extends: fields/services
     label:
-      en: Services
       de: Leistungen
+      en: Services

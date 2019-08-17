@@ -1,8 +1,6 @@
-title: 
-  en: Company
+title:
   de: Unternehmen
-  
-preset: page
+  en: Company
 
 pages: false
 files: false
@@ -17,10 +15,6 @@ options:
   update: true
 
 fields:
-  title:
-    label: Titel
-    type:  text
-
   text:
     label: Text
     type:  textarea
