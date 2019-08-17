@@ -12,10 +12,6 @@
     text-decoration: none;
     width: 180px;
 
-    @media (min-width: $breakpoint-l) {
-      margin-top: 2px;
-    }
-
     &:hover,
     &:focus {
       text-decoration: underline;
