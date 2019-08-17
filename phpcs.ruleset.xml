@@ -3,6 +3,7 @@
   <description>Coding Standards for Flynt Theme</description>
 
   <exclude-pattern>*/node_modules/*</exclude-pattern>
+  <exclude-pattern>./backup/*</exclude-pattern>
   <exclude-pattern>./app/vendor/*</exclude-pattern>
   <exclude-pattern>./app/dist/*</exclude-pattern>
   <exclude-pattern>./app/snippets/**/index.php</exclude-pattern>

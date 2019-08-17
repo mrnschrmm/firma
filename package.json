@@ -56,7 +56,8 @@
     "extends": "./.stylelintrc",
     "ignoreFiles": [
       "app/dist/**",
-      "app/vendor/**"
+      "app/vendor/**",
+      "backup/**"
     ]
   },
   "eslintConfig": {
@@ -73,7 +74,8 @@
   },
   "eslintIgnore": [
     "app/dist/**",
-    "app/vendor/**"
+    "app/vendor/**",
+    "backup/**"
   ],
   "author": "Marian Schramm",
   "license": "ISC",
