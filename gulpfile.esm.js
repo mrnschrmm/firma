@@ -4,23 +4,24 @@
 
 import { series, parallel, src, dest, watch } from 'gulp'
 
-import config from './config'
-import del from 'del'
-import minimist from 'minimist'
 import autoprefixer from 'gulp-autoprefixer'
 import stylelint from 'gulp-stylelint'
 import imagemin from 'gulp-imagemin'
 import favicon from 'gulp-favicons'
 import concat from 'gulp-concat'
-import gulpif from 'gulp-if'
 import rename from 'gulp-rename'
 import uglify from 'gulp-uglify-es'
 import eslint from 'gulp-eslint'
+import gulpif from 'gulp-if'
 import phpcs from 'gulp-phpcs'
 import debug from 'gulp-debug'
 import scss from 'gulp-sass'
 import sass from 'node-sass'
 import sync from 'browser-sync'
+
+import del from 'del'
+import config from './config'
+import minimist from 'minimist'
 
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS['prod']) ? true : false
