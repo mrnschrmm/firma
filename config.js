@@ -1,12 +1,18 @@
 module.exports = {
   host: {
-    local: 'firma.local.blee.ch',
-    live: 'schramm-reinigung.de'
+    local: 'https://firma.local.blee.ch',
+    live: 'https://www.schramm-reinigung.de'
   },
   path: {
     root: 'app',
-    dist: 'app/dist',
-    assets: 'base/assets',
+    data: 'data',
+    dist: 'dist',
+    assets: 'assets',
+    base: 'base',
+    public: 'public',
+    content: 'content',
+    site: 'site',
+    blueprints: 'blueprints',
     fonts: 'fonts',
     icons: 'icons',
     images: 'images',
@@ -14,16 +20,14 @@ module.exports = {
     languages: 'languages',
     controllers: 'controllers',
     collections: 'collections',
-    blueprints: 'blueprints',
     templates: 'templates',
     snippets: 'snippets',
-    scripts: 'base',
-    styles: 'base',
-    configs: 'config',
-    content: 'access/content'
+    scripts: 'public',
+    styles: 'public',
+    configs: 'config'
   },
   vendor: {
-    dest: 'app/dist/base',
+    dest: 'dist/public',
     head: [
       'node_modules/document-register-element/build/document-register-element.js'
     ],

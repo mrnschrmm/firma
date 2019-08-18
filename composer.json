@@ -5,13 +5,13 @@
     "getkirby/cms": "3.2.3"
   },
   "config": {
-    "vendor-dir": "app/vendor",
+    "vendor-dir": "dist/vendor",
     "optimize-autoloader": false
 
   },
   "extra": {
-    "kirby-cms-path": "app/dist/kirby",
-    "kirby-plugin-path": "app/dist/plugins"
+    "kirby-cms-path": "dist/kirby",
+    "kirby-plugin-path": "dist/plugins"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.4"
