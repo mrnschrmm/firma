@@ -6,8 +6,8 @@
   "scripts": {
     "start": "gulp --dev",
     "build": "gulp --prod",
-    "start debug": "gulp --dev --debug",
-    "build debug": "gulp --prod --debug"
+    "start.debug": "gulp --dev --debug",
+    "build.debug": "gulp --prod --debug"
   },
   "browserslist": {
     "production": [
@@ -56,8 +56,7 @@
   "stylelint": {
     "extends": "./.stylelintrc",
     "ignoreFiles": [
-      "app/dist/**",
-      "app/vendor/**",
+      "dist/**",
       "backup/**"
     ]
   },
@@ -74,8 +73,7 @@
     }
   },
   "eslintIgnore": [
-    "app/dist/**",
-    "app/vendor/**",
+    "dist/**",
     "backup/**"
   ],
   "author": "Marian Schramm",

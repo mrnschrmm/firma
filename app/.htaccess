@@ -39,6 +39,8 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*) index.php [L]
 
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 </IfModule>
 
 # compress text file responses
@@ -59,10 +61,10 @@
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-Content-Type-Options "nosniff"
   Header set X-XSS-Protection "1; mode=block"
-  Header set Content-Security-Policy "default-src 'self'; style-src 'self'; script-src schramm-reinigung.de google.com firma.local.blee.ch;
-  Header set Feature-Policy "fullscreen 'self'; geolocation 'none'; midi 'none'; notifications 'none'; push 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; vibrate 'none'; payment 'none'"
+  Header set Content-Security-Policy "default-src 'self' 'unsafe-eval' 'unsafe-inline' maps.googleapis.com; form-src 'self'"
+  Header set Feature-Policy "fullscreen 'self'; geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; payment 'none'"
   Header set Referrer-Policy "no-referrer-when-downgrade"
-  Header set Strict-Transport-Security "max-age=16070400; includeSubDomains"
+  Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
 
   Header unset X-Powered-By
 

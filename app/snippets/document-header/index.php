@@ -10,12 +10,12 @@
   <meta name="author" content="<?= $site->author() ?>">
   <meta name="language" content="<?= $kirby->language()->code() ?>">
   <meta name="robots" content="index, follow, noodp">
-  <link rel="icon" type="image/png" sizes="16x16" href="/dist/base/assets/favicons/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/dist/base/assets/favicons/favicon-32x32.png">
-  <link rel="shortcut icon" sizes="16x16 32x32" href="/dist/base/assets/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="<?= url('/assets/favicons/favicon-16x16.png') ?>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= url('/assets/favicons/favicon-32x32.png') ?>">
+  <link rel="shortcut icon" sizes="16x16 32x32" href="<?= url('/assets/favicons/favicon.ico') ?>">
   <link rel="canonical" href="<?= $page->url($kirby->language()->code()) ?>">
-  <link rel="stylesheet" href="/dist/base/main.min.css">
-  <script src='/dist/base/vendor.head.min.js'></script>
+  <link rel="stylesheet" href="<?= url('main.min.css') ?>">
+  <script src='<?= url('vendor.head.min.js') ?>'></script>
 </head>
 
 <body>

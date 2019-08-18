@@ -1,8 +1,7 @@
 # FOLDER
 node_modules
-app/access
-app/dist
-app/vendor
+data
+dist
 backup
 
 # FILES
