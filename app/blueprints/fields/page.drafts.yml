@@ -1,9 +1,9 @@
 type: pages
 status: draft
 layout: list
-empty: 
-  en: No entries
+empty:
   de: Keine Einträge
+  en: No entries
 templates:
   - compartments
   - company
