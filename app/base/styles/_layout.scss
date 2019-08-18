@@ -23,6 +23,7 @@ body {
     padding: 0 $global-container-padding-l;
   }
 
+  .contact &,
   .company &,
   .compartment & {
     max-width: $global-container-width-m;
