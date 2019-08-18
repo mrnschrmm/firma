@@ -1,12 +1,25 @@
-# Setup
-- `Node 10.16.1` `NPM 6.10.3` `PHP 7.2.21` `Composer 1.9.0` `Gulp CLI 2.2.0`
+# Requirements
+`Node 10.16.3` `NPM 6.10.3` `PHP 7.2.21` `Composer 1.9.0` `Gulp CLI 2.2.0`
 
-## Install
-- `npm install`
+## Setup
+```
+npm install
+composer install
+```
 
 ## Run
-- `npm run start`
+```
+npm run start
+```
 
 ## Build
-- `npm run build`
+```
+npm run build
+```
+
+## Debug
+```
+npm run start.debug
+npm run build.debug
+```
 
