@@ -443,7 +443,7 @@ function copy__content () {
 // WATCH -------------------------------------------------------------
 
 function watch__content () {
-  watch(content__src + '**/*', series(copy__content, reload))
+  watch(content__src + '**/*', series(content, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
