@@ -11,9 +11,9 @@
       </div>
       <div class="column">
         <div class="channel">
-          <span class="channel-phone">Tel:&nbsp;<?= $page->phone() ?></span>
+          <span class="channel-phone">Tel:&nbsp;<a href="tel:<?= $page->phone() ?>" rel="nofollow"><?= $page->phone() ?></a></span>
           <span class="channel-fax">Fax:&nbsp;<?= $page->fax() ?></span>
-          <span class="channel-mail"><a href="mailto:<?= $page->email() ?>"><?= $page->email() ?></a></span>
+          <span class="channel-mail"><a href="mailto:<?= $page->email() ?>" rel="nofollow"><?= $page->email() ?></a></span>
         </div>
       </div>
     </div>
