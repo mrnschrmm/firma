@@ -7,7 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<?= $site->description() ?>">
+  <meta name="author" content="<?= $site->author() ?>">
   <meta name="language" content="<?= $kirby->language()->code() ?>">
+  <meta name="robots" content="index, follow, noodp">
   <link rel="icon" type="image/png" sizes="16x16" href="/dist/base/assets/favicons/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/dist/base/assets/favicons/favicon-32x32.png">
   <link rel="shortcut icon" sizes="16x16 32x32" href="/dist/base/assets/favicons/favicon.ico">

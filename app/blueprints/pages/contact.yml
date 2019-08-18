@@ -47,7 +47,7 @@ fields:
     label:
       de: Postleitzahl
       en: ZIP Code
-    type: number
+    type: text
     width: 1/2
   location:
     label:

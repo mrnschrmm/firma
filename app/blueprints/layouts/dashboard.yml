@@ -9,8 +9,8 @@ columns:
         fields:
           headline:
             label:
-              en: Pages
               de: Seiten
+              en: Pages
             type: headline
       published:
         extends: fields/page.listed

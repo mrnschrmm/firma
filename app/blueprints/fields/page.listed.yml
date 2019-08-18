@@ -5,9 +5,9 @@ size: tiny
 image:
   back: white
   ratio: 9/10
-empty: 
-  en: No entries
+empty:
   de: Keine Einträge
+  en: No entries
 templates:
   - compartments
   - company
