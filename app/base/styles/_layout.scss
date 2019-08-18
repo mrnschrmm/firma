@@ -11,7 +11,7 @@ body {
 
 .container {
   margin: 0 auto;
-  max-width: $global-container-max-width;
+  max-width: $global-container-width-l;
   padding: 0 $global-container-padding-s;
   width: 100%;
 
@@ -21,6 +21,11 @@ body {
 
   @media (min-width: $breakpoint-xxl) {
     padding: 0 $global-container-padding-l;
+  }
+
+  .company &,
+  .compartment & {
+    max-width: $global-container-width-m;
   }
 }
 
@@ -79,15 +84,15 @@ body {
 
   > .page,
   > .main {
-    padding: 3.75rem 0 8.5rem;
+    padding: 5rem 0 8.5rem;
 
     @media (min-width: $breakpoint-s) {
       padding-bottom: 10rem;
-      padding-top: 5rem;
+      padding-top: 6rem;
     }
 
     @media (min-width: $breakpoint-m) {
-      padding-top: 7rem;
+      padding-top: 8rem;
     }
 
     @media (min-width: $breakpoint-xl) {
@@ -100,7 +105,7 @@ body {
       padding-bottom: 5.5rem;
 
       @media (min-width: $breakpoint-xl) {
-        padding-top: 7rem;
+        padding-top: 8rem;
       }
     }
   }
