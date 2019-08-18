@@ -7,10 +7,6 @@
 # http://yourdomain.com/about-us/team
 RewriteEngine on
 
-# make sure to set the RewriteBase correctly
-# if you are running the site in a subfolder.
-# Otherwise links or the entire site will break.
-#
 # If your homepage is http://yourdomain.com/mysite
 # Set the RewriteBase to:
 #
@@ -54,4 +50,26 @@ AddOutputFilterByType DEFLATE text/javascript
 AddOutputFilterByType DEFLATE application/json
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Security Header
+<IfModule mod_headers.c>
+
+Header unset X-Powered-By
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-Content-Type-Options "nosniff"
+Header always set Strict-Transport-Security "max-age=16070400; includeSubDomains"
+Header set X-XSS-Protection "1; mode=block"
+Header set X-UA-Compatible "IE=edge"
+
+# response header should be send only for HTML documents and not for the other resources.
+<FilesMatch "\.(appcache|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|webmanifest|woff2?|xloc|xml|xpi)$">
+Header unset X-XSS-Protection
+</FilesMatch>
+
+# response header should be send only for HTML documents and not for the other resources.
+<FilesMatch "\.(appcache|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|webmanifest|woff2?|xloc|xml|xpi)$">
+Header unset X-UA-Compatible
+</FilesMatch>
+
 </IfModule>
