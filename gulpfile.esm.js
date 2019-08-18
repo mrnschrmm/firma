@@ -18,22 +18,23 @@ import debug from 'gulp-debug'
 import scss from 'gulp-sass'
 import sass from 'node-sass'
 import sync from 'browser-sync'
-
 import del from 'del'
 import config from './config'
 import minimist from 'minimist'
 
+// ARGS
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS['prod']) ? true : false
 const DEBUG = (ARGS['debug']) ? true : false
 
+// PATHS
 const path = prep(config.path)
-const root = path.root
-const dist = path.dist
-const base = path.base
-const data = path.data
+const root_src = path.root_src
+const root_dist = path.root_dist
+const root_public = path.root_public
+const resources = path.resources
 const site = path.site
-const pvblic = path.public
+const db = path.db
 
 ////////////////////////////////////////////////////////////////////////////////
 // BROWSERSYNC
@@ -63,6 +64,35 @@ function reload (done) {
   browser.reload()
   done()
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// CONTENT
+////////////////////////////////////////////////////////////////////////////////
+
+const content__src = (db).replace('//', '/')
+const content__dest = (root_dist + path.content).replace('//', '/')
+
+// CLEAN -------------------------------------------------------------
+
+function clean__content () { return del([content__dest]) }
+
+// COPY  -------------------------------------------------------------
+
+function copy__content () {
+  return src([content__src + '**/*'])
+    .pipe(gulpif(DEBUG, debug({ title: '## CONTENT:' })))
+    .pipe(dest(content__dest))
+}
+
+// WATCH -------------------------------------------------------------
+
+function watch__content () {
+  watch(content__src + '**/*', series(content, reload))
+}
+
+// COMPOSITION -------------------------------------------------------------
+
+const content = series(clean__content, copy__content)
 
 ////////////////////////////////////////////////////////////////////////////////
 // VENDOR
@@ -100,34 +130,34 @@ function process__vendor () {
 // LOGIC
 ////////////////////////////////////////////////////////////////////////////////
 
-const blueprints__src = (root + path.blueprints).replace('//', '/')
-const blueprints__dest = (dist + site + path.blueprints).replace('//', '/')
+const index__src = (root_src).replace('//', '/')
+const index__dest = (root_dist + root_public).replace('//', '/')
 
-const collections__src = (root + path.collections).replace('//', '/')
-const collections__dest = (dist + site + path.collections).replace('//', '/')
+const blueprints__src = (root_src + path.blueprints).replace('//', '/')
+const blueprints__dest = (root_dist + site + path.blueprints).replace('//', '/')
 
-const controllers__src = (root + path.controllers).replace('//', '/')
-const controllers__dest = (dist + site + path.controllers).replace('//', '/')
+const collections__src = (root_src + path.collections).replace('//', '/')
+const collections__dest = (root_dist + site + path.collections).replace('//', '/')
 
-const configs__src = (root + path.configs).replace('//', '/')
-const configs__dest = (dist + site + path.configs).replace('//', '/')
+const controllers__src = (root_src + path.controllers).replace('//', '/')
+const controllers__dest = (root_dist + site + path.controllers).replace('//', '/')
 
-const languages__src = (root + path.languages).replace('//', '/')
-const languages__dest = (dist + site + path.languages).replace('//', '/')
+const configs__src = (root_src + path.configs).replace('//', '/')
+const configs__dest = (root_dist + site + path.configs).replace('//', '/')
 
-const snippets__src = (root + path.snippets).replace('//', '/')
-const snippets__dest = (dist + site + path.snippets).replace('//', '/')
+const languages__src = (root_src + path.languages).replace('//', '/')
+const languages__dest = (root_dist + site + path.languages).replace('//', '/')
 
-const templates__src = (root + path.templates).replace('//', '/')
-const templates__dest = (dist + site + path.templates).replace('//', '/')
+const snippets__src = (root_src + path.snippets).replace('//', '/')
+const snippets__dest = (root_dist + site + path.snippets).replace('//', '/')
 
-const index__src = (root).replace('//', '/')
-const index__dest = (dist + pvblic).replace('//', '/')
+const templates__src = (root_src + path.templates).replace('//', '/')
+const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
-function clean__htaccess () { return del([index__dest + '.htaccess']) }
 function clean__index () { return del([index__dest + 'index.php']) }
+function clean__htaccess () { return del([index__dest + '.htaccess']) }
 function clean__blueprints () { return del([blueprints__dest]) };
 function clean__collections () { return del([collections__dest]) };
 function clean__controllers () { return del([controllers__dest]) };
@@ -141,7 +171,7 @@ function clean__templates () { return del([templates__dest]) }
 function lint__logic () {
   return src(['./app/{collections,controllers,templates,snippets,site}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
-    .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
+    .pipe(phpcs({ bin: 'root_dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
 }
 
@@ -204,8 +234,8 @@ function copy__templates () {
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch(index__src + '.htaccess', series(htaccess, reload))
   watch(index__src + 'index.php', series(index, reload))
+  watch(index__src + '.htaccess', series(htaccess, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
   watch(controllers__src + '**/*.php', series(controllers, reload))
@@ -217,8 +247,8 @@ function watch__logic () {
 
 // COMPOSITION -------------------------------------------------------------
 
-const htaccess = series(clean__htaccess, copy__htaccess)
 const index = series(clean__index, copy__index)
+const htaccess = series(clean__htaccess, copy__htaccess)
 const blueprints = series(clean__blueprints, copy__blueprints)
 const collections = series(clean__collections, copy__collections)
 const controllers = series(clean__controllers, copy__controllers)
@@ -231,17 +261,17 @@ const templates = series(clean__templates, copy__templates)
 // ASSETS
 ////////////////////////////////////////////////////////////////////////////////
 
-const assets__images__src = (root + base + path.assets + path.images).replace('//', '/')
-const assets__images__dest = (dist + pvblic + path.assets + path.images).replace('//', '/')
+const assets__images__src = (root_src + resources + path.assets + path.images).replace('//', '/')
+const assets__images__dest = (root_dist + root_public + path.assets + path.images).replace('//', '/')
 
-const assets__icons__src = (root + base + path.assets + path.icons).replace('//', '/')
-const assets__icons__dest = (dist + pvblic + path.assets + path.icons).replace('//', '/')
+const assets__icons__src = (root_src + resources + path.assets + path.icons).replace('//', '/')
+const assets__icons__dest = (root_dist + root_public + path.assets + path.icons).replace('//', '/')
 
-const assets__favicons__src = (root + base + path.assets + path.favicons).replace('//', '/')
-const assets__favicons__dest = (dist + pvblic + path.assets + path.favicons).replace('//', '/')
+const assets__favicons__src = (root_src + resources + path.assets + path.favicons).replace('//', '/')
+const assets__favicons__dest = (root_dist + root_public + path.assets + path.favicons).replace('//', '/')
 
-const assets__fonts__src = (root + base + path.assets + path.fonts).replace('//', '/')
-const assets__fonts__dest = (dist + pvblic + path.assets + path.fonts).replace('//', '/')
+const assets__fonts__src = (root_src + resources + path.assets + path.fonts).replace('//', '/')
+const assets__fonts__dest = (root_dist + root_public + path.assets + path.fonts).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
@@ -331,8 +361,8 @@ const fonts = series(clean__fonts, copy__fonts)
 // SCRIPT
 ////////////////////////////////////////////////////////////////////////////////
 
-const scripts__src = (root + path.base).replace('//', '/')
-const scripts__dest = (dist + path.scripts).replace('//', '/')
+const scripts__src = (root_src + path.resources).replace('//', '/')
+const scripts__dest = (root_dist + path.scripts).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
@@ -358,7 +388,7 @@ function process__scripts__main () {
     .pipe(gulpif(PROD, uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
-};
+}
 
 function process__scripts__panel () {
   return src(scripts__src + 'panel.js', { sourcemaps: !PROD ? true : false })
@@ -366,7 +396,7 @@ function process__scripts__panel () {
     .pipe(gulpif(PROD, uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
-};
+}
 
 // WATCH -------------------------------------------------------------
 
@@ -384,8 +414,8 @@ const scripts__panel = series(clean__scripts__panel, process__scripts__panel)
 // STYLE
 ////////////////////////////////////////////////////////////////////////////////
 
-const styles__src = (root + base).replace('//', '/')
-const styles__dest = (dist + path.styles).replace('//', '/')
+const styles__src = (root_src + resources).replace('//', '/')
+const styles__dest = (root_dist + path.styles).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
@@ -422,40 +452,11 @@ function watch__styles () {
 const styles = series(clean__styles, process__styles)
 
 ////////////////////////////////////////////////////////////////////////////////
-// CONTENT
-////////////////////////////////////////////////////////////////////////////////
-
-const content__src = (data).replace('//', '/')
-const content__dest = (dist + path.content).replace('//', '/')
-
-// CLEAN -------------------------------------------------------------
-
-function clean__content () { return del([content__dest]) }
-
-// COPY  -------------------------------------------------------------
-
-function copy__content () {
-  return src([content__src + '**/*'])
-    .pipe(gulpif(DEBUG, debug({ title: '## CONTENT:' })))
-    .pipe(dest(content__dest))
-}
-
-// WATCH -------------------------------------------------------------
-
-function watch__content () {
-  watch(content__src + '**/*', series(content, reload))
-}
-
-// COMPOSITION -------------------------------------------------------------
-
-const content = series(clean__content, copy__content)
-
-////////////////////////////////////////////////////////////////////////////////
 // COMPOSITION
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(parallel(htaccess, index, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
+const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
 const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const LINT = series(lint__logic, lint__styles, lint__scripts)

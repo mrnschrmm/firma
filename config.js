@@ -4,14 +4,13 @@ module.exports = {
     live: 'https://www.schramm-reinigung.de'
   },
   path: {
-    root: 'app',
-    data: 'data',
-    dist: 'dist',
-    assets: 'assets',
-    base: 'base',
-    public: 'public',
-    content: 'content',
+    root_src: 'app',
+    root_dist: 'dist',
+    root_public: 'public',
     site: 'site',
+    assets: 'assets',
+    configs: 'config',
+    resources: 'resources',
     blueprints: 'blueprints',
     fonts: 'fonts',
     icons: 'icons',
@@ -24,7 +23,8 @@ module.exports = {
     snippets: 'snippets',
     scripts: 'public',
     styles: 'public',
-    configs: 'config'
+    content: 'content',
+    db: 'db'
   },
   vendor: {
     dest: 'dist/public',
