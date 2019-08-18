@@ -65,7 +65,11 @@ body {
 .snippet-layout {
   > .header,
   > .footer {
-    height: 5.5rem;
+    height: 4.75rem;
+
+    @media (min-width: $breakpoint-m) {
+      height: 5.5rem;
+    }
   }
 
   > .header {
