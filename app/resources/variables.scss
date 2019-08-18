@@ -1,0 +1,58 @@
+////////////////////////////////////////////////////////////////////////////////
+// VARIABLES
+////////////////////////////////////////////////////////////////////////////////
+
+// FONT
+// -------------------------------------------------------------
+
+$global-font-base-size: 16;
+$global-font-base-weight: 400;
+$global-font-base-line-height: 1.5;
+$global-font-heading-line-height: 1.25;
+
+// LAYOUT
+// -------------------------------------------------------------
+
+// WIDTH
+$global-document-max-width: 2560px;
+$global-container-width-m: 768px;
+$global-container-width-l: 992px;
+
+// PADDING
+$global-container-padding-s: 16px;
+$global-container-padding-m: 24px;
+$global-container-padding-l: 32px;
+
+// GRID
+$global-gutter-width: 2rem;
+
+// BREAKPOINTS
+$breakpoint-xxs: 375px;
+$breakpoint-xs: 480px;
+$breakpoint-s: 576px;
+$breakpoint-m: 768px;
+$breakpoint-l: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// COLOR
+// -------------------------------------------------------------
+
+$c-white: #fff;
+$c-1: #c8cbd2;
+$c-2: #b4b7bf;
+$c-bg: #062299;
+$c-headline: #fff;
+$c-text: #fff;
+$c-link: #fff;
+$c-hover: #18181a;
+$c-nav-link: #fff;
+$c-nav-hover: #04f799;
+$c-nav-active: #04f799;
+$c-nav-bg: #fff;
+$c-btn-link: #18181a;
+$c-btn-hover: #04f799;
+$c-ico-link: #007bff;
+$c-ico-hover: #fff;
+$c-bg-object: #fff;
+
