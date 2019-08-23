@@ -1,6 +1,11 @@
-# Kirby .htaccess
+#////////////////////////////////////////////////////////////////////////////////
+#// KIRBY .HTACCESS
+#////////////////////////////////////////////////////////////////////////////////
 
-# rewrite rules
+# SERVER INFORMATION
+ServerSignature Off
+
+# REWRITE RULES
 <IfModule mod_rewrite.c>
 
   # enable awesome urls. i.e.:
@@ -54,7 +59,7 @@
   AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
-# Security Header
+# SECURITY HEADER
 <IfModule mod_headers.c>
 
   Header set X-UA-Compatible "IE=edge"
