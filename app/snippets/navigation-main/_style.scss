@@ -82,11 +82,14 @@
 
     &-main {
       @import 'partials/main/style';
-      margin-top: 2px;
+
+      @media (min-width: $breakpoint-m) {
+        margin-top: 2px;
+      }
     }
 
     &-lang {
-      bottom: 29px;
+      bottom: 25px;
       margin: 0;
       position: absolute;
       right: $global-container-padding-s;
