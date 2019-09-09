@@ -3,7 +3,7 @@
     <nav class="navigation-footer">
       <div class="menu">
         <div class="menu-lang">
-          <?php snippet('navigation-main/partials/lang/index', ['kirby' => $kirby, 'page' => $page]) ?>
+          <?php snippet('navigation-footer/partials/lang/index', ['kirby' => $kirby, 'page' => $page]) ?>
         </div>
       </div>
     </nav>
