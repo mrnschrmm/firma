@@ -21,13 +21,13 @@
   },
   "devDependencies": {
     "browser-sync": "2.26.7",
-    "del": "5.0.0",
-    "eslint": "6.2.0",
-    "eslint-config-standard": "13.0.1",
+    "del": "5.1.0",
+    "eslint": "6.3.0",
+    "eslint-config-standard": "14.0.1",
     "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-node": "10.0.0",
     "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-standard": "4.0.1",
     "esm": "3.2.25",
     "gulp": "4.0.2",
     "gulp-autoprefixer": "7.0.0",
@@ -37,7 +37,7 @@
     "gulp-favicons": "2.3.1",
     "gulp-if": "3.0.0",
     "gulp-imagemin": "6.1.0",
-    "gulp-phpcs": "3.0.0",
+    "gulp-phpcs": "3.1.0",
     "gulp-rename": "1.4.0",
     "gulp-sass": "4.0.2",
     "gulp-stylelint": "9.0.0",
@@ -45,8 +45,8 @@
     "minimist": "1.2.0",
     "node-sass": "4.12.0",
     "stylelint": "10.1.0",
-    "stylelint-order": "3.0.1",
-    "stylelint-scss": "3.9.3"
+    "stylelint-order": "3.1.0",
+    "stylelint-scss": "3.10.1"
   },
   "dependencies": {
     "body-scroll-lock": "2.6.4",
