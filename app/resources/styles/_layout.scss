@@ -42,7 +42,7 @@ body {
     &:not([is='layout-contact']) {
       display: flex;
       flex-direction: column;
-      min-height: 100%;
+      height: 100%;
 
       .header {
         flex: 0 0 auto;
@@ -53,6 +53,7 @@ body {
         display: flex;
         flex: 1 0 auto;
         flex-direction: column;
+        height: 100%;
         justify-content: center;
       }
     }
