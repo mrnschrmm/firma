@@ -1,15 +1,23 @@
 .select {
-  background-image: url('assets/icons/ico-ui-earth-color-24x24.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 24px 24px;
-  border: 0;
-  font-size: 0;
-  height: 24px;
-  padding: 0;
-  width: 24px;
+  &--language {
+    background: center / 24px 24px no-repeat;
+    background-image: url('assets/icons/ico-ui-earth-color-24x24.svg');
+    border: 0;
+    color: #000;
+    font-size: 1rem;
+    height: 24px;
+    line-height: 1;
+    padding: 0 24px 0 0;
+    width: 24px;
 
-  &:hover {
-    background-image: url('assets/icons/ico-ui-earth-white-24x24.svg');
+    &:hover,
+    &:focus,
+    &:active {
+      background-image: url('assets/icons/ico-ui-earth-white-24x24.svg');
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
   }
 }
