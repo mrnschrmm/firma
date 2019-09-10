@@ -3,17 +3,22 @@
     background: center / 24px 24px no-repeat;
     background-image: url('assets/icons/ico-ui-earth-color-24x24.svg');
     border: 0;
+    color: #000;
     font-size: 1rem;
     height: 24px;
     line-height: 1;
-    padding: 0;
-    text-indent: -999px;
+    padding: 0 24px 0 0;
+    text-indent: 150px;
     width: 24px;
 
     &:hover,
     &:focus,
     &:active {
       background-image: url('assets/icons/ico-ui-earth-white-24x24.svg');
+    }
+
+    &::-ms-expand {
+      display: none;
     }
   }
 }
