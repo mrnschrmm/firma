@@ -37,6 +37,7 @@
     &:hover,
     &:focus {
       color: $c-ico-hover;
+      cursor: pointer;
     }
 
     @media (min-width: $breakpoint-s) {
@@ -90,6 +91,7 @@
 
     &-lang {
       bottom: 25px;
+      height: 24px;
       margin: 0;
       position: absolute;
       right: $global-container-padding-s;
