@@ -1,0 +1,15 @@
+[is='layout-home'] {
+  .home {
+    &-main {
+      .artwork {
+        margin: 0 auto;
+
+        svg {
+          display: block;
+          max-height: 40vh;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
