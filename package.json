@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "body-scroll-lock": "2.6.4",
+    "headroom.js": "0.10.3",
     "document-register-element": "1.14.3",
     "jquery": "3.4.1"
   },
