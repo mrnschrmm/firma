@@ -1,0 +1,22 @@
+.block-page-footer {
+  .container {
+    .page-layout & {
+      margin: 0 auto;
+      max-width: $global-container-width-l;
+      padding: 0 $global-container-padding-s;
+      width: 100%;
+
+      @media (min-width: $breakpoint-s) {
+        padding: 0 $global-container-padding-m;
+      }
+
+      @media (min-width: $breakpoint-xxl) {
+        padding: 0 $global-container-padding-l;
+      }
+    }
+
+    .company .page-layout & {
+      max-width: $global-container-width-m;
+    }
+  }
+}

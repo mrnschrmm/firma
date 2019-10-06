@@ -1,0 +1,42 @@
+[is='navigation-footer'] {
+  display: none;
+
+  @media (min-width: $breakpoint-m) {
+    display: block;
+
+    .navigation {
+      background-color: #051d87;
+      height: 4.75rem;
+      padding: 1.25rem $global-container-padding-s;
+
+      @media (min-width: $breakpoint-s) {
+        padding: 1.25rem $global-container-padding-m;
+      }
+
+      @media (min-width: $breakpoint-m) {
+        height: 5.5rem;
+      }
+
+      @media (min-width: $breakpoint-l) {
+        padding: 1.25rem $global-container-padding-l;
+      }
+
+      &-columns {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+
+        > .column {
+          flex-basis: 50%;
+        }
+      }
+    }
+
+    .menu {
+      &-lang {
+        @import 'partials/lang/style';
+      }
+    }
+  }
+}
