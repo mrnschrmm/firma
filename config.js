@@ -1,6 +1,6 @@
 module.exports = {
   host: {
-    local: 'http://firma.local.run',
+    local: 'http://firma.local.run:8080',
     live: 'https://www.schramm-reinigung.de'
   },
   path: {
