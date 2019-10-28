@@ -3,8 +3,8 @@ include '../vendor/autoload.php';
 
 $kirby = new Kirby([
     'urls' => [
-        'index' => 'https://firma.local.blee.ch',
-        'media' => 'https://firma.local.blee.ch/media',
+        'index' => 'http://firma.local.run:8080',
+        'media' => 'http://firma.local.run:8080/media',
     ],
     'roots' => [
         'index'    => __DIR__,
