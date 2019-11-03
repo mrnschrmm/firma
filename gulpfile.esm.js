@@ -14,6 +14,7 @@ import uglify from 'gulp-uglify-es'
 import eslint from 'gulp-eslint'
 import gulpif from 'gulp-if'
 import phpcs from 'gulp-phpcs'
+import cache from 'gulp-cache'
 import debug from 'gulp-debug'
 import scss from 'gulp-sass'
 import sass from 'node-sass'
@@ -24,8 +25,8 @@ import minimist from 'minimist'
 
 // ARGS
 const ARGS = minimist(process.argv.slice(2))
-const PROD = (ARGS['prod']) ? true : false
-const DEBUG = (ARGS['debug']) ? true : false
+const PROD = (ARGS.prod) ? true : false
+const DEBUG = (ARGS.debug) ? true : false
 
 // PATHS
 const path = prep(config.path)
@@ -63,6 +64,18 @@ function browsersync (done) {
 function reload (done) {
   browser.reload()
   done()
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// CACHE
+////////////////////////////////////////////////////////////////////////////////
+
+const clear = series(clean__cache)
+
+// CLEAN -------------------------------------------------------------
+
+function clean__cache () {
+  return cache.clearAll()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -285,18 +298,18 @@ function clean__fonts () { return del([assets__fonts__dest]) }
 function process__images () {
   return src(assets__images__src + '**/*.{png,jpg,jpeg,gif}')
     .pipe(gulpif(DEBUG, debug({ title: '## IMAGES:' })))
-    .pipe(imagemin([
+    .pipe(cache(imagemin([
       imagemin.gifsicle({ interlaced: true }),
       imagemin.jpegtran({ progressive: true }),
       imagemin.optipng({ optimizationLevel: 7 })
-    ]))
+    ])))
     .pipe(dest(assets__images__dest))
 }
 
 function process__icons () {
   return src(assets__icons__src + '**/*.svg')
     .pipe(gulpif(DEBUG, debug({ title: '## ICONS:' })))
-    .pipe(imagemin([
+    .pipe(cache(imagemin([
       imagemin.svgo({
         plugins: [
           { removeTitle: true },
@@ -306,13 +319,13 @@ function process__icons () {
         ],
         verbose: DEBUG ? true : false
       })
-    ]))
+    ])))
     .pipe(dest(assets__icons__dest))
 }
 
 function process__favicons () {
   return src([assets__favicons__src + 'favicon_src.png'])
-    .pipe(favicon({
+    .pipe(cache(favicon({
       background: '#FFFFFF',
       path: assets__favicons__dest,
       url: config.host.live,
@@ -331,7 +344,7 @@ function process__favicons () {
         windows: PROD ? true : false,
         yandex: PROD ? true : false
       }
-    }))
+    })))
     .pipe(dest(assets__favicons__dest))
 }
 
@@ -454,6 +467,8 @@ const styles = series(clean__styles, process__styles)
 ////////////////////////////////////////////////////////////////////////////////
 // COMPOSITION
 ////////////////////////////////////////////////////////////////////////////////
+
+exports.clear = series(clear)
 
 const DATA = series(content)
 const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
