@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <ruleset name="PHP Coding Standards">
-  <description>Coding Standards for Flynt Theme</description>
+  <description>Coding Standards</description>
 
-  <exclude-pattern>node_modules/*</exclude-pattern>
   <exclude-pattern>app/snippets/*.php</exclude-pattern>
   <exclude-pattern>app/templates/*.php</exclude-pattern>
   <exclude-pattern>backup/*</exclude-pattern>
   <exclude-pattern>dist/*</exclude-pattern>
+  <exclude-pattern>node_modules/*</exclude-pattern>
 
   <file>.</file>
 

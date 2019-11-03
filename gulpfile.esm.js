@@ -347,7 +347,7 @@ function watch__assets () {
   watch(assets__images__src + '**/*.{png,jpg,jpeg,gif}', series(images, reload))
   watch(assets__icons__src + '**/*.svg', series(icons, reload))
   watch(assets__favicons__src + '**/favicon_src.png', series(favicons, reload))
-  watch(assets__images__src + '**/*.{woff,woff2}', series(fonts, reload))
+  watch(assets__fonts__src + '**/*.{woff,woff2}', series(fonts, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
