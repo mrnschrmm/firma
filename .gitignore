@@ -1,11 +1,20 @@
 # FOLDER
-node_modules
-db
-dist
-backup
+**/node_modules
+**/db
+**/dist
+**/backup
 
 # FILES
 .vscode
+
+# LARAVEL
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
 
 # GIT/LOGS/DB
 *.git
