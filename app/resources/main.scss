@@ -2,11 +2,19 @@
 // MAIN
 ////////////////////////////////////////////////////////////////////////////////
 
-// ABSTRACTS
+@import
+  'variables';
+
+// FUNCTIONS
 // -------------------------------------------------------------
 
 @import
-  'variables',
+  'functions/strip-unit';
+
+// MIXINS
+// -------------------------------------------------------------
+
+@import
   'mixins/font-face',
   'mixins/rwd-scale',
   'mixins/grid-scale';
