@@ -2,7 +2,7 @@
   "name": "mrnschrmm/firma",
   "description": "web",
   "require": {
-    "getkirby/cms": "3.2.5"
+    "getkirby/cms": "3.3.0"
   },
   "config": {
     "vendor-dir": "dist/vendor",
