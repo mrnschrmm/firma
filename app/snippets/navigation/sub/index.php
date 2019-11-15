@@ -1,7 +1,7 @@
 <?php
 
 if ($root = $pages->findOpen()) {
-  $items = $root->children()->visible();
+  $items = $root->children()->listed();
 }
 
 if ($items and $items->count()) : ?>
