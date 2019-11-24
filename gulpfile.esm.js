@@ -325,7 +325,7 @@ function process__icons () {
 
 function process__favicons () {
   return src([assets__favicons__src + 'favicon_src.png'])
-    .pipe(cache(favicon({
+    .pipe(favicon({
       background: '#FFFFFF',
       path: assets__favicons__dest,
       url: config.host.live,
@@ -344,7 +344,7 @@ function process__favicons () {
         windows: PROD ? true : false,
         yandex: PROD ? true : false
       }
-    })))
+    }))
     .pipe(dest(assets__favicons__dest))
 }
 
