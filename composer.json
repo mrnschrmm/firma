@@ -6,7 +6,7 @@
   },
   "config": {
     "vendor-dir": "dist/vendor",
-    "optimize-autoloader": false
+    "optimize-autoloader": true
   },
   "extra": {
     "kirby-cms-path": "dist/kirby",

@@ -472,13 +472,14 @@ exports.clear = series(clear)
 
 const DATA = series(content)
 const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
+const LOGIC_BUILD = series(parallel(blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
 const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
 const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 if (PROD) {
-  exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET)
+  exports.default = series(LINT, DATA, LOGIC_BUILD, STYLE, ASSET)
 } else {
   exports.default = series(DATA, LOGIC, STYLE, ASSET, RUN)
 }
