@@ -18,6 +18,10 @@
     padding: 0 $global-container-padding-l;
   }
 
+  .home & {
+    background-color: transparent;
+  }
+
   &.headroom {
     $block: 'headroom';
     $nav-height-default: 88px;
@@ -66,7 +70,7 @@
   .toggle {
     background-color: transparent;
     border: 0;
-    bottom: 35px;
+    bottom: 20px;
     color: $c-ico-link;
     height: 18px;
     left: $global-container-padding-s;
@@ -83,6 +87,10 @@
     &:focus {
       color: $c-ico-hover;
       cursor: pointer;
+    }
+
+    @media (min-width: $breakpoint-xs) {
+      bottom: 24px;
     }
 
     @media (min-width: $breakpoint-s) {
@@ -135,12 +143,16 @@
     }
 
     &-lang {
-      bottom: 32px;
+      bottom: 18px;
       height: 24px;
       margin: 0;
       position: absolute;
       right: $global-container-padding-s;
       width: 24px;
+
+      @media (min-width: $breakpoint-xs) {
+        bottom: 20px;
+      }
 
       @media (min-width: $breakpoint-s) {
         right: $global-container-padding-m;

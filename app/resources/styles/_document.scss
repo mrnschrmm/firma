@@ -3,10 +3,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 .app {
+  height: 100%;
   position: relative;
 
   body {
+    height: 100%;
     margin: 0;
+  }
+
+  &-main {
+    height: 100%;
   }
 
   &-side {
@@ -18,21 +24,16 @@
 }
 
 .document {
-  padding: 8rem 0 7.5rem;
+  padding: 8rem 0 6rem;
 
   @media (min-width: $breakpoint-xs) {
-    padding: 9rem 0 8.5rem;
+    padding: 9rem 0 8rem;
   }
 
   @media (min-width: $breakpoint-s) {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-bottom: 24%;
-    padding-top: 24%;
-  }
-
-  @media (min-width: $breakpoint-m) {
     padding-bottom: 20%;
     padding-top: 20%;
   }
@@ -45,19 +46,17 @@
   .home & {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-
-    @media (max-width: $breakpoint-m - 1) {
-      padding-bottom: 24%;
-      padding-top: 24%;
-    }
+    min-height: 85vh;
+    padding-bottom: 0;
+    padding-top: 0;
   }
 
   .contact & {
     display: block;
-    padding-bottom: 5.5rem;
+    padding-bottom: 3.75rem;
 
     @media (min-width: $breakpoint-xs) {
+      padding-bottom: 4.5rem;
       padding-top: 10rem;
     }
 
@@ -74,10 +73,18 @@
   &-footer {
     background-color: #051d87;
     bottom: 0;
-    height: 88px;
+    height: 60px;
     position: fixed;
     width: 100%;
     z-index: 44;
+
+    .home & {
+      background-color: transparent;
+    }
+
+    @media (min-width: $breakpoint-xs) {
+      height: 72px;
+    }
 
     @media (min-width: $breakpoint-m) {
       height: auto;
