@@ -46,9 +46,17 @@
   .home & {
     display: flex;
     flex-direction: column;
-    min-height: 85vh;
+    min-height: 86vh;
     padding-bottom: 0;
     padding-top: 0;
+
+    @media (min-width: $breakpoint-m) {
+      min-height: 90vh;
+    }
+
+    @media (min-width: $breakpoint-l) {
+      min-height: 96vh;
+    }
   }
 
   .contact & {
