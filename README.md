@@ -1,6 +1,6 @@
 # Site - Project: Firma
 
-`Node 10.16.3` `NPM 6.11.2` `PHP 7.2.22` `Composer 1.9.0` `Gulp CLI 2.2.0` `Kirby 3.2.4`
+`Node 10.17.0` `NPM 6.13.3` `PHP 7.3.12` `Composer 1.9.0` `Kirby 3.2.4`
 
 ## Setup
 ```
