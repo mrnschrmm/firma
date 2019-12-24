@@ -1,4 +1,5 @@
 # FOLDER
+**/.cache
 **/node_modules
 **/db
 **/dist

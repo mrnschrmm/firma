@@ -23,6 +23,8 @@ import del from 'del'
 import config from './config'
 import minimist from 'minimist'
 
+import Parcel from 'parcel-bundler'
+
 // ARGS
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS.prod) ? true : false
@@ -171,9 +173,9 @@ const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 
 function clean__index () { return del([index__dest + 'index.php']) }
 function clean__htaccess () { return del([index__dest + '.htaccess']) }
-function clean__blueprints () { return del([blueprints__dest]) };
-function clean__collections () { return del([collections__dest]) };
-function clean__controllers () { return del([controllers__dest]) };
+function clean__blueprints () { return del([blueprints__dest]) }
+function clean__collections () { return del([collections__dest]) }
+function clean__controllers () { return del([controllers__dest]) }
 function clean__configs () { return del([configs__dest]) }
 function clean__languages () { return del([languages__dest]) }
 function clean__snippets () { return del([snippets__dest]) }
@@ -465,6 +467,65 @@ function watch__styles () {
 const styles = series(clean__styles, process__styles)
 
 ////////////////////////////////////////////////////////////////////////////////
+// PLUGINS
+////////////////////////////////////////////////////////////////////////////////
+
+const plugins__src = (root_src + path.plugins).replace('//', '/')
+const plugins__dest = (root_dist + site + path.plugins).replace('//', '/')
+
+// CLEAN -------------------------------------------------------------
+
+function clean__plugins () { return del([plugins__dest]) }
+
+// COPY -------------------------------------------------------------
+
+function copy__plugins () {
+  return src('./app/plugins/**/index.php')
+    .pipe(gulpif(DEBUG, debug({ title: '## PLUGIN PHP:' })))
+    .pipe(dest(plugins__dest))
+}
+
+// PROCESS -------------------------------------------------------------
+
+function process__plugins (done) {
+  const tasks = config.plugins.map((value) => {
+    function process__plugin () {
+      const entryFiles = `./app/plugins/${value}/src/index.js`
+      const options = {
+        outDir: `./dist/site/plugins/${value}`,
+        outFile: 'index.js',
+        watch: false,
+        minify: false,
+        sourceMaps: false,
+        cache: false,
+        contentHash: false,
+        autoInstall: false,
+        scopeHoist: true,
+        logLevel: 0,
+        target: 'node'
+      }
+
+      const bundler = new Parcel(entryFiles, options)
+      const pluginBundle = bundler.bundle()
+
+      return pluginBundle
+    }
+
+    process__plugin.displayName = `Plugin: ${value}`
+    return process__plugin
+  })
+
+  return series(...tasks, (seriesDone) => {
+    seriesDone()
+    done()
+  })()
+}
+
+// COMPOSITION -------------------------------------------------------------
+
+const plugins = series(clean__plugins, copy__plugins, process__plugins)
+
+////////////////////////////////////////////////////////////////////////////////
 // COMPOSITION
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -474,13 +535,14 @@ const DATA = series(content)
 const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
 const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
+const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
 const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 if (PROD) {
-  exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET)
+  exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN)
 } else {
-  exports.default = series(DATA, LOGIC, STYLE, ASSET, RUN)
+  exports.default = series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN)
 }
 
 ////////////////////////////////////////////////////////////////////////////////

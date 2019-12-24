@@ -1,18 +1,35 @@
 [is='block-notify'] {
   .notify {
+    background-color: #fff;
+    padding: 0.75rem;
+
     &-header {
       // @media (min-width: $breakpoint-s) {
       // }
+      h3 {
+        color: #000;
+        font-size: 14px;
+      }
     }
 
     &-main {
-      // @media (min-width: $breakpoint-s) {
-      // }
+      @media (min-width: $breakpoint-s) {
+        // style
+      }
+
+      p {
+        color: #000;
+        font-size: 14px;
+      }
     }
 
     &-footer {
       // @media (min-width: $breakpoint-s) {
       // }
+
+      .button {
+        font-size: 14px;
+      }
     }
   }
 }
