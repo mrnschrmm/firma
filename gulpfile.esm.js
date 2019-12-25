@@ -516,6 +516,13 @@ function process__plugins (done) {
   })()
 }
 
+// WATCH -------------------------------------------------------------
+
+function watch__plugins () {
+  watch(plugins__src + '**/index.php', series(copy__plugins, reload))
+  watch([plugins__src + '**/*.*', '!index.php'], series(process__plugins, reload))
+}
+
 // COMPOSITION -------------------------------------------------------------
 
 const plugins = series(clean__plugins, copy__plugins, process__plugins)
@@ -532,11 +539,9 @@ const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
-const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
+const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content))
 
-////////////////////////////////////////////////////////////////////////////////
-// MAIN
-////////////////////////////////////////////////////////////////////////////////
+// MAIN -------------------------------------------------------------
 
 if (PROD) {
   exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN)
