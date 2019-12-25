@@ -2,7 +2,7 @@
 // GULP
 ////////////////////////////////////////////////////////////////////////////////
 
-import { series, parallel, src, dest, watch } from 'gulp'
+import { task, series, parallel, src, dest, watch } from 'gulp'
 
 import autoprefixer from 'gulp-autoprefixer'
 import stylelint from 'gulp-stylelint'
@@ -475,7 +475,7 @@ const plugins__dest = (root_dist + site + path.plugins).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
-function clean__plugins () { return del([plugins__dest]) }
+function clean__plugins () { return del(plugins__dest) }
 
 // COPY -------------------------------------------------------------
 
@@ -488,11 +488,11 @@ function copy__plugins () {
 // PROCESS -------------------------------------------------------------
 
 function process__plugins (done) {
-  const tasks = config.plugins.map((value) => {
+  const tasks = config.plugins.map((plugin) => {
     function process__plugin () {
-      const entryFiles = `./app/plugins/${value}/src/index.js`
+      const entry = `./app/plugins/${plugin}/src/index.js`
       const options = {
-        outDir: `./dist/site/plugins/${value}`,
+        outDir: `./dist/site/plugins/${plugin}`,
         outFile: 'index.js',
         watch: false,
         minify: false,
@@ -504,18 +504,13 @@ function process__plugins (done) {
         logLevel: 0,
         target: 'node'
       }
-
-      const bundler = new Parcel(entryFiles, options)
-      const pluginBundle = bundler.bundle()
-
-      return pluginBundle
+      const bundler = new Parcel(entry, options)
+      return bundler.bundle()
     }
-
-    process__plugin.displayName = `Plugin: ${value}`
+    process__plugin.displayName = `process__${plugin}`
     return process__plugin
   })
-
-  return series(...tasks, (seriesDone) => {
+  return series(...tasks, function process__series (seriesDone) {
     seriesDone()
     done()
   })()
@@ -538,6 +533,10 @@ const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
 const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
+
+////////////////////////////////////////////////////////////////////////////////
+// MAIN
+////////////////////////////////////////////////////////////////////////////////
 
 if (PROD) {
   exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN)
