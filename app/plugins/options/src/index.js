@@ -2,10 +2,10 @@ import View from './components/View.vue'
 
 panel.plugin('firma/options', {
   views: {
-    example: {
+    options: {
       component: View,
-      icon: 'preview',
-      label: 'Options'
+      icon: 'cog',
+      label: 'Optionen'
     }
   }
 })

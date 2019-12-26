@@ -39,7 +39,6 @@ module.exports = {
     ]
   },
   plugins: [
-    'metrics',
     'options'
   ]
 }
