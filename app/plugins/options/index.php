@@ -1,5 +1,7 @@
 <?php
 
 Kirby::plugin('firma/options', [
-    // OPTIONS MAGIC
+    'sections' => [
+        'information' => __DIR__ . '/templates/information.php',
+    ]
 ]);

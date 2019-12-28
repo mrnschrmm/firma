@@ -3,10 +3,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 <template>
-  <k-view class="k-options-view">
-    <k-header>{{ title }}</k-header>
-    <information/>
-  </k-view>
+  <div class="k-information">
+    <k-headline>{{ headline }}</k-headline>
+  </div>
 </template>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -14,17 +13,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 <script>
-  import Information from "./Templates/Information.vue";
-
   export default {
-    components: {
-        Information
-    },
     data() {
       return {
-        title: "Optionen",
+        headline: "Information",
+        infos: [
+          {
+            text: "Beschreibung"
+          },
+          {
+            text: "Keywords"
+          }
+        ]
       }
-    }
+    },
   };
 </script>
 

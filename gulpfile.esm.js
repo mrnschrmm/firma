@@ -58,7 +58,7 @@ function browsersync (done) {
     ui: false,
     online: false,
     injectChanges: true,
-    reloadDelay: 1000
+    reloadDelay: 800
   })
   done()
 }
@@ -477,38 +477,38 @@ const plugins__dest = (root_dist + site + path.plugins).replace('//', '/')
 
 function clean__plugins () { return del(plugins__dest) }
 
-// COPY -------------------------------------------------------------
+// PROCESS - PHP -------------------------------------------------------------
 
-function copy__plugins () {
-  return src('./app/plugins/**/index.php')
+function process__plugins_php () {
+  return src('./app/plugins/**/*.php')
     .pipe(gulpif(DEBUG, debug({ title: '## PLUGIN PHP:' })))
     .pipe(dest(plugins__dest))
 }
 
-// PROCESS -------------------------------------------------------------
+// PROCESS - VUE -------------------------------------------------------------
 
-function process__plugins (done) {
+function process__plugins_vue (done) {
   const tasks = config.plugins.map((plugin) => {
-    function process__plugin () {
+    function process__plugin_vue () {
       const entry = `./app/plugins/${plugin}/src/index.js`
       const options = {
         outDir: `./dist/site/plugins/${plugin}`,
         outFile: 'index.js',
         watch: false,
-        minify: false,
-        sourceMaps: false,
+        minify: PROD ? true : false,
+        sourceMaps: !PROD ? true : false,
         cache: false,
         contentHash: false,
         autoInstall: false,
         scopeHoist: true,
-        logLevel: 0,
+        logLevel: DEBUG ? 3 : 0,
         target: 'node'
       }
       const bundler = new Parcel(entry, options)
       return bundler.bundle()
     }
-    process__plugin.displayName = `process__${plugin}`
-    return process__plugin
+    process__plugin_vue.displayName = `process__${plugin}`
+    return process__plugin_vue
   })
   return series(...tasks, function process__series (seriesDone) {
     seriesDone()
@@ -519,19 +519,17 @@ function process__plugins (done) {
 // WATCH -------------------------------------------------------------
 
 function watch__plugins () {
-  watch(plugins__src + '**/index.php', series(copy__plugins, reload))
-  watch([plugins__src + '**/*.*', '!index.php'], series(process__plugins, reload))
+  watch(plugins__src + '**/index.php', series(process__plugins_php, reload))
+  watch([plugins__src + '**/*.*', '!index.php'], series(process__plugins_vue, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
 
-const plugins = series(clean__plugins, copy__plugins, process__plugins)
+const plugins = series(clean__plugins, process__plugins_php, process__plugins_vue)
 
 ////////////////////////////////////////////////////////////////////////////////
 // COMPOSITION
 ////////////////////////////////////////////////////////////////////////////////
-
-exports.clear = series(clear)
 
 const DATA = series(content)
 const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
