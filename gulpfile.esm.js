@@ -536,14 +536,14 @@ const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
-const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content))
+const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
 
 if (PROD) {
-  exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN)
+  exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET)
 } else {
-  exports.default = series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN)
+  exports.default = series(DATA, LOGIC, STYLE, ASSET, RUN)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
