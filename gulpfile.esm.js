@@ -519,8 +519,7 @@ function process__plugins_vue (done) {
 // WATCH -------------------------------------------------------------
 
 function watch__plugins () {
-  watch(plugins__src + '**/index.php', series(process__plugins_php, reload))
-  watch([plugins__src + '**/*.*', '!index.php'], series(process__plugins_vue, reload))
+  watch(plugins__src + '**/*.*', series(plugins, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------

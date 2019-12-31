@@ -81,3 +81,6 @@
 ## EXECUTABLE
 *.exe binary
 *.pyc binary
+
+## EXECUTABLE
+*.vdf binary
