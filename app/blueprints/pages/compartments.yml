@@ -1,6 +1,6 @@
 title:
-  de: Fachbereiche
   en: Compartments
+  de: Fachbereiche
 
 sections:
   compartments_header:
@@ -11,6 +11,8 @@ sections:
 
   compartments_listed:
     extends: sections/compartments.listed
+
+icon: copy
 
 options:
   changeSlug: true

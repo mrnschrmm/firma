@@ -23,5 +23,5 @@ tabs:
       site_information:
         extends: sections/site.information
 
-      site_dataprotection:
-        extends: sections/site.dataprotection
+      site_privacy:
+        extends: sections/site.privacy

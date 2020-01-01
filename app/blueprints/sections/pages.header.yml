@@ -4,8 +4,6 @@ fields:
   pages_headline:
     type: headline
     numbered: true
-
     label:
-      de: Seiten
       en: Pages
-
+      de: Seiten

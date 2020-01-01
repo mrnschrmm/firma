@@ -1,13 +1,12 @@
 title:
-  de: Kontakt
   en: Contact
+  de: Kontakt
 
 sections:
   contact_content:
-    type: fields
-    extends: fields/contact
+    extends: sections/form.contact
 
-icon: page
+icon: copy
 
 pages: false
 files: false

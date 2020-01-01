@@ -1,3 +1,5 @@
+type: group
+
 fields:
   text:
     type: textarea
@@ -64,5 +66,3 @@ fields:
     label:
       en: Mail
       de: E-Mail
-
-type: group

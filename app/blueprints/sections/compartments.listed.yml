@@ -5,16 +5,16 @@ templates:
 
 status: listed
 layout: cards
-size: medium
+size: small
 
 image:
   back: white
-  ratio: 21/9
+  ratio: 1/1
 
 empty:
   en: No items
   de: Keine Einträge
 
 headline:
-  de: Veröffentlicht
   en: Published
+  de: Veröffentlicht

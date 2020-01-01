@@ -1,6 +1,6 @@
 title:
-  de: Fachbereich
   en: Compartment
+  de: Fachbereich
 
 sections:
   content:
@@ -8,17 +8,20 @@ sections:
     fields:
       text:
         type: textarea
+        buttons: false
+        uploads: false
+        size: medium
         label:
-          de: Beschreibung
           en: Description
+          de: Beschreibung
 
       services:
         extends: fields/service
         label:
-          de: Leistungen
           en: Services
+          de: Leistungen
 
-icon: funnel
+icon: tag
 
 status:
   draft: true

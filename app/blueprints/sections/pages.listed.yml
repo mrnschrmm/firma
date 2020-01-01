@@ -12,7 +12,7 @@ size: medium
 
 image:
   back: white
-  ratio: 21/9
+  ratio: 21/10
 
 empty:
   en: No items

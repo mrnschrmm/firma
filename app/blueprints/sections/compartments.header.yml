@@ -4,8 +4,7 @@ fields:
   compartments_headline:
     type: headline
     numbered: true
-
     label:
-      de: Fachbereiche
       en: Compartments
+      de: Fachbereiche
 

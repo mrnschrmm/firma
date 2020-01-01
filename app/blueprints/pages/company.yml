@@ -1,6 +1,6 @@
 title:
-  de: Unternehmen
   en: Company
+  de: Unternehmen
 
 sections:
   content:
@@ -8,10 +8,14 @@ sections:
     fields:
       text:
         type: textarea
+        buttons: false
+        uploads: false
         size: medium
         label:
-          de: Text
           en: Text
+          de: Text
+
+icon: copy
 
 pages: false
 files: false

@@ -1,0 +1,18 @@
+type: group
+
+fields:
+  privacy_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Privacy
+      de: Datenschutz
+
+  privacy_info:
+    type: textarea
+    buttons: false
+    uploads: false
+    size: small
+    label:
+      en: Notice
+      de: Info
