@@ -2,6 +2,17 @@ title:
   de: Unternehmen
   en: Company
 
+sections:
+  content:
+    type: fields
+    fields:
+      text:
+        type: textarea
+        size: medium
+        label:
+          de: Text
+          en: Text
+
 pages: false
 files: false
 
@@ -13,9 +24,3 @@ options:
   duplicate: true
   preview: true
   update: true
-
-fields:
-  text:
-    label: Text
-    type:  textarea
-    size: medium

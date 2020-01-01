@@ -1,0 +1,23 @@
+type: pages
+
+templates:
+  - compartments
+  - company
+  - contact
+  - default
+
+status: listed
+layout: cards
+size: medium
+
+image:
+  back: white
+  ratio: 21/9
+
+empty:
+  en: No items
+  de: Keine Einträge
+
+headline:
+  en: Published
+  de: Veröffentlicht

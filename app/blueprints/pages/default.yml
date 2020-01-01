@@ -1,5 +1,18 @@
 title: Standard
 
+fields:
+  title:
+    type:  text
+    label:
+      de: Title
+      en: Title
+
+  text:
+    type:  textarea
+    label:
+      de: Text
+      en: Text
+
 options:
   changeSlug: true
   changeStatus: true
@@ -8,11 +21,3 @@ options:
   duplicate: true
   preview: true
   update: true
-
-fields:
-  title:
-    label: Title
-    type:  text
-  text:
-    label: Text
-    type:  textarea

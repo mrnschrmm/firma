@@ -1,2 +1,2 @@
 title: Dashboard
-extends: layouts/dashboard
+extends: dashboard/index

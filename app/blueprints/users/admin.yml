@@ -1,0 +1,21 @@
+title: Admin
+
+permissions:
+  access:
+    *: true
+
+  files:
+    *: true
+
+  site:
+    *: true
+
+  pages:
+    *: true
+
+  user:
+    *: true
+
+  users:
+    *: true
+

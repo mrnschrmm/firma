@@ -1,10 +1,8 @@
-label:
-  en: Services
-  de: Leistungen
 type: structure
+
 fields:
   service:
-    label: 
+    type: text
+    label:
       en: Name
       de: Bezeichnung
-    type: text

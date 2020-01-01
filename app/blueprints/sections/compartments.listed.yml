@@ -1,0 +1,20 @@
+type: pages
+
+templates:
+  - compartment
+
+status: listed
+layout: cards
+size: medium
+
+image:
+  back: white
+  ratio: 21/9
+
+empty:
+  en: No items
+  de: Keine Einträge
+
+headline:
+  de: Veröffentlicht
+  en: Published

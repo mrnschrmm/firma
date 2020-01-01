@@ -2,6 +2,11 @@ title:
   de: Kontakt
   en: Contact
 
+sections:
+  contact_content:
+    type: fields
+    extends: fields/contact
+
 icon: page
 
 pages: false
@@ -18,60 +23,3 @@ options:
   update: true
   changeTemplate:
     - default
-
-fields:
-  text:
-    label:
-      de: Text
-      en: Text
-    type: textarea
-    size: medium
-  line_a:
-    type: line
-  company:
-    label:
-      de: Firma
-      en: Company
-    type: text
-  extra:
-    label:
-      de: Zusatz
-      en: Additional
-    type: text
-  street:
-    label:
-      de: Straße
-      en: Street
-    type: text
-  zip:
-    label:
-      de: Postleitzahl
-      en: ZIP Code
-    type: text
-    width: 1/2
-  location:
-    label:
-      de: Stadt
-      en: City
-    type: text
-    width: 1/2
-  line_b:
-    type: line
-  phone:
-    label:
-      de: Telefon
-      en: Phone
-    type: tel
-    width: 1/2
-  fax:
-    label:
-      de: Fax
-      en: Fax
-    type: tel
-    width: 1/2
-  email:
-    label:
-      de: E-Mail
-      en: Mail
-    type: email
-    width: 1/2

@@ -1,0 +1,27 @@
+fields:
+  information_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Website Informations
+      de: Website Informationen
+
+  description:
+    type: text
+    label:
+      en: Description
+      de: Beschreibung
+
+  keywords:
+    type: tags
+    label:
+      en: Keywords
+      de: Schlagworte
+
+  author:
+    type: text
+    label:
+      en: Author
+      de: Verfasser
+
+type: group

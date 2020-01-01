@@ -2,24 +2,15 @@ title:
   de: Fachbereiche
   en: Compartments
 
-preset: pages
+sections:
+  compartments_header:
+    extends: sections/compartments.header
 
-drafts:
-  extends: sections/compartments
-  empty:
-    de: Es bestehen keine Einträge
-    en: No Compartments
+  compartments_drafts:
+    extends: sections/compartments.drafts
 
-listed:
-  extends: sections/compartments
-  layout: cards
-  size: medium
-  image:
-    back: white
-    ratio: 21/9
-  empty:
-    en: No Compartments
-    de: Keine Fachbereiche
+  compartments_listed:
+    extends: sections/compartments.listed
 
 options:
   changeSlug: true

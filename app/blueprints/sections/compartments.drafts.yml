@@ -1,0 +1,15 @@
+type: pages
+
+templates:
+  - compartment
+
+status: draft
+layout: list
+
+empty:
+  en: No items
+  de: Keine Einträge
+
+headline:
+  de: Entwürfe
+  en: Drafts

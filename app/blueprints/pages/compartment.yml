@@ -2,7 +2,23 @@ title:
   de: Fachbereich
   en: Compartment
 
-icon: template
+sections:
+  content:
+    type: fields
+    fields:
+      text:
+        type: textarea
+        label:
+          de: Beschreibung
+          en: Description
+
+      services:
+        extends: fields/service
+        label:
+          de: Leistungen
+          en: Services
+
+icon: funnel
 
 status:
   draft: true
@@ -16,16 +32,3 @@ options:
   duplicate: true
   preview: true
   update: true
-
-fields:
-  text:
-    label:
-      de: Beschreibung
-      en: Description
-    type: textarea
-
-  services:
-    extends: fields/services
-    label:
-      de: Leistungen
-      en: Services

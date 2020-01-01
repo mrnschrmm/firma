@@ -1,0 +1,27 @@
+tabs:
+  content:
+    label:
+      en: Dashboard
+      de: Dashboard
+
+    sections:
+      pages_header:
+        extends: sections/pages.header
+
+      pages_drafts:
+        extends: sections/pages.drafts
+
+      pages_listed:
+        extends: sections/pages.listed
+
+  options:
+    label:
+      en: Settings
+      de: Einstellungen
+
+    sections:
+      site_information:
+        extends: sections/site.information
+
+      site_dataprotection:
+        extends: sections/site.dataprotection

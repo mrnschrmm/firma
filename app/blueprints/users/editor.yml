@@ -1,0 +1,15 @@
+title: Editor
+
+permissions:
+  access:
+    settings: false
+    users: false
+
+  site:
+    update: false
+
+  pages:
+    delete: false
+
+  user:
+    changeRole: false
