@@ -5,33 +5,7 @@ sections:
     fields:
       contact_header: fields/page.header
 
-      contact_company_headline:
-        type: headline
-        numbered: true
-        label:
-          en: Location Details
-          de: Standort
-
-      contact_company:
-        extends: fields/info.company
-        fields:
-          company_line_a: false
-
-      contact_location:
-        extends: fields/info.location
-        fields:
-          location_line_a: false
-
-      contact_channel_headline:
-        type: headline
-        numbered: true
-        label:
-          en: Chammels
-          de: Kanäle
-
-      contact_channel: fields/info.channel
-
-icon: template
+  contact_details: sections/contact
 
 pages: false
 files: false
@@ -47,3 +21,5 @@ options:
   update: true
   changeTemplate:
     - default
+
+icon: template

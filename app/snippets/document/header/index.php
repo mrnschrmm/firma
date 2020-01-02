@@ -5,9 +5,9 @@
     <title><?= $site->title()->html() ?></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="<?= $site->description()->html() ?>">
-    <meta name="keywords" content="<?= $site->keywords()->html() ?>">
-    <meta name="author" content="<?= $site->author()->html() ?>">
+    <meta name="description" content="<?= $site->site_description()->html() ?>">
+    <meta name="keywords" content="<?= $site->site_keywords()->html() ?>">
+    <meta name="author" content="<?= $site->site_author()->html() ?>">
     <meta name="language" content="<?= $kirby->language()->code() ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp">

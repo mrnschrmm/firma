@@ -4,7 +4,7 @@ sections:
 
     fields:
       compartment_header: fields/page.header
-      compartment_services: fields/services
+      compartment_services: fields/info.services
 
 status:
   draft: true
