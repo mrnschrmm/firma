@@ -2,23 +2,4 @@ title:
   en: Compartments
   de: Fachbereiche
 
-sections:
-  compartments_header:
-    extends: sections/compartments.header
-
-  compartments_drafts:
-    extends: sections/compartments.drafts
-
-  compartments_listed:
-    extends: sections/compartments.listed
-
-icon: copy
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
+extends: layouts/compartments

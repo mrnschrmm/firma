@@ -1,2 +1,5 @@
-title: Dashboard
-extends: dashboard/index
+title:
+  en: Dashboard
+  de: Dashboard
+
+extends: layouts/dashboard

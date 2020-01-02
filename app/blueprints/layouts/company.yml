@@ -1,0 +1,20 @@
+sections:
+  company_page:
+    type: fields
+
+    fields:
+      company_header: fields/page.header
+
+pages: false
+files: false
+
+options:
+  changeSlug: true
+  changeStatus: true
+  changeTitle: true
+  delete: true
+  duplicate: true
+  preview: true
+  update: true
+
+icon: template

@@ -1,4 +1,0 @@
-type: fields
-
-fields:
-  extends: fields/privacy

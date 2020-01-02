@@ -1,0 +1,17 @@
+tabs:
+  dashboard_main:
+    label:
+      en: Dashboard
+      de: Dashboard
+
+    sections:
+      dashboard_pages_draft: sections/pages.draft
+      dashboard_pages_listed: sections/pages.listed
+
+  dashboard_side:
+    label:
+      en: Settings
+      de: Einstellungen
+
+    sections:
+      dashboard_settings: sections/settings

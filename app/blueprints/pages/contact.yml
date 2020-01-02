@@ -2,23 +2,4 @@ title:
   en: Contact
   de: Kontakt
 
-sections:
-  contact_content:
-    extends: sections/form.contact
-
-icon: copy
-
-pages: false
-files: false
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  read: true
-  update: true
-  changeTemplate:
-    - default
+extends: layouts/contact

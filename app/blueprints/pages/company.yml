@@ -2,29 +2,4 @@ title:
   en: Company
   de: Unternehmen
 
-sections:
-  content:
-    type: fields
-    fields:
-      text:
-        type: textarea
-        buttons: false
-        uploads: false
-        size: medium
-        label:
-          en: Text
-          de: Text
-
-icon: copy
-
-pages: false
-files: false
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
+extends: layouts/company

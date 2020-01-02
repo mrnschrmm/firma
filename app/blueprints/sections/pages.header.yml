@@ -1,9 +1,0 @@
-type: fields
-
-fields:
-  pages_headline:
-    type: headline
-    numbered: true
-    label:
-      en: Pages
-      de: Seiten

@@ -1,5 +1,9 @@
 type: pages
 
+empty:
+  en: No items
+  de: Keine Einträge
+
 templates:
   - compartments
   - company
@@ -12,12 +16,8 @@ size: medium
 
 image:
   back: white
-  ratio: 21/10
-
-empty:
-  en: No items
-  de: Keine Einträge
+  ratio: 21/9
 
 headline:
-  en: Published
-  de: Veröffentlicht
+  en: Active Pages
+  de: Aktive Seiten

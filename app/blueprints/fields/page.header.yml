@@ -1,18 +1,18 @@
 type: group
 
 fields:
-  privacy_headline:
+  page_header_headline:
     type: headline
     numbered: true
     label:
-      en: Privacy
-      de: Datenschutz
+      en: Info
+      de: Info
 
-  privacy_info:
+  page_header_text:
     type: textarea
     buttons: false
     uploads: false
     size: small
     label:
-      en: Notice
-      de: Info
+      en: Description
+      de: Beschreibung

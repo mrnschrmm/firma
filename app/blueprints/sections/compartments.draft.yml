@@ -1,14 +1,14 @@
 type: pages
 
+empty:
+  en: No items
+  de: Keine Einträge
+
 templates:
   - compartment
 
 status: draft
 layout: list
-
-empty:
-  en: No items
-  de: Keine Einträge
 
 headline:
   en: Drafts

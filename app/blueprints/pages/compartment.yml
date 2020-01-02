@@ -2,36 +2,4 @@ title:
   en: Compartment
   de: Fachbereich
 
-sections:
-  content:
-    type: fields
-    fields:
-      text:
-        type: textarea
-        buttons: false
-        uploads: false
-        size: medium
-        label:
-          en: Description
-          de: Beschreibung
-
-      services:
-        extends: fields/service
-        label:
-          en: Services
-          de: Leistungen
-
-icon: tag
-
-status:
-  draft: true
-  listed: true
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
+extends: layouts/compartment

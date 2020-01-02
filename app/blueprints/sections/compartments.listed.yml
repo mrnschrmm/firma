@@ -1,5 +1,9 @@
 type: pages
 
+empty:
+  en: No items
+  de: Keine Einträge
+
 templates:
   - compartment
 
@@ -9,12 +13,8 @@ size: small
 
 image:
   back: white
-  ratio: 1/1
-
-empty:
-  en: No items
-  de: Keine Einträge
+  ratio: 3/2
 
 headline:
-  en: Published
-  de: Veröffentlicht
+  en: Active Compartments
+  de: Aktive Bereiche

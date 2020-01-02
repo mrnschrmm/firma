@@ -1,8 +1,0 @@
-type: structure
-
-fields:
-  service:
-    type: text
-    label:
-      en: Name
-      de: Bezeichnung

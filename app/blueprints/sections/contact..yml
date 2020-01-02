@@ -1,0 +1,20 @@
+type: fields
+
+fields:
+  settings_info_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Website
+      de: Website
+
+  settings_info: fields/settings.site
+
+  settings_privacy_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Privacy
+      de: Datenschutz
+
+  settings_privacy: fields/settings.privacy
