@@ -3,7 +3,7 @@ sections:
     type: fields
 
     fields:
-      contact_header: fields/page.header
+      contact_info: fields/info.page
 
   contact_details: sections/contact
 

@@ -4,7 +4,7 @@
       <?php snippet('component/block-page-header/index') ?>
     </header>
     <main class="page-main">
-      <?php snippet('component/block-wysiwyg/index') ?>
+      <?php snippet('component/block-wysiwyg/index', ['text' => $page->page_description()]) ?>
     </main>
     <footer class="page-footer">
       <?php snippet('component/block-page-footer/index') ?>

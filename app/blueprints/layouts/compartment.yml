@@ -3,20 +3,11 @@ sections:
     type: fields
 
     fields:
-      compartment_header: fields/page.header
+      compartment_info: fields/info.page
       compartment_services: fields/info.services
 
 status:
   draft: true
   listed: true
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
 
 icon: cog

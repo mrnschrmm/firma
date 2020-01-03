@@ -3,7 +3,7 @@ sections:
     type: fields
 
     fields:
-      company_header: fields/page.header
+      company_info: fields/info.page
 
 pages: false
 files: false
