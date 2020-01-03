@@ -1,0 +1,41 @@
+Title: Kontakt
+
+----
+
+page_description:
+
+Wir freuen uns immer von Ihnen zu hören. Wenn Sie daran interessiert sind mit uns über ein neues Projekt zu sprechen, schreiben Sie uns an hello@schramm-reinigung.de.
+
+Für Bewerbungen senden Sie Ihre Unterlagen (PDF oder Link) bitte an job@schramm-reinigung.de. Da wir nicht auf jede Bewerbung reagieren können, bedanken wir uns im Voraus für Ihr Interesse.
+
+----
+
+company_title: Glas & Gebäudereinigung
+
+----
+
+company_extra: Uwe Schramm
+
+----
+
+location_street: Heinrichstraße 86
+
+----
+
+location_zip: 07545
+
+----
+
+location_city: Gera
+
+----
+
+channel_phone: 0365 831 02 54
+
+----
+
+channel_fax: 0365 831 02 55
+
+----
+
+channel_email: hello@schramm-reinigung.de

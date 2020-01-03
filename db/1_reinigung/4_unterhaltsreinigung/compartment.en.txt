@@ -1,0 +1,24 @@
+Title: Regular Clean
+
+----
+
+page_description:
+
+Cleanliness and tidiness significantly influences the quality and atmosphere of living and working spaces. With a cleaning concept on a regular base, a high level of freshness and hygiene can be accomplished at all time.
+
+A good service ensures even more: For our customers, it is also about maintaining safety conditions and the value of buildings and facilities.
+
+----
+
+Services:
+
+-
+  service: Reliable and Regular
+-
+  service: Experience and Quality
+-
+  service: Hygiene and Cleanliness
+-
+  service: Qualified Employees
+-
+  service: Modern Cleaning Technologies

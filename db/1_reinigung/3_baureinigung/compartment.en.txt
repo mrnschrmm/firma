@@ -1,0 +1,20 @@
+Title: Construction Environments
+
+----
+
+page_description:
+
+Cleaning a former construction site is a topic that is considered best during the construction phase. Coarse dirt or remnants of materials can be removed already and facilitates the final cleaning process. In doing so, we adapt smoothly to the construction cycle of the individual stages and also react to short-term requirements.
+
+Particularly important is a professional processing of all coverings according to the respective manufacturer's specifications, a foundation for an effective maintenance cleaning strategy.
+
+----
+
+Services:
+
+-
+  service: 'Surfaces & Floor Coverings'
+-
+  service: 'Windows & Glass Elements'
+-
+  service: Sanitary Facilities
