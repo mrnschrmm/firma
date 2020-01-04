@@ -12,7 +12,7 @@ Site-author: Uwe Schramm
 
 ----
 
-Site-keywords: Cleaning services, Window Cleaning Service, House Cleaning Service, Carpet Cleaning
+Site-keywords: Cleaning services, Window Cleaning Service, Window Cleaner, House Cleaning Service, Carpet Cleaning
 
 ----
 
