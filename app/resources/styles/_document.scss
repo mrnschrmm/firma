@@ -16,10 +16,14 @@
   }
 
   &-side {
-    bottom: 0;
-    display: none;
+    bottom: 88px;
+    display: block;
     left: 0;
     position: absolute;
+
+    &:empty {
+      display: none;
+    }
   }
 }
 

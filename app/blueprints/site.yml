@@ -1,2 +1,5 @@
-title: Dashboard
+title:
+  en: Dashboard
+  de: Dashboard
+
 extends: layouts/dashboard

@@ -1,0 +1,18 @@
+type: pages
+
+templates:
+  - compartments
+  - company
+  - contact
+  - default
+
+status: draft
+layout: list
+
+empty:
+  en: No items
+  de: Keine Einträge
+
+headline:
+  en: Drafts
+  de: Entwürfe

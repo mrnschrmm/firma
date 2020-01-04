@@ -25,10 +25,9 @@ button {
   font-weight: 700;
   line-height: 1;
   outline: 0;
-  padding: 1em calc(1.5em + 32px) 0.9em 1.5em;
+  padding: 1em 1.5em 0.9em;
   position: relative;
   text-align: center;
-  text-transform: uppercase;
   transition: background-color 200ms ease-in-out;
 
   &:hover,

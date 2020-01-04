@@ -2,7 +2,7 @@
   <div class="container">
     <div class="block-wysiwyg">
       <div class="content context-content">
-        <?= $page->text()->kirbytext() ?>
+        <?= $text->h() ?>
       </div>
     </div>
   </div>

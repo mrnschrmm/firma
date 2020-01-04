@@ -1,22 +1,17 @@
-title: Dashboard
+tabs:
+  dashboard_main:
+    label:
+      en: Dashboard
+      de: Dashboard
 
-columns:
-  left:
-    width: 2/3
     sections:
-      header:
-        type: fields
-        fields:
-          headline:
-            label:
-              de: Seiten
-              en: Pages
-            type: headline
-      published:
-        extends: fields/page.listed
+      dashboard_pages_draft: sections/pages.draft
+      dashboard_pages_listed: sections/pages.listed
 
-  right:
-    width: 1/3
+  dashboard_side:
+    label:
+      en: Settings
+      de: Einstellungen
+
     sections:
-      drafts:
-        extends: fields/page.drafts
+      dashboard_settings: sections/settings

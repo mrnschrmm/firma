@@ -1,0 +1,22 @@
+Title: Glasreinigung
+
+----
+
+page_description:
+
+Glasreinigung in Gera und Umgebung – Unsere Gebäudereiniger putzen Fenster, Glastüren oder Wintergärten schnell, sauber und sicher.
+
+Wir entfernen mit einem passenden Reinigungsmittel zuverlässig alle Verschmutzungen von Ihren Scheiben und trocknen sie anschließend mit dem Wischer oder Fensterleder. Dabei gehört die gründliche Säuberung der Fensterrahmen selbstverständlich auch zu unserem Service.
+
+----
+
+Services:
+
+-
+  service: Fenster, Schaufenster, Glasfronten
+-
+  service: Fensterrahmenreinigung
+-
+  service: 'Glasbausteine & Glaswände'
+-
+  service: 'Wintergärten & Glasvordächer'

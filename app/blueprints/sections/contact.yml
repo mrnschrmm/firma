@@ -1,0 +1,28 @@
+type: fields
+
+fields:
+  contact_company_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Location
+      de: Standort
+
+  contact_company:
+    extends: fields/info.company
+    fields:
+      company_line_a: false
+
+  contact_location:
+    extends: fields/info.location
+    fields:
+      location_line_a: false
+
+  contact_channel_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Channels
+      de: Kanäle
+
+  contact_channel: fields/info.channel

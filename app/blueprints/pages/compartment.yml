@@ -1,31 +1,5 @@
 title:
-  de: Fachbereich
   en: Compartment
+  de: Fachbereich
 
-icon: template
-
-status:
-  draft: true
-  listed: true
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
-
-fields:
-  text:
-    label:
-      de: Beschreibung
-      en: Description
-    type: textarea
-
-  services:
-    extends: fields/services
-    label:
-      de: Leistungen
-      en: Services
+extends: layouts/compartment

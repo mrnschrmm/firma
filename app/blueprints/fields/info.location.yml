@@ -1,0 +1,25 @@
+type: group
+
+fields:
+  location_street:
+    type: text
+    label:
+      en: Street
+      de: Straße
+
+  location_zip:
+    type: text
+    width: 1/2
+    label:
+      en: ZIP Code
+      de: Postleitzahl
+
+  location_city:
+    type: text
+    width: 1/2
+    label:
+      en: City
+      de: Stadt
+
+  location_line_a:
+    type: line

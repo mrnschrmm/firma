@@ -10,6 +10,7 @@ module.exports = {
     site: 'site',
     assets: 'assets',
     configs: 'config',
+    plugins: 'plugins',
     resources: 'resources',
     blueprints: 'blueprints',
     fonts: 'fonts',
@@ -36,5 +37,8 @@ module.exports = {
       'node_modules/headroom.js/dist/headroom.js',
       'node_modules/body-scroll-lock/lib/bodyScrollLock.js'
     ]
-  }
+  },
+  plugins: [
+    'options'
+  ]
 }

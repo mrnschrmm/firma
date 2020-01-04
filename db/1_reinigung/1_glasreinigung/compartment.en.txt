@@ -1,0 +1,18 @@
+Title: Glass Cleaning
+
+----
+
+page_description: We clean windows, glass doors or conservatories quick and safely. With a suitable cleaning agent, we reliably remove all dirt from your windows, dry them with the a wiper or chamois leather. Of course, the cleaning of window frames is part of our service.
+
+----
+
+Services:
+
+-
+  service: Windows, Shop Windows, Glass Fronts
+-
+  service: 'Glass Blocks & Glass Walls'
+-
+  service: Window Frame Cleaning
+-
+  service: 'Conservatories & Glass Canopies'

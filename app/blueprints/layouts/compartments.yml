@@ -1,0 +1,5 @@
+sections:
+  compartments_draft: sections/compartments.draft
+  compartments_listed: sections/compartments.listed
+
+icon: template

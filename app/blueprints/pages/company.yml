@@ -1,21 +1,5 @@
 title:
-  de: Unternehmen
   en: Company
+  de: Unternehmen
 
-pages: false
-files: false
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
-
-fields:
-  text:
-    label: Text
-    type:  textarea
-    size: medium
+extends: layouts/company

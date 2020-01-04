@@ -1,0 +1,9 @@
+sections:
+  compartment_page:
+    type: fields
+
+    fields:
+      compartment_info: fields/info.page
+      compartment_services: fields/info.services
+
+icon: cog

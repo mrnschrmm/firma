@@ -1,0 +1,19 @@
+type: group
+
+fields:
+  company_title:
+    type: text
+    width: 3/4
+    label:
+      en: Title
+      de: Bezeichnung
+
+  company_extra:
+    type: text
+    width: 1/4
+    label:
+      en: Extra
+      de: Zusatz
+
+  company_line_a:
+    type: line

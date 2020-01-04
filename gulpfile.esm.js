@@ -2,7 +2,7 @@
 // GULP
 ////////////////////////////////////////////////////////////////////////////////
 
-import { series, parallel, src, dest, watch } from 'gulp'
+import { task, series, parallel, src, dest, watch } from 'gulp'
 
 import autoprefixer from 'gulp-autoprefixer'
 import stylelint from 'gulp-stylelint'
@@ -22,6 +22,8 @@ import sync from 'browser-sync'
 import del from 'del'
 import config from './config'
 import minimist from 'minimist'
+
+import Parcel from 'parcel-bundler'
 
 // ARGS
 const ARGS = minimist(process.argv.slice(2))
@@ -56,7 +58,7 @@ function browsersync (done) {
     ui: false,
     online: false,
     injectChanges: true,
-    reloadDelay: 1000
+    reloadDelay: 800
   })
   done()
 }
@@ -171,9 +173,9 @@ const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 
 function clean__index () { return del([index__dest + 'index.php']) }
 function clean__htaccess () { return del([index__dest + '.htaccess']) }
-function clean__blueprints () { return del([blueprints__dest]) };
-function clean__collections () { return del([collections__dest]) };
-function clean__controllers () { return del([controllers__dest]) };
+function clean__blueprints () { return del([blueprints__dest]) }
+function clean__collections () { return del([collections__dest]) }
+function clean__controllers () { return del([controllers__dest]) }
 function clean__configs () { return del([configs__dest]) }
 function clean__languages () { return del([languages__dest]) }
 function clean__snippets () { return del([snippets__dest]) }
@@ -465,17 +467,78 @@ function watch__styles () {
 const styles = series(clean__styles, process__styles)
 
 ////////////////////////////////////////////////////////////////////////////////
-// COMPOSITION
+// PLUGINS
 ////////////////////////////////////////////////////////////////////////////////
 
-exports.clear = series(clear)
+const plugins__src = (root_src + path.plugins).replace('//', '/')
+const plugins__dest = (root_dist + site + path.plugins).replace('//', '/')
+
+// CLEAN -------------------------------------------------------------
+
+function clean__plugins () { return del(plugins__dest) }
+
+// PROCESS - PHP -------------------------------------------------------------
+
+function process__plugins_php () {
+  return src('./app/plugins/**/*.php')
+    .pipe(gulpif(DEBUG, debug({ title: '## PLUGIN PHP:' })))
+    .pipe(dest(plugins__dest))
+}
+
+// PROCESS - VUE -------------------------------------------------------------
+
+function process__plugins_vue (done) {
+  const tasks = config.plugins.map((plugin) => {
+    function process__plugin_vue () {
+      const entry = `./app/plugins/${plugin}/src/index.js`
+      const options = {
+        outDir: `./dist/site/plugins/${plugin}`,
+        outFile: 'index.js',
+        watch: false,
+        minify: PROD ? true : false,
+        sourceMaps: !PROD ? true : false,
+        cache: false,
+        contentHash: false,
+        autoInstall: false,
+        scopeHoist: true,
+        logLevel: DEBUG ? 3 : 0,
+        target: 'node'
+      }
+      const bundler = new Parcel(entry, options)
+      return bundler.bundle()
+    }
+    process__plugin_vue.displayName = `process__${plugin}`
+    return process__plugin_vue
+  })
+  return series(...tasks, function process__series (seriesDone) {
+    seriesDone()
+    done()
+  })()
+}
+
+// WATCH -------------------------------------------------------------
+
+function watch__plugins () {
+  watch(plugins__src + '**/*.*', series(plugins, reload))
+}
+
+// COMPOSITION -------------------------------------------------------------
+
+const plugins = series(clean__plugins, process__plugins_php, process__plugins_vue)
+
+////////////////////////////////////////////////////////////////////////////////
+// COMPOSITION
+////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
 const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
 const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
+const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
 const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
+
+// MAIN -------------------------------------------------------------
 
 if (PROD) {
   exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET)

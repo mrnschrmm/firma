@@ -1,0 +1,23 @@
+type: group
+
+fields:
+  channel_phone:
+    type: tel
+    width: 1/2
+    label:
+      en: Phone
+      de: Telefon
+
+  channel_fax:
+    type: tel
+    width: 1/2
+    label:
+      en: Fax
+      de: Fax
+
+  channel_email:
+    type: email
+    width: 1/2
+    label:
+      en: Mail
+      de: E-Mail

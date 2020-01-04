@@ -1,31 +1,5 @@
 title:
-  de: Fachbereiche
   en: Compartments
+  de: Fachbereiche
 
-preset: pages
-
-drafts:
-  extends: sections/compartments
-  empty:
-    de: Es bestehen keine Einträge
-    en: No Compartments
-
-listed:
-  extends: sections/compartments
-  layout: cards
-  size: medium
-  image:
-    back: white
-    ratio: 21/9
-  empty:
-    en: No Compartments
-    de: Keine Fachbereiche
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
+extends: layouts/compartments

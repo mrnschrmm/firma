@@ -1,0 +1,24 @@
+type: pages
+
+empty:
+  en: No items
+  de: Keine Einträge
+
+templates:
+  - compartments
+  - company
+  - contact
+  - default
+
+status: listed
+layout: cards
+size: medium
+sortable: false
+
+image:
+  back: white
+  ratio: 21/9
+
+headline:
+  en: Public Pages
+  de: Öffentliche Seiten

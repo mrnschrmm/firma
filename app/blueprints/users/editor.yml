@@ -1,0 +1,36 @@
+title: Editor
+
+permissions:
+  access:
+    panel: true
+    site: true
+    settings: false
+    users: false
+  files:
+    create: true
+    changeName: true
+    delete: true
+    replace: true
+    update: false
+  site:
+    *: false
+  pages:
+    create: true
+    changeTemplate: true
+    changeTitle: true
+    changeSlug: true
+    delete: false
+    hide: true
+    sort: true
+    update: true
+  user:
+    create: false
+    changeName: true
+    changeEmail: true
+    changeLanguage: true
+    changePassword: true
+    changeRole: false
+    delete: false
+    update: true
+  users:
+    *: false
