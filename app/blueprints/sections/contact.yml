@@ -22,7 +22,7 @@ fields:
     type: headline
     numbered: true
     label:
-      en: Chammels
+      en: Channels
       de: Kanäle
 
   contact_channel: fields/info.channel
