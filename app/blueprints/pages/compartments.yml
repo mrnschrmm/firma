@@ -3,3 +3,4 @@ title:
   de: Fachbereiche
 
 extends: layouts/compartments
+icon: template

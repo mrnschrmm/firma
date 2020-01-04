@@ -5,5 +5,3 @@ sections:
       contact_info: fields/info.page
 
   contact_details: sections/contact
-
-icon: template

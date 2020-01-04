@@ -3,3 +3,4 @@ title:
   de: Unternehmen
 
 extends: layouts/company
+icon: template

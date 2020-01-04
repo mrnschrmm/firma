@@ -3,5 +3,3 @@ sections:
     type: fields
     fields:
       company_info: fields/info.page
-
-icon: template

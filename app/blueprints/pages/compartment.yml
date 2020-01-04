@@ -3,3 +3,4 @@ title:
   de: Fachbereich
 
 extends: layouts/compartment
+icon: cog
