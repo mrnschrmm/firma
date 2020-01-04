@@ -1,20 +1,7 @@
 sections:
   company_page:
     type: fields
-
     fields:
       company_info: fields/info.page
-
-pages: false
-files: false
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
 
 icon: template

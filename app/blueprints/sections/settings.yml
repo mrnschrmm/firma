@@ -5,8 +5,8 @@ fields:
     type: headline
     numbered: true
     label:
-      en: Website Information
-      de: Website Information
+      en: Website Informations
+      de: Website Informationen
 
   settings_site: fields/settings.site
 
@@ -14,7 +14,7 @@ fields:
     type: headline
     numbered: true
     label:
-      en: Privacy
+      en: Data Protection
       de: Datenschutz
 
   settings_privacy: fields/settings.privacy

@@ -2,13 +2,4 @@ sections:
   compartments_draft: sections/compartments.draft
   compartments_listed: sections/compartments.listed
 
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  update: true
-
 icon: template

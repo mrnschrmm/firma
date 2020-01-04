@@ -1,25 +1,9 @@
 sections:
   contact_page:
     type: fields
-
     fields:
       contact_info: fields/info.page
 
   contact_details: sections/contact
-
-pages: false
-files: false
-
-options:
-  changeSlug: true
-  changeStatus: true
-  changeTitle: true
-  delete: true
-  duplicate: true
-  preview: true
-  read: true
-  update: true
-  changeTemplate:
-    - default
 
 icon: template

@@ -6,8 +6,4 @@ sections:
       compartment_info: fields/info.page
       compartment_services: fields/info.services
 
-status:
-  draft: true
-  listed: true
-
 icon: cog

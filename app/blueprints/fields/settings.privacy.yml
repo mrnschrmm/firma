@@ -1,11 +1,25 @@
 type: group
 
 fields:
-  privacy_text:
+  privacy_user_statistics:
+    type: toggle
+    text:
+      -
+        en: Inactive
+        de: Inaktiv
+      -
+        en: Active
+        de: Aktiv
+
+    label:
+      en: User statistics
+      de: Nutzerstatistik
+
+  privacy_notice:
     type: textarea
     buttons: false
     uploads: false
     size: small
     label:
-      en: Description
-      de: Beschreibung
+      en: User notice about data collection
+      de: Benutzerhinweis bei Datenerfassung

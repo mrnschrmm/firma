@@ -3,7 +3,6 @@ type: group
 fields:
   services:
     type: structure
-
     label:
       en: Services
       de: Leistungen
@@ -11,8 +10,6 @@ fields:
     fields:
       service:
         type: text
-
         label:
           en: Name
           de: Bezeichnung
-

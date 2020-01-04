@@ -1,36 +1,43 @@
-title: Editor
+title: Manager
 
 permissions:
   access:
     panel: true
     site: true
-    settings: false
-    users: false
+    settings: true
+    users: true
   files:
     create: true
     changeName: true
     delete: true
     replace: true
-    update: false
+    update: true
   site:
-    *: false
+    update: true
   pages:
     create: true
     changeTemplate: true
     changeTitle: true
     changeSlug: true
-    delete: false
+    delete: true
     hide: true
     sort: true
     update: true
   user:
-    create: false
+    create: true
     changeName: true
     changeEmail: true
     changeLanguage: true
     changePassword: true
-    changeRole: false
-    delete: false
+    changeRole: true
+    delete: true
     update: true
   users:
-    *: false
+    create: true
+    changeEmail: true
+    changeLanguage: true
+    changeName: true
+    changePassword: true
+    changeRole: true
+    delete: true
+    update: true

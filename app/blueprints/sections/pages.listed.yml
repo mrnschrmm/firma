@@ -13,11 +13,12 @@ templates:
 status: listed
 layout: cards
 size: medium
+sortable: false
 
 image:
   back: white
   ratio: 21/9
 
 headline:
-  en: Active Pages
-  de: Aktive Seiten
+  en: Public Pages
+  de: Öffentliche Seiten
