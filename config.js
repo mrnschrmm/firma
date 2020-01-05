@@ -38,7 +38,5 @@ module.exports = {
       'node_modules/body-scroll-lock/lib/bodyScrollLock.js'
     ]
   },
-  plugins: [
-    'options'
-  ]
+  plugins: []
 }
