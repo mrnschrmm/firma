@@ -1,0 +1,17 @@
+type: group
+
+fields:
+  location_data:
+    type: locator
+    liststyle: columns
+
+    display:
+      - address
+      - number
+      - postcode
+      - city
+      - country
+
+    label:
+      en: Location
+      de: Standort

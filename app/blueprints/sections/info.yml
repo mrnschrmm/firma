@@ -1,0 +1,11 @@
+type: fields
+
+fields:
+  info_site_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Website Informations
+      de: Website Informationen
+
+  info_site: fields/info/site

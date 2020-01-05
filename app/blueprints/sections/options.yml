@@ -1,0 +1,11 @@
+type: fields
+
+fields:
+  options_privacy_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Data Protection
+      de: Datenschutz
+
+  options_privacy: fields/options/privacy

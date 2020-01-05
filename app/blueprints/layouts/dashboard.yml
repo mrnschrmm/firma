@@ -1,5 +1,5 @@
 tabs:
-  dashboard_main:
+  dashboard_pages_tab:
     label:
       en: Dashboard
       de: Dashboard
@@ -8,10 +8,18 @@ tabs:
       dashboard_pages_draft: sections/pages.draft
       dashboard_pages_listed: sections/pages.listed
 
-  dashboard_side:
+  dashboard_info_tab:
     label:
-      en: Settings
-      de: Einstellungen
+      en: Info
+      de: Info
 
     sections:
-      dashboard_settings: sections/settings
+      dashboard_info: sections/info
+
+  dashboard_options_tab:
+    label:
+      en: Options
+      de: Optionen
+
+    sections:
+      dashboard_options: sections/options

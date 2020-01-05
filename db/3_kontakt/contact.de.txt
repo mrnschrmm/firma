@@ -18,15 +18,15 @@ company_extra: Uwe Schramm
 
 ----
 
-location_street: Heinrichstraße 86
+Location-data:
 
-----
-
-location_zip: 07545
-
-----
-
-location_city: Gera
+lat: 50.8722558
+lon: '12.07550090628'
+number: "86"
+city: Gera
+country: Germany
+postcode: "07545"
+address: Heinrichstraße
 
 ----
 

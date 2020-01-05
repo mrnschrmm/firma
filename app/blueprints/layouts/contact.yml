@@ -1,7 +1,54 @@
-sections:
-  contact_page:
-    type: fields
-    fields:
-      contact_info: fields/info.page
+columns:
+  - width: 1/1
+    sections:
+      contact_page:
+        type: fields
+        fields:
+          contact_default: fields/page/default
 
-  contact_details: sections/contact
+  - width: 1/2
+    sections:
+      contact_details_company:
+        type: fields
+
+        fields:
+          contact_company_headline:
+            type: headline
+            numbered: true
+            label:
+              en: Company
+              de: Unternehmen
+
+          contact_company:
+            extends: fields/company
+
+  - width: 1/2
+    sections:
+      contact_details_location:
+        type: fields
+
+        fields:
+          contact_location_headline:
+            type: headline
+            numbered: true
+            label:
+              en: Address
+              de: Anschrift
+
+          contact_location:
+            extends: fields/location
+
+  - width: 1/1
+    sections:
+      contact_details_channels:
+        type: fields
+
+        fields:
+          contact_channel_headline:
+            type: headline
+            numbered: true
+            label:
+              en: Communication Channels
+              de: Kommunikationskanäle
+
+          contact_channel: fields/channel

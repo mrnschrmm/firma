@@ -2,4 +2,4 @@ sections:
   company_page:
     type: fields
     fields:
-      company_info: fields/info.page
+      company_info: fields/page/default
