@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b77d444309dead1bea86625f6b2f98c2",
+    "content-hash": "854f2b5643b6eced300518a6dda3f131",
     "packages": [
         {
             "name": "claviska/simpleimage",
@@ -471,6 +471,40 @@
             "time": "2019-11-01T11:05:21+00:00"
         },
         {
+            "name": "sylvainjule/locator",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sylvainjule/kirby-locator.git",
+                "reference": "92a12135204193a03b743d9057bb983af9a819f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sylvainjule/kirby-locator/zipball/92a12135204193a03b743d9057bb983af9a819f3",
+                "reference": "92a12135204193a03b743d9057bb983af9a819f3",
+                "shasum": ""
+            },
+            "require": {
+                "getkirby/composer-installer": "^1.1"
+            },
+            "type": "kirby-plugin",
+            "extra": {
+                "installer-name": "locator"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sylvain Julé",
+                    "email": "contact@sylvain-jule.fr"
+                }
+            ],
+            "description": "A map & geolocation field, built on top of open-source services / Mapbox",
+            "time": "2019-12-04T15:19:22+00:00"
+        },
+        {
             "name": "symfony/polyfill-mbstring",
             "version": "v1.13.1",
             "source": {
@@ -618,6 +652,7 @@
                 "escaper",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-escaper",
             "time": "2018-04-25T15:48:53+00:00"
         }
     ],
