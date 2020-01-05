@@ -39,6 +39,9 @@ const resources = path.resources
 const site = path.site
 const db = path.db
 
+// STATES
+const STATE_PLUGINS = (typeof config.plugins !== 'undefined' && config.plugins.length > 0) ? true : false
+
 ////////////////////////////////////////////////////////////////////////////////
 // BROWSERSYNC
 ////////////////////////////////////////////////////////////////////////////////
@@ -475,7 +478,19 @@ const plugins__dest = (root_dist + site + path.plugins).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
-function clean__plugins () { return del(plugins__dest) }
+function clean__plugins (done) {
+  const tasks = config.plugins.map((plugin) => {
+    function clean__plugin () {
+      return del(plugins__dest + plugin)
+    }
+    clean__plugin.displayName = `clean__${plugin}`
+    return clean__plugin
+  })
+  return series(...tasks, function clean__series (seriesDone) {
+    seriesDone()
+    done()
+  })()
+}
 
 // PROCESS - PHP -------------------------------------------------------------
 
@@ -536,14 +551,14 @@ const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
-const RUN = series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
+const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
 
 if (PROD) {
-  exports.default = series(LINT, DATA, LOGIC, STYLE, ASSET)
+  exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET)
 } else {
-  exports.default = series(DATA, LOGIC, STYLE, ASSET, RUN)
+  exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN) : series(DATA, LOGIC, STYLE, ASSET, RUN)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
