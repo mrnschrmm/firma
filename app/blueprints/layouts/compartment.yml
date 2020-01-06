@@ -3,5 +3,5 @@ sections:
     type: fields
 
     fields:
-      compartment_info: fields/page.default
+      compartment_info: fields/page/default
       compartment_services: fields/services

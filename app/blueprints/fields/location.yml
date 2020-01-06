@@ -10,7 +10,6 @@ fields:
       - number
       - postcode
       - city
-      - country
 
     label:
       en: Location

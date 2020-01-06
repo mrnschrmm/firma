@@ -6,27 +6,8 @@ columns:
         fields:
           contact_default: fields/page/default
 
-  - width: 1/2
-    sections:
-      contact_details_company:
+      contact_details:
         type: fields
-
-        fields:
-          contact_company_headline:
-            type: headline
-            numbered: true
-            label:
-              en: Company
-              de: Unternehmen
-
-          contact_company:
-            extends: fields/company
-
-  - width: 1/2
-    sections:
-      contact_details_location:
-        type: fields
-
         fields:
           contact_location_headline:
             type: headline
@@ -35,15 +16,12 @@ columns:
               en: Address
               de: Anschrift
 
+          contact_company:
+            extends: fields/company
+
           contact_location:
             extends: fields/location
 
-  - width: 1/1
-    sections:
-      contact_details_channels:
-        type: fields
-
-        fields:
           contact_channel_headline:
             type: headline
             numbered: true

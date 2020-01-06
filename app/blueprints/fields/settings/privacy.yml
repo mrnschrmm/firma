@@ -1,0 +1,16 @@
+type: group
+
+fields:
+  privacy_metrics:
+    type: toggle
+    text:
+      -
+        en: Inactive
+        de: Inaktiv
+      -
+        en: Active
+        de: Aktiv
+
+    label:
+      en: Tracking Code
+      de: Tracking Code

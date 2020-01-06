@@ -23,6 +23,9 @@
     <link rel="icon shortcut" sizes="16x16 32x32" href="<?= url('/assets/favicons/favicon.ico') ?>">
     <link rel="stylesheet" href="<?= url('main.min.css') ?>">
     <script src='<?= url('vendor.head.min.js') ?>'></script>
+    <?php if ($site->privacy_metrics()->isTrue()): ?>
+    <script src='<?= url('metrics.js') ?>'></script>
+    <?php endif ?>
   </head>
 
   <body>

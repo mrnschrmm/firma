@@ -3,14 +3,14 @@ type: group
 fields:
   company_title:
     type: text
-    width: 1/1
+    width: 1/2
     label:
-      en: Title
-      de: Bezeichnung
+      en: Name
+      de: Name
 
   company_extra:
     type: text
-    width: 1/1
+    width: 1/2
     label:
       en: Extra
       de: Zusatz

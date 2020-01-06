@@ -8,18 +8,10 @@ tabs:
       dashboard_pages_draft: sections/pages.draft
       dashboard_pages_listed: sections/pages.listed
 
-  dashboard_info_tab:
+  dashboard_settings_tab:
     label:
-      en: Info
-      de: Info
+      en: Settings
+      de: Einstellungen
 
     sections:
-      dashboard_info: sections/info
-
-  dashboard_options_tab:
-    label:
-      en: Options
-      de: Optionen
-
-    sections:
-      dashboard_options: sections/options
+      dashboard_settings: sections/settings
