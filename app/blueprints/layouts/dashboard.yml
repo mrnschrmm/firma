@@ -1,8 +1,17 @@
 tabs:
-  dashboard_pages_tab:
+  dashboard_index_tab:
     label:
       en: Dashboard
       de: Dashboard
+
+    sections:
+      dashboard_metrics:
+        type: matomo-main
+
+  dashboard_content_tab:
+    label:
+      en: Content
+      de: Inhalte
 
     sections:
       dashboard_pages_draft: sections/pages.draft
