@@ -2,7 +2,9 @@
   "name": "mrnschrmm/firma",
   "description": "web",
   "require": {
-    "getkirby/cms": "3.3.2"
+    "getkirby/cms": "3.3.2",
+    "sylvainjule/locator": "1.0.5",
+    "sylvainjule/matomo": "1.0.4"
   },
   "config": {
     "vendor-dir": "dist/vendor",
@@ -10,7 +12,7 @@
   },
   "extra": {
     "kirby-cms-path": "dist/kirby",
-    "kirby-plugin-path": "dist/plugins"
+    "kirby-plugin-path": "dist/site/plugins"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.5.3"

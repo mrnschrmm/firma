@@ -1,5 +1,6 @@
 # FOLDER
 **/.cache
+**/app/config/config.php
 **/node_modules
 **/dist
 **/backup

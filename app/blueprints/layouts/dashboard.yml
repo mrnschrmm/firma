@@ -1,14 +1,23 @@
 tabs:
-  dashboard_main:
+  dashboard_index_tab:
     label:
       en: Dashboard
       de: Dashboard
 
     sections:
+      dashboard_metrics:
+        type: matomo-main
+
+  dashboard_content_tab:
+    label:
+      en: Content
+      de: Inhalte
+
+    sections:
       dashboard_pages_draft: sections/pages.draft
       dashboard_pages_listed: sections/pages.listed
 
-  dashboard_side:
+  dashboard_settings_tab:
     label:
       en: Settings
       de: Einstellungen

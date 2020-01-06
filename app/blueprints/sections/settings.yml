@@ -8,13 +8,13 @@ fields:
       en: Website Informations
       de: Website Informationen
 
-  settings_site: fields/settings.site
+  settings_site: fields/settings/site
 
   settings_privacy_headline:
     type: headline
     numbered: true
     label:
-      en: Data Protection
-      de: Datenschutz
+      en: Privacy
+      de: Privatsphäre
 
-  settings_privacy: fields/settings.privacy
+  settings_privacy: fields/settings/privacy

@@ -3,10 +3,11 @@
     <div class="columns context-content">
       <div class="column">
         <div class="address">
+          <?php $location = $page->location_data()->toLocation(); ?>
           <span class="address-company"><?= $page->company_title() ?></span>
           <span class="address-extra"><?= $page->company_extra() ?></span>
-          <span class="address-street"><?= $page->location_street() ?></span>
-          <span class="address-zip"><?= $page->location_zip() ?>&nbsp;<?= $page->location_city() ?></span>
+          <span class="address-street"><?= $location->address() ?>&nbsp;<?= $location->number() ?></span>
+          <span class="address-zip"><?= $location->postcode() ?>&nbsp;<?= $location->city() ?></span>
         </div>
       </div>
       <div class="column">
