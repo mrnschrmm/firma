@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="<?= url('main.min.css') ?>">
     <script src='<?= url('vendor.head.min.js') ?>'></script>
     <?php if ($site->privacy_metrics()->isTrue()): ?>
-    <script src='<?= url('metrics.js') ?>'></script>
+    <?php snippet('matomo'); ?>
     <?php endif ?>
   </head>
 

@@ -252,12 +252,14 @@ function copy__templates () {
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
+  console.log(configs__src)
+  console.log(configs)
   watch(index__src + 'index.php', series(index, reload))
   watch(index__src + '.htaccess', series(htaccess, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
   watch(controllers__src + '**/*.php', series(controllers, reload))
-  watch(configs__src + '**/*.php', series(configs, reload))
+  watch(configs__src + '*.php', series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
@@ -386,12 +388,11 @@ const scripts__dest = (root_dist + path.scripts).replace('//', '/')
 
 function clean__scripts__main () { return del(scripts__dest + 'main.min.{js,js.map}') }
 function clean__scripts__panel () { return del(scripts__dest + 'panel.min.{js,js.map}') }
-function clean__scripts__metrics () { return del(scripts__dest + 'metrics.js') }
 
 // LINT -------------------------------------------------------------
 
 function lint__scripts () {
-  return src([scripts__src + 'main.js', scripts__src + 'panel.js', scripts__src + 'metrics.js', snippets__src + '**/script.js'])
+  return src([scripts__src + 'main.js', scripts__src + 'panel.js', snippets__src + '**/script.js'])
     .pipe(gulpif(DEBUG, debug({ title: '## SCRIPT:' })))
     .pipe(eslint())
     .pipe(eslint.format())
@@ -417,25 +418,17 @@ function process__scripts__panel () {
     .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
 }
 
-function process__scripts__metrics () {
-  return src([scripts__src + 'metrics.js'])
-    .pipe(gulpif(DEBUG, debug({ title: '## METRICS:' })))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
-}
-
 // WATCH -------------------------------------------------------------
 
 function watch__scripts () {
   watch([scripts__src + 'main.js', snippets__src + '**/script.js'], series(scripts__main, reload))
   watch(scripts__src + 'panel.js', series(scripts__panel, reload))
-  watch(scripts__src + 'metrics.js', series(scripts__metrics, reload))
-};
+}
 
 // COMPOSITION -------------------------------------------------------------
 
 const scripts__main = series(clean__scripts__main, process__scripts__main)
 const scripts__panel = series(clean__scripts__panel, process__scripts__panel)
-const scripts__metrics = series(clean__scripts__metrics, process__scripts__metrics)
 
 ////////////////////////////////////////////////////////////////////////////////
 // STYLE
@@ -556,7 +549,7 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 
 const DATA = series(content)
 const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
-const STYLE = series(parallel(styles, scripts__main, scripts__panel, scripts__metrics))
+const STYLE = series(parallel(styles, scripts__main, scripts__panel))
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
