@@ -19,11 +19,11 @@ import debug from 'gulp-debug'
 import scss from 'gulp-sass'
 import sass from 'node-sass'
 import sync from 'browser-sync'
-import del from 'del'
-import config from './config'
 import minimist from 'minimist'
-
+import del from 'del'
 import Parcel from 'parcel-bundler'
+
+import config from './config'
 
 // ARGS
 const ARGS = minimist(process.argv.slice(2))
@@ -151,6 +151,12 @@ function process__vendor () {
 const index__src = (root_src).replace('//', '/')
 const index__dest = (root_dist + root_public).replace('//', '/')
 
+const configs__src = (root_src + path.configs).replace('//', '/')
+const configs__dest = (root_dist + site + path.configs).replace('//', '/')
+
+const languages__src = (root_src + path.languages).replace('//', '/')
+const languages__dest = (root_dist + site + path.languages).replace('//', '/')
+
 const blueprints__src = (root_src + path.blueprints).replace('//', '/')
 const blueprints__dest = (root_dist + site + path.blueprints).replace('//', '/')
 
@@ -159,12 +165,6 @@ const collections__dest = (root_dist + site + path.collections).replace('//', '/
 
 const controllers__src = (root_src + path.controllers).replace('//', '/')
 const controllers__dest = (root_dist + site + path.controllers).replace('//', '/')
-
-const configs__src = (root_src + path.configs).replace('//', '/')
-const configs__dest = (root_dist + site + path.configs).replace('//', '/')
-
-const languages__src = (root_src + path.languages).replace('//', '/')
-const languages__dest = (root_dist + site + path.languages).replace('//', '/')
 
 const snippets__src = (root_src + path.snippets).replace('//', '/')
 const snippets__dest = (root_dist + site + path.snippets).replace('//', '/')
@@ -176,18 +176,18 @@ const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 
 function clean__index () { return del([index__dest + 'index.php']) }
 function clean__htaccess () { return del([index__dest + '.htaccess']) }
+function clean__configs () { return del([configs__dest]) }
+function clean__languages () { return del([languages__dest]) }
 function clean__blueprints () { return del([blueprints__dest]) }
 function clean__collections () { return del([collections__dest]) }
 function clean__controllers () { return del([controllers__dest]) }
-function clean__configs () { return del([configs__dest]) }
-function clean__languages () { return del([languages__dest]) }
 function clean__snippets () { return del([snippets__dest]) }
 function clean__templates () { return del([templates__dest]) }
 
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
-  return src(['./app/{collections,controllers,templates,snippets,site}/**/*.php', '!index.php'])
+  return src(['./app/{config,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
@@ -205,6 +205,18 @@ function copy__index () {
   return src([index__src + 'index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
     .pipe(dest(index__dest))
+}
+
+function copy__configs () {
+  return src([configs__src + 'config.php'])
+    .pipe(gulpif(DEBUG, debug({ title: '## CONFIGS:' })))
+    .pipe(dest(configs__dest))
+}
+
+function copy__languages () {
+  return src([languages__src + '**/*.php'])
+    .pipe(gulpif(DEBUG, debug({ title: '## LANGUAGES:' })))
+    .pipe(dest(languages__dest))
 }
 
 function copy__blueprints () {
@@ -225,18 +237,6 @@ function copy__controllers () {
     .pipe(dest(controllers__dest))
 }
 
-function copy__configs () {
-  return src([configs__src + '**/*'])
-    .pipe(gulpif(DEBUG, debug({ title: '## CONFIGS:' })))
-    .pipe(dest(configs__dest))
-}
-
-function copy__languages () {
-  return src([languages__src + '**/*'])
-    .pipe(gulpif(DEBUG, debug({ title: '## LANGUAGES:' })))
-    .pipe(dest(languages__dest))
-}
-
 function copy__snippets () {
   return src([snippets__src + '**/*.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## SNIPPETS:' })))
@@ -252,15 +252,13 @@ function copy__templates () {
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  console.log(configs__src)
-  console.log(configs)
   watch(index__src + 'index.php', series(index, reload))
   watch(index__src + '.htaccess', series(htaccess, reload))
+  watch('D:/Tools/__config/sites/firma/config.php', series(configs, reload))
+  watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
   watch(controllers__src + '**/*.php', series(controllers, reload))
-  watch(configs__src + '*.php', series(configs, reload))
-  watch(languages__src + '**/*.php', series(languages, reload))
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
 }
@@ -269,11 +267,11 @@ function watch__logic () {
 
 const index = series(clean__index, copy__index)
 const htaccess = series(clean__htaccess, copy__htaccess)
+const configs = series(clean__configs, copy__configs)
+const languages = series(clean__languages, copy__languages)
 const blueprints = series(clean__blueprints, copy__blueprints)
 const collections = series(clean__collections, copy__collections)
 const controllers = series(clean__controllers, copy__controllers)
-const configs = series(clean__configs, copy__configs)
-const languages = series(clean__languages, copy__languages)
 const snippets = series(clean__snippets, copy__snippets)
 const templates = series(clean__templates, copy__templates)
 
@@ -548,8 +546,8 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(parallel(index, htaccess, blueprints, configs, collections, controllers, languages, snippets, templates), vendor)
-const STYLE = series(parallel(styles, scripts__main, scripts__panel))
+const LOGIC = series(index, htaccess, configs, languages, blueprints, collections, controllers, snippets, templates, vendor)
+const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
