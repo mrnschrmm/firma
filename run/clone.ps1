@@ -1,35 +1,31 @@
 # Scope
-$nameLocal = "firma"
-$nameRemote = "s"
-
-# Remote
-$baseRemote = "/www"
-$baseRemoteContent = "content"
-
-# Local
-$baseLocal = "E:\Sites"
-$baseLocalConfig = "D:\Tools\__config\sites"
-$baseLocalBackup = "backup"
-$baseLocalEnv = "env"
-$baseLocalContent = "db"
-
-$baseLocalWinSCPexec = "C:\Apps\_m\apps\winscp\current\WinSCP.exe"
-$baseLocalWinSCPdnet = "C:\Apps\_m\apps\winscp\current\WinSCPnet.dll"
-
-# Credential
-$hsh = $baseLocal + '\' + $nameLocal + '\' + $baseLocalEnv + '\' + 'hash.txt'
-$key = $baseLocalConfig + '\' + $nameLocal + '\' + 'aeskey.txt'
-$pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
+$id = "firma"
+$HostName = "wp1177004.server-he.de"
+$UserName = "ftp1177004-s"
 
 # Helper
 $timestamp = $(Get-Date -Format "yyyyMMddHHmmss")
 
-# Path
-$backupBase = $baseLocal + '\' + $nameLocal + '\' + $baseLocalBackup
-$backupPath = $backupBase + "\" + $timestamp
+# Local
+$baseLocalIndex = "E:\Sites"
+$baseLocalIndexConfig = "D:\Tools\__config\sites"
+$baseLocalContent = "db"
+$baseLocalEnv = "env"
+$baseLocalBackupDirectory = "backup"
+$baseLocalBackupPath = $baseLocalIndex + '\' + $id + '\' + $baseLocalBackupDirectory
+$baseLocalBackup = $baseLocalBackupPath + "\" + $timestamp
+$baseLocalWinSCPexec = $Env:APPS_HOME + '\' + "winscp\current\WinSCP.exe"
+$baseLocalWinSCPdnet = $Env:APPS_HOME + '\' + "winscp\current\WinSCPnet.dll"
+$baseLocal = $baseLocalIndex + '\' + $id + '\' + $baseLocalContent + '\' + '*'
 
-$local = $baseLocal + '\' + $nameLocal + '\' + $baseLocalContent + '\' + '*'
-$remote = $baseRemote + '/' + $nameRemote + '/' + $baseRemoteContent + '/' + '*'
+# Remote
+$baseRemoteContent = "content"
+$baseRemote = './' + $baseRemoteContent + '/' + '*'
+
+# Authentication
+$hsh = $baseLocalIndex + '\' + $id + '\' + $baseLocalEnv + '\' + 'hash.txt'
+$key = $baseLocalIndexConfig + '\' + $id + '\' + 'aeskey.txt'
+$pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
 Function LogTransferredFiles
 {
@@ -47,20 +43,18 @@ Function LogTransferredFiles
 
 try
 {
-    Write-Host ""
     Write-Host "Init..."
-
     # Load .NET assembly
     Add-Type -Path $baseLocalWinSCPdnet
 
     # WinSCP Session
     $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
       Protocol = [WinSCP.Protocol]::Ftp
-      HostName = "wp1177004.server-he.de"
-      UserName = 'ftp1177004-global'
+      HostName = $HostName
+      UserName = $UserName
       Password = [System.Net.NetworkCredential]::new('', $pwd).Password
       FtpSecure = [WinSCP.FtpSecure]::Explicit
-      TimeoutInMilliseconds = 5000
+      TimeoutInMilliseconds = 3600
     }
 
     $sessionOptions.AddRawSettings("AddressFamily", "1")
@@ -69,30 +63,27 @@ try
     $sessionOptions.AddRawSettings("FtpForcePasvIp2", "0")
     $sessionOptions.AddRawSettings("FtpPingInterval", "10")
     $sessionOptions.AddRawSettings("SslSessionReuse", "0")
-
     $session = New-Object WinSCP.Session
+
     # Executable path
     $session.ExecutablePath = $baseLocalWinSCPexec
 
     Write-Host "Backup..."
-
     # Backup local files
-    New-Item -Path $backupBase -Name $timestamp -ItemType "directory" | Out-Null
-    Copy-Item $local $backupPath -Recurse
+    New-Item -Path $baseLocalBackupPath -Name $timestamp -ItemType "directory" | Out-Null
+    Copy-Item $baseLocal $baseLocalBackup -Recurse
 
     try
     {
         Write-Host "Clone..."
         Write-Host ""
-
         # Init session
         $session.Open($sessionOptions)
         # Log files
         $session.add_FileTransferred( { LogTransferredFiles($_) } )
         # Init transfer
-        $session.GetFiles($remote, $local).Check()
+        $session.GetFiles($baseRemote, $baseLocal).Check()
     }
-
     finally
     {
         Write-Host ""
@@ -105,8 +96,8 @@ try
 }
 catch
 {
-    Write-Host "Error: $($_.Exception.Message)"
-    Write-Host "Trace: $($_.ScriptStackTrace)"
+    Write-Host "ErrorMessage: $($_.Exception.Message)"
+    Write-Host "ScriptStackTrace: $($_.ScriptStackTrace)"
 
     exit 1
 }
