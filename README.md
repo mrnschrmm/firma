@@ -1,11 +1,16 @@
 # Site - Project: Firma
 
-`Node 10.17.0` `NPM 6.13.3` `PHP 7.3.12` `Composer 1.9.0` `Kirby 3.2.4`
+`Node 10.17.0` `NPM 6.13.6` `PHP 7.3.12` `Composer 1.9.1` `Kirby 3.3.2`
 
 ## Setup
 ```
 npm install
 composer install
+```
+
+## Clone
+```
+npm run clone
 ```
 
 ## Run
