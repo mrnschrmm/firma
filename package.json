@@ -7,6 +7,7 @@
     "start": "gulp --dev",
     "build": "gulp --prod",
     "clone": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./run/clone.ps1",
+    "deploy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./run/deploy.ps1",
     "start.debug": "gulp --dev --debug",
     "build.debug": "gulp --prod --debug"
   },
