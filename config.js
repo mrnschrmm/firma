@@ -7,6 +7,7 @@ module.exports = {
     root_src: 'app',
     root_dist: 'dist',
     root_public: 'public',
+    index: 'index',
     site: 'site',
     assets: 'assets',
     configs: 'config',

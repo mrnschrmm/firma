@@ -5,8 +5,18 @@ tabs:
       de: Dashboard
 
     sections:
-      dashboard_metrics:
+      dashboard_metrics_main:
         type: matomo-main
+        widgets:
+          - devicesType
+          - referrerType
+          - popularPages
+          - websites
+
+      dashboard_metrics_side:
+        type: matomo-sidebar
+        link: false
+        realtime: false
 
   dashboard_content_tab:
     label:

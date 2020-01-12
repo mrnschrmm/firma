@@ -11,6 +11,9 @@ trim_trailing_whitespace = true
 [*.{ahk,bat,cmd}]
 end_of_line = crlf
 
+[*.{ps1,psm1}]
+indent_size = 4
+
 [app/templates/*.php]
 indent_size = 2
 

@@ -148,8 +148,11 @@ function process__vendor () {
 // LOGIC
 ////////////////////////////////////////////////////////////////////////////////
 
-const index__src = (root_src).replace('//', '/')
+const index__src = (root_src + path.index).replace('//', '/')
 const index__dest = (root_dist + root_public).replace('//', '/')
+
+const htaccess__src = (root_src).replace('//', '/')
+const htaccess__dest = (root_dist + root_public).replace('//', '/')
 
 const configs__src = (root_src + path.configs).replace('//', '/')
 const configs__dest = (root_dist + site + path.configs).replace('//', '/')
@@ -175,7 +178,7 @@ const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 // CLEAN -------------------------------------------------------------
 
 function clean__index () { return del([index__dest + 'index.php']) }
-function clean__htaccess () { return del([index__dest + '.htaccess']) }
+function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
 function clean__configs () { return del([configs__dest]) }
 function clean__languages () { return del([languages__dest]) }
 function clean__blueprints () { return del([blueprints__dest]) }
@@ -187,7 +190,7 @@ function clean__templates () { return del([templates__dest]) }
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
-  return src(['./app/{config,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
+  return src(['./app/{config,index,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
@@ -196,14 +199,15 @@ function lint__logic () {
 // COPY -------------------------------------------------------------
 
 function copy__htaccess () {
-  return src([index__src + '.htaccess'])
+  return src([htaccess__src + '.htaccess'])
     .pipe(gulpif(DEBUG, debug({ title: '## HTACCESS:' })))
     .pipe(dest(index__dest))
 }
 
 function copy__index () {
-  return src([index__src + 'index.php'])
+  return src([index__src + (!PROD ? 'index.dev.php' : 'index.prod.php')])
     .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
+    .pipe(rename('index.php'))
     .pipe(dest(index__dest))
 }
 
@@ -252,8 +256,8 @@ function copy__templates () {
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch(index__src + 'index.php', series(index, reload))
-  watch(index__src + '.htaccess', series(htaccess, reload))
+  watch(index__src + 'index.dev.php', series(index, reload))
+  watch(htaccess__src + '.htaccess', series(htaccess, reload))
   watch('D:/Tools/__config/sites/firma/config.php', series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
