@@ -1,64 +1,45 @@
 # Scope
 $id = "firma"
-$HostName = "wp1177004.server-he.de"
-$UserName = "ftp1177004-s"
+$HostName = 'wp1177004.server-he.de'
+$UserName = 'ftp1177004-s'
 
 # Helper
-$suffix = "_new"
-
-# Local
-$baseLocalEntry = "E:\Sites\"
-$baseLocalEntryPath = $baseLocalEntry + $id + '\'
-
-$baseLocalConfig = "D:\Tools\__config\sites\"
-$baseLocalConfigPath = $baseLocalConfig + $id + '\'
-
-$baseLocalWinSCPexec = $Env:APPS_HOME + '\' + "winscp\current\WinSCP.exe"
-$baseLocalWinSCPdnet = $Env:APPS_HOME + '\' + "winscp\current\WinSCPnet.dll"
-
-$baseLocalEnv = $baseLocalEntryPath + 'env' + '\'
-$baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
-
-$baseLocalPublic = $baseLocalDist + 'public' + '\'
-$baseLocalKirby = $baseLocalDist + 'kirby' + '\'
-$baseLocalSite = $baseLocalDist + 'site' + '\'
+$suffix = '_update'
 
 # Remote
-$baseRemoteEntry = "/"
+$baseRemoteEntry = '/'
 
-$baseRemoteSite = $baseRemoteEntry + "site"
-$baseRemoteKirby = $baseRemoteEntry + "kirby"
-$baseRemotePublic = $baseRemoteEntry + "public"
+# Local
+$baseLocalEntry = 'E:\Sites\'
+$baseLocalEntryPath = $baseLocalEntry + $id + '\'
+$baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
+$baseLocalConfigPath = 'D:\Tools\__config\sites\' + $id + '\'
 
-# Authentication
-$hsh = $baseLocalEnv + 'hash.txt'
-$key = $baseLocalConfigPath + 'aeskey.txt'
-$pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
+# WinSCP
+$baseLocalWinSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
+$baseLocalWinSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 Function TransferQueueSite()
 {
-    # Queue
-    $transferQueue = $session.PutFiles($baseLocalSite, ($baseRemoteSite + $suffix), $False, $transferOptions)
-    # Error handler
+    # Site Directory Queue
+    $transferQueue = $session.PutFiles($baseLocalDist + 'site', ($baseRemoteEntry + 'site' + $suffix), $False, $transferOptions)
     $transferQueue.Check()
 }
 
 Function TransferQueueKirby()
 {
-    # Queue
-    $transferQueue = $session.PutFiles($baseLocalKirby, ($baseRemoteKirby + $suffix), $False, $transferOptions)
-    # Error handler
+    # Kirby Directory Queue
+    $transferQueue = $session.PutFiles($baseLocalDist + 'kirby', ($baseRemoteEntry + 'kirby' + $suffix), $False, $transferOptions)
     $transferQueue.Check()
 }
 
 Function TransferQueuePublic()
 {
-    # Queue
-    $transferQueueHtaccess = $session.PutFiles($baseLocalPublic + '/.htaccess', ($baseRemotePublic + '/*' + $suffix), $False, $transferOptions)
-    $transferQueuePHP = $session.PutFiles($baseLocalPublic + '/*.php', ($baseRemotePublic + '/*' + $suffix), $False, $transferOptions)
-    $transferQueueJS = $session.PutFiles($baseLocalPublic + '/*.js', ($baseRemotePublic + '/*' + $suffix), $False, $transferOptions)
-    $transferQueueCSS = $session.PutFiles($baseLocalPublic + '/*.css', ($baseRemotePublic + '/*' + $suffix), $False, $transferOptions)
-    # Error handler
+    # Public Directory Queue
+    $transferQueueHtaccess = $session.PutFiles($baseLocalDist + 'public\.htaccess', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
+    $transferQueuePHP = $session.PutFiles($baseLocalDist + 'public\*.php', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
+    $transferQueueJS = $session.PutFiles($baseLocalDist + 'public\*.js', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
+    $transferQueueCSS = $session.PutFiles($baseLocalDist + 'public\*.css', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
     $transferQueueHtaccess.Check()
     $transferQueuePHP.Check()
     $transferQueueJS.Check()
@@ -67,37 +48,38 @@ Function TransferQueuePublic()
 
 Function FileLocationHandler()
 {
-    Write-Host "Rename: Site Directory"
-    $session.MoveFile('site', 'site_old')
-    $session.MoveFile('site_new', 'site')
+    Write-Host 'Activate: Site Directory'
+    $session.MoveFile('site', 'site_trash')
+    $session.MoveFile('site_update', 'site')
 
-    Write-Host "Rename: Kirby Directory"
-    $session.MoveFile('kirby', 'kirby_old')
-    $session.MoveFile('kirby_new', 'kirby')
+    Write-Host "Activate: Kirby Directory"
+    $session.MoveFile('kirby', 'kirby_trash')
+    $session.MoveFile('kirby_update', 'kirby')
 
-    Write-Host "Rename: Public Directory Files"
-    $session.MoveFile(($baseRemotePublic + '/.htaccess'), ($baseRemotePublic + '/.htaccess_old'))
-    $session.MoveFile(($baseRemotePublic + '/index.php'), ($baseRemotePublic + '/index.php_old'))
-    $session.MoveFile(($baseRemotePublic + '/main.min.css'), ($baseRemotePublic + '/main.min.css_old'))
-    $session.MoveFile(($baseRemotePublic + '/main.min.js'), ($baseRemotePublic + '/main.min.js_old'))
-    $session.MoveFile(($baseRemotePublic + '/panel.min.css'), ($baseRemotePublic + '/panel.min.css_old'))
-    $session.MoveFile(($baseRemotePublic + '/panel.min.js'), ($baseRemotePublic + '/panel.min.js_old'))
-    $session.MoveFile(($baseRemotePublic + '/vendor.head.min.js'), ($baseRemotePublic + '/vendor.head.min.js_old'))
-    $session.MoveFile(($baseRemotePublic + '/vendor.min.js'), ($baseRemotePublic + '/vendor.min.js_old'))
+    Write-Host "Activate: Public Directory"
+    $session.MoveFile(($baseRemoteEntry + 'public/.htaccess'), ($baseRemoteEntry + 'public/.htaccess_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/index.php'), ($baseRemoteEntry + 'public/index.php_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.css'), ($baseRemoteEntry + 'public/main.min.css_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.js'), ($baseRemoteEntry + 'public/main.min.js_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.css'), ($baseRemoteEntry + 'public/panel.min.css_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.js'), ($baseRemoteEntry + 'public/panel.min.js_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.head.min.js'), ($baseRemoteEntry + 'public/vendor.head.min.js_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.min.js'), ($baseRemoteEntry + 'public/vendor.min.js_trash'))
 
-    $session.MoveFile(($baseRemotePublic + '/.htaccess_new'), ($baseRemotePublic + '/.htaccess'))
-    $session.MoveFile(($baseRemotePublic + '/index.php_new'), ($baseRemotePublic + '/index.php'))
-    $session.MoveFile(($baseRemotePublic + '/main.min.css_new'), ($baseRemotePublic + '/main.min.css'))
-    $session.MoveFile(($baseRemotePublic + '/main.min.js_new'), ($baseRemotePublic + '/main.min.js'))
-    $session.MoveFile(($baseRemotePublic + '/panel.min.css_new'), ($baseRemotePublic + '/panel.min.css'))
-    $session.MoveFile(($baseRemotePublic + '/panel.min.js_new'), ($baseRemotePublic + '/panel.min.js'))
-    $session.MoveFile(($baseRemotePublic + '/vendor.head.min.js_new'), ($baseRemotePublic + '/vendor.head.min.js'))
-    $session.MoveFile(($baseRemotePublic + '/vendor.min.js_new'), ($baseRemotePublic + '/vendor.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/.htaccess_update'), ($baseRemoteEntry + 'public/.htaccess'))
+    $session.MoveFile(($baseRemoteEntry + 'public/index.php_update'), ($baseRemoteEntry + 'public/index.php'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.css_update'), ($baseRemoteEntry + 'public/main.min.css'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.js_update'), ($baseRemoteEntry + 'public/main.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.css_update'), ($baseRemoteEntry + 'public/panel.min.css'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.js_update'), ($baseRemoteEntry + 'public/panel.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.head.min.js_update'), ($baseRemoteEntry + 'public/vendor.head.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.min.js_update'), ($baseRemoteEntry + 'public/vendor.min.js'))
 
-    Write-Host "Cleanup"
-    $session.RemoveFiles('site_old')
-    $session.RemoveFiles('kirby_old')
-    $session.RemoveFiles($baseRemotePublic + '/*_old')
+    Write-Host ""
+    Write-Host "Cleanup Session..."
+
+    $session.RemoveFiles('*_trash')
+    $session.RemoveFiles($baseRemoteEntry + 'public/*_trash')
 }
 
 Function LogTransferredFiles
@@ -106,21 +88,24 @@ Function LogTransferredFiles
 
     if ($e.Error -eq $Null)
     {
-        Write-Host "$(Get-Date -Format "HH:mm:ss") - Transfer of $($e.Destination) succeeded"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') - Transfer: $($e.Destination)"
     }
     else
     {
-        Write-Host "$(Get-Date -Format "HH:mm:ss") - Transfer of $($e.Destination) failed: $($e.Error)"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') - Error: $($e.Error) - $($e.Destination)"
     }
 }
 
 try
 {
-    Write-Host "Init Session..."
-    # Load .NET assembly
+    Write-Host 'Init Session...'
     Add-Type -Path $baseLocalWinSCPdnet
 
-    # WinSCP Session
+    # Authentication
+    $hsh = $baseLocalEntryPath + 'env\hash.txt'
+    $key = $baseLocalConfigPath + 'aeskey.txt'
+    $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
+
     $sessionOptions = New-Object WinSCP.SessionOptions -Property @{
       Protocol = [WinSCP.Protocol]::Ftp
       HostName = $HostName
@@ -130,56 +115,47 @@ try
       TimeoutInMilliseconds = 3600
     }
 
-    # Session options
-    $sessionOptions.AddRawSettings("AddressFamily", "1")
-    $sessionOptions.AddRawSettings("FollowDirectorySymlinks", "1")
-    $sessionOptions.AddRawSettings("Utf", "1")
-    $sessionOptions.AddRawSettings("FtpForcePasvIp2", "0")
-    $sessionOptions.AddRawSettings("FtpPingInterval", "10")
-    $sessionOptions.AddRawSettings("SslSessionReuse", "0")
+    $sessionOptions.AddRawSettings('AddressFamily', '1')
+    $sessionOptions.AddRawSettings('FollowDirectorySymlinks', '1')
+    $sessionOptions.AddRawSettings('Utf', '1')
+    $sessionOptions.AddRawSettings('FtpForcePasvIp2', '0')
+    $sessionOptions.AddRawSettings('FtpPingInterval', '10')
+    $sessionOptions.AddRawSettings('SslSessionReuse', '0')
     $session = New-Object WinSCP.Session
+    $session.ExecutablePath = $baseLocalWinSCPexec
 
-    # Transfer options
     $transferOptions = New-Object WinSCP.TransferOptions
     $transferOptions.ResumeSupport.State = [WinSCP.TransferResumeSupportState]::On
 
-    # Executable path
-    $session.ExecutablePath = $baseLocalWinSCPexec
-
     try
     {
-        Write-Host "Init Deployment..."
-        Write-Host ""
-        # Init session
+        Write-Host 'Init Deployment...'
+        Write-Host ''
         $session.Open($sessionOptions)
-
-        # Log transfers
         $session.add_FileTransferred( { LogTransferredFiles($_) } )
 
-        Write-Host ""
-        Write-Host "Transfer: Kirby Directory"
-        Write-Host ""
+        Write-Host 'Transfer: Kirby Directory'
+        Write-Host ''
         TransferQueueKirby
 
-        Write-Host ""
-        Write-Host "Transfer: Site Directory"
-        Write-Host ""
+        Write-Host ''
+        Write-Host 'Transfer: Site Directory'
+        Write-Host ''
         TransferQueueSite
 
-        Write-Host ""
-        Write-Host "Transfer: Public Directory Files"
-        Write-Host ""
+        Write-Host ''
+        Write-Host 'Transfer: Public Directory'
+        Write-Host ''
         TransferQueuePublic
 
-        Write-Host ""
-        Write-Host "Location: Activate Uploads"
-        Write-Host ""
+        Write-Host ''
+        Write-Host 'Upload complete...'
         FileLocationHandler
     }
     finally
     {
-        Write-Host ""
-        Write-Host "Exit..."
+        Write-Host ''
+        Write-Host 'Exit...'
         $session.Dispose()
     }
 
