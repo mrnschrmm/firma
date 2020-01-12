@@ -1,3 +1,4 @@
+<?php ?>
 <div class="snippet" is="block-notify">
   <div class="container">
     <div class="notify">
