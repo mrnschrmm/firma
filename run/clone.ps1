@@ -10,6 +10,7 @@ $timestamp = $(Get-Date -Format "yyyyMMddHHmmss")
 $baseLocalIndex = "E:\Sites"
 $baseLocalIndexConfig = "D:\Tools\__config\sites"
 $baseLocalContent = "db"
+$baseLocalContentPath = $baseLocalIndex + '\' + $id + '\' + $baseLocalContent
 $baseLocalEnv = "env"
 $baseLocalBackupDirectory = "backup"
 $baseLocalBackupPath = $baseLocalIndex + '\' + $id + '\' + $baseLocalBackupDirectory
@@ -68,10 +69,14 @@ try
     # Executable path
     $session.ExecutablePath = $baseLocalWinSCPexec
 
-    Write-Host "Backup..."
-    # Backup local files
-    New-Item -Path $baseLocalBackupPath -Name $timestamp -ItemType "directory" | Out-Null
-    Copy-Item $baseLocal $baseLocalBackup -Recurse
+    # Check local files
+    if( !(Get-ChildItem $baseLocalContentPath | Measure-Object).Count -eq 0)
+    {
+        Write-Host "Backup..."
+        # Backup local files
+        New-Item -Path $baseLocalBackupPath -Name $timestamp -ItemType "directory" | Out-Null
+        Copy-Item $baseLocal $baseLocalBackup -Recurse
+    }
 
     try
     {
