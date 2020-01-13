@@ -5,8 +5,8 @@ fields:
     type: headline
     numbered: true
     label:
-      en: Website Informations
-      de: Website Informationen
+      en: Website Information
+      de: Website Information
 
   settings_site: fields/settings/site
 
