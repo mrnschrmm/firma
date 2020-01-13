@@ -21,21 +21,18 @@ $baseLocalWinSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 Function TransferQueueSite()
 {
-    # Site Directory Queue
     $transferQueue = $session.PutFiles($baseLocalDist + 'site', ($baseRemoteEntry + 'site' + $suffix), $False, $transferOptions)
     $transferQueue.Check()
 }
 
 Function TransferQueueKirby()
 {
-    # Kirby Directory Queue
     $transferQueue = $session.PutFiles($baseLocalDist + 'kirby', ($baseRemoteEntry + 'kirby' + $suffix), $False, $transferOptions)
     $transferQueue.Check()
 }
 
 Function TransferQueuePublic()
 {
-    # Public Directory Queue
     $transferQueueHtaccess = $session.PutFiles($baseLocalDist + 'public\.htaccess', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
     $transferQueuePHP = $session.PutFiles($baseLocalDist + 'public\*.php', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
     $transferQueueJS = $session.PutFiles($baseLocalDist + 'public\*.js', ($baseRemoteEntry + 'public/*' + $suffix), $False, $transferOptions)
@@ -46,7 +43,7 @@ Function TransferQueuePublic()
     $transferQueueCSS.Check()
 }
 
-Function FileLocationHandler()
+Function FileActionHandler()
 {
     Write-Host 'Activate: Site Directory'
     $session.MoveFile('site', 'site__del')
@@ -112,7 +109,6 @@ try
       UserName = $UserName
       Password = [System.Net.NetworkCredential]::new('', $pwd).Password
       FtpSecure = [WinSCP.FtpSecure]::Explicit
-      TimeoutInMilliseconds = 3600
     }
 
     $sessionOptions.AddRawSettings('AddressFamily', '1')
@@ -134,9 +130,11 @@ try
         $session.Open($sessionOptions)
         $session.add_FileTransferred( { LogTransferredFiles($_) } )
 
-        Write-Host 'Transfer: Kirby Directory'
-        Write-Host ''
-        TransferQueueKirby
+        if ($args -eq "-full") {
+            Write-Host 'Transfer: Kirby Directory'
+            Write-Host ''
+            TransferQueueKirby
+        }
 
         Write-Host ''
         Write-Host 'Transfer: Site Directory'
@@ -150,12 +148,13 @@ try
 
         Write-Host ''
         Write-Host 'Upload complete...'
-        FileLocationHandler
+        FileActionHandler
     }
     finally
     {
         Write-Host ''
         Write-Host 'Exit...'
+        Write-Host ''
         $session.Dispose()
     }
 
