@@ -4,7 +4,7 @@ $HostName = 'wp1177004.server-he.de'
 $UserName = 'ftp1177004-s'
 
 # Helper
-$suffix = '_update'
+$suffix = '__up'
 
 # Remote
 $baseRemoteEntry = '/'
@@ -49,37 +49,37 @@ Function TransferQueuePublic()
 Function FileLocationHandler()
 {
     Write-Host 'Activate: Site Directory'
-    $session.MoveFile('site', 'site_trash')
-    $session.MoveFile('site_update', 'site')
+    $session.MoveFile('site', 'site__del')
+    $session.MoveFile('site__up', 'site')
 
     Write-Host "Activate: Kirby Directory"
-    $session.MoveFile('kirby', 'kirby_trash')
-    $session.MoveFile('kirby_update', 'kirby')
+    $session.MoveFile('kirby', 'kirby__del')
+    $session.MoveFile('kirby__up', 'kirby')
 
     Write-Host "Activate: Public Directory"
-    $session.MoveFile(($baseRemoteEntry + 'public/.htaccess'), ($baseRemoteEntry + 'public/.htaccess_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/index.php'), ($baseRemoteEntry + 'public/index.php_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/main.min.css'), ($baseRemoteEntry + 'public/main.min.css_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/main.min.js'), ($baseRemoteEntry + 'public/main.min.js_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.css'), ($baseRemoteEntry + 'public/panel.min.css_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.js'), ($baseRemoteEntry + 'public/panel.min.js_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/vendor.head.min.js'), ($baseRemoteEntry + 'public/vendor.head.min.js_trash'))
-    $session.MoveFile(($baseRemoteEntry + 'public/vendor.min.js'), ($baseRemoteEntry + 'public/vendor.min.js_trash'))
+    $session.MoveFile(($baseRemoteEntry + 'public/.htaccess'), ($baseRemoteEntry + 'public/.htaccess__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/index.php'), ($baseRemoteEntry + 'public/index.php__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.css'), ($baseRemoteEntry + 'public/main.min.css__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.js'), ($baseRemoteEntry + 'public/main.min.js__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.css'), ($baseRemoteEntry + 'public/panel.min.css__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.js'), ($baseRemoteEntry + 'public/panel.min.js__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.head.min.js'), ($baseRemoteEntry + 'public/vendor.head.min.js__del'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.min.js'), ($baseRemoteEntry + 'public/vendor.min.js__del'))
 
-    $session.MoveFile(($baseRemoteEntry + 'public/.htaccess_update'), ($baseRemoteEntry + 'public/.htaccess'))
-    $session.MoveFile(($baseRemoteEntry + 'public/index.php_update'), ($baseRemoteEntry + 'public/index.php'))
-    $session.MoveFile(($baseRemoteEntry + 'public/main.min.css_update'), ($baseRemoteEntry + 'public/main.min.css'))
-    $session.MoveFile(($baseRemoteEntry + 'public/main.min.js_update'), ($baseRemoteEntry + 'public/main.min.js'))
-    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.css_update'), ($baseRemoteEntry + 'public/panel.min.css'))
-    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.js_update'), ($baseRemoteEntry + 'public/panel.min.js'))
-    $session.MoveFile(($baseRemoteEntry + 'public/vendor.head.min.js_update'), ($baseRemoteEntry + 'public/vendor.head.min.js'))
-    $session.MoveFile(($baseRemoteEntry + 'public/vendor.min.js_update'), ($baseRemoteEntry + 'public/vendor.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/.htaccess__up'), ($baseRemoteEntry + 'public/.htaccess'))
+    $session.MoveFile(($baseRemoteEntry + 'public/index.php__up'), ($baseRemoteEntry + 'public/index.php'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.css__up'), ($baseRemoteEntry + 'public/main.min.css'))
+    $session.MoveFile(($baseRemoteEntry + 'public/main.min.js__up'), ($baseRemoteEntry + 'public/main.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.css__up'), ($baseRemoteEntry + 'public/panel.min.css'))
+    $session.MoveFile(($baseRemoteEntry + 'public/panel.min.js__up'), ($baseRemoteEntry + 'public/panel.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.head.min.js__up'), ($baseRemoteEntry + 'public/vendor.head.min.js'))
+    $session.MoveFile(($baseRemoteEntry + 'public/vendor.min.js__up'), ($baseRemoteEntry + 'public/vendor.min.js'))
 
     Write-Host ""
     Write-Host "Cleanup Session..."
 
-    $session.RemoveFiles('*_trash')
-    $session.RemoveFiles($baseRemoteEntry + 'public/*_trash')
+    $session.RemoveFiles('*__del')
+    $session.RemoveFiles($baseRemoteEntry + 'public/*__del')
 }
 
 Function LogTransferredFiles
