@@ -4,7 +4,6 @@ Function TransferQueueHandler
 
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
-
         Write-Host
         Write-Host "Starting...TransferQueue:" $scope.ToTitleCase($args[0])
         Write-Host
