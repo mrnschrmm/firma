@@ -19,9 +19,9 @@ $hsh = $baseLocalEntryPath + 'env\hash.txt'
 $key = $baseLocalConfigPath + 'aeskey.txt'
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
-$session = $null
-$sessionOptions = $null
-$done = $false
+$session = $Null
+$sessionOptions = $Null
+$done = $False
 
 try
 {
@@ -48,20 +48,18 @@ try
             $done = TransferQueueHandler "public" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
 
-        while ($done -eq $false)
+        while ($done -eq $False)
 
-        # reset state
-        $done = $false
+        $done = $False
 
         do
         {
             $done = TransferQueueHandler "site" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
 
-        while ($done -eq $false)
+        while ($done -eq $False)
 
-        # reset state
-        $done = $false
+        $done = $False
 
         if ($args -eq "-full")
         {
@@ -70,17 +68,16 @@ try
                 $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
             }
 
-            while($done -eq $false)
+            while($done -eq $False)
 
-            # reset state
-            $done = $false
+            $done = $False
 
-            FileActionsHandler "deploy" $session $baseRemoteEntry $true
+            FileActionsHandler "deploy" $session $baseRemoteEntry $True
         }
 
         else
         {
-            FileActionsHandler "deploy" $session $baseRemoteEntry $false
+            FileActionsHandler "deploy" $session $baseRemoteEntry $False
         }
     }
 

@@ -5,7 +5,7 @@ Function TransferQueueHandler
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
         Write-Host
-        Write-Host "Starting...TransferQueue:" $scope.ToTitleCase($args[0])
+        Write-Host "## TransferQueue ## Upload" $scope.ToTitleCase($args[0])
         Write-Host
 
         $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
@@ -17,7 +17,7 @@ Function TransferQueueHandler
     if ($args[0] -eq 'public')
     {
         Write-Host
-        Write-Host "Starting...TransferQueue:" $scope.ToTitleCase($args[0])
+        Write-Host "## TransferQueue ## Upload" $scope.ToTitleCase($args[0])
         Write-Host
 
         $transferHtaccess = $args[1].PutFiles($args[3] + $args[0] + '\.htaccess', ($args[4] + $args[0] + '/*__up'), $False, $args[2])
@@ -36,13 +36,11 @@ Function TransferQueueHandler
     if ($args[0] -eq 'clone')
     {
         Write-Host
-        Write-Host 'Starting...TransferQueue: Content Remote'
+        Write-Host '## TransferQueue ## Download Content'
         Write-Host
 
-        $clone = $args[1].GetFiles($args[2] + '*', $args[3] + '*')
-        $clone.Check()
-
-        Write-Host
+        $transfer = $args[1].GetFiles($args[2] + '*', $args[3] + '*')
+        $transfer.Check()
 
         return $true
     }
@@ -55,14 +53,14 @@ Function FileActionsHandler
     {
         if( !(Get-ChildItem $args[2] | Measure-Object).Count -eq 0)
         {
-            Write-Host "Starting...TransferQueue: Content Local Backup"
+            Write-Host "## TransferQueue ## Backup"
             Write-Host
 
             $timestamp = $(Get-Date -Format "yyyyMMddHHmmss")
 
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Working...Prepare"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss')  Working... Prepare Backup Folder"
             New-Item -Path $args[1] -Name $timestamp -ItemType "directory" | Out-Null
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Working...Process"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss')  Working... Backup Content Data"
             Copy-Item ($args[2] + '*') ($args[1] + $timestamp) -Recurse
         }
 
@@ -71,20 +69,8 @@ Function FileActionsHandler
 
     if ($args[0] -eq 'deploy')
     {
-        if ($args[3] -eq $true)
-        {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Renaming...Kirby"
-
-            $args[1].MoveFile('kirby', 'kirby__del')
-            $args[1].MoveFile('kirby__up', 'kirby')
-        }
-
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Renaming...Site"
-
-        $args[1].MoveFile('site', 'site__del')
-        $args[1].MoveFile('site__up', 'site')
-
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Renaming...Public"
+        Write-Host
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Upload Public"
 
         $args[1].MoveFile(($args[2] + 'public/.htaccess'), ($args[2] + 'public/.htaccess__del'))
         $args[1].MoveFile(($args[2] + 'public/index.php'), ($args[2] + 'public/index.php__del'))
@@ -104,19 +90,31 @@ Function FileActionsHandler
         $args[1].MoveFile(($args[2] + 'public/vendor.head.min.js__up'), ($args[2] + 'public/vendor.head.min.js'))
         $args[1].MoveFile(($args[2] + 'public/vendor.min.js__up'), ($args[2] + 'public/vendor.min.js'))
 
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Deleting...Folder"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Upload Site"
+
+        $args[1].MoveFile('site', 'site__del')
+        $args[1].MoveFile('site__up', 'site')
+
+        if ($args[3] -eq $true)
+        {
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Upload Kirby"
+
+            $args[1].MoveFile('kirby', 'kirby__del')
+            $args[1].MoveFile('kirby__up', 'kirby')
+        }
+
+        Write-Host
+        Write-Host -NoNewLine "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Folders"
 
         $args[1].RemoveFiles('*__del')
 
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Deleting...Files"
-
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Files"
         Write-Host
+
         $args[1].RemoveFiles($args[2] + 'public/*__del')
 
         return $true
     }
-
-
 }
 
 Function LogTransferredFiles
@@ -125,10 +123,11 @@ Function LogTransferredFiles
 
     if ($e.Error -eq $Null)
     {
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Working... $($e.Destination)"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($e.Destination)"
     }
+
     else
     {
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Error... $($e.Error) - $($e.Destination)"
+        Write-Host "## Error $($e.Error) ##  $($e.Destination)"
     }
 }

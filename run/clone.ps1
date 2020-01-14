@@ -45,6 +45,7 @@ try
 
     try
     {
+        # Backup
         do
         {
             $done = FileActionsHandler "clone" $baseLocalBackup $baseLocalContent
@@ -55,6 +56,7 @@ try
         # reset state
         $done = $false
 
+        # Clone
         do
         {
             $done = TransferQueueHandler "clone" $session $baseRemoteContent $baseLocalContent
@@ -68,6 +70,7 @@ try
 
     finally
     {
+        Write-Host
         $session.Dispose()
     }
 
