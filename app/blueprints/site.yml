@@ -3,3 +3,9 @@ title:
   de: Dashboard
 
 extends: layouts/dashboard
+
+options:
+  changeTitle:
+    admin: true
+    editor: false
+    manager: true

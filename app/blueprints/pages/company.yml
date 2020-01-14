@@ -4,3 +4,9 @@ title:
 
 extends: layouts/company
 icon: page
+
+options:
+  changeTitle:
+    admin: true
+    editor: false
+    manager: true
