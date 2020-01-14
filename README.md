@@ -26,6 +26,7 @@ npm run build
 ## Deploy
 ```
 npm run deploy
+npm run deploy.full
 ```
 
 ## Debug
