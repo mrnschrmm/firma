@@ -1,26 +1,27 @@
-# Scope
+# scope
 $id = "firma"
 $HostName = 'wp1177004.server-he.de'
 $UserName = 'ftp1177004-s'
 
-# Locations
+# locations
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
-$baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 $baseLocalConfigPath = 'D:\Tools\__config\sites\' + $id + '\'
+$baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
+
 $baseRemoteEntry = '/'
 
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
-# Authentication
+# authentication
 $hsh = $baseLocalEntryPath + 'env\hash.txt'
 $key = $baseLocalConfigPath + 'aeskey.txt'
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
-$action = $false
 $session = $null
 $sessionOptions = $null
+$done = $false
 
 try
 {
@@ -44,45 +45,42 @@ try
     {
         do
         {
-            $action = TransferQueueHandler "public" $session $transferOptions $baseLocalDist $baseRemoteEntry
+            $done = TransferQueueHandler "public" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
 
-        while ($action -ne $true)
+        while ($done -eq $false)
 
-        $action = $false
+        # reset state
+        $done = $false
 
         do
         {
-            $action = TransferQueueHandler "site" $session $transferOptions $baseLocalDist $baseRemoteEntry
+            $done = TransferQueueHandler "site" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
 
-        while ($action -ne $true)
+        while ($done -eq $false)
 
-        $action = $false
+        # reset state
+        $done = $false
 
         if ($args -eq "-full")
         {
             do
             {
-                $action = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
+                $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
             }
 
-            while($action -ne $true)
+            while($done -eq $false)
 
-            $action = $false
+            # reset state
+            $done = $false
 
-            Write-Host
-            Write-Host "Starting...File Actions"
-
-            FileActionHandler $session $baseRemoteEntry $true
+            FileActionsHandler "deploy" $session $baseRemoteEntry $true
         }
 
         else
         {
-            Write-Host
-            Write-Host "Starting...File Actions"
-
-            FileActionHandler $session $baseRemoteEntry $false
+            FileActionsHandler "deploy" $session $baseRemoteEntry $false
         }
     }
 

@@ -32,55 +32,91 @@ Function TransferQueueHandler
 
         return $true
     }
+
+    if ($args[0] -eq 'clone')
+    {
+        Write-Host
+        Write-Host 'Starting...TransferQueue: Content Remote'
+        Write-Host
+
+        $clone = $args[1].GetFiles($args[2] + '*', $args[3] + '*')
+        $clone.Check()
+
+        Write-Host
+
+        return $true
+    }
 }
 
-Function FileActionHandler
+Function FileActionsHandler
 {
-    Write-Host
 
-    if ($args[2] -eq $true)
+    if ($args[0] -eq 'clone')
     {
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Renaming...Kirby"
+        if( !(Get-ChildItem $args[2] | Measure-Object).Count -eq 0)
+        {
+            Write-Host "Starting...TransferQueue: Content Local Backup"
+            Write-Host
 
-        $args[0].MoveFile('kirby', 'kirby__del')
-        $args[0].MoveFile('kirby__up', 'kirby')
+            $timestamp = $(Get-Date -Format "yyyyMMddHHmmss")
+
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Working...Prepare"
+            New-Item -Path $args[1] -Name $timestamp -ItemType "directory" | Out-Null
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Working...Process"
+            Copy-Item ($args[2] + '*') ($args[1] + $timestamp) -Recurse
+        }
+
+        return $true
     }
 
-    Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Renaming...Site"
+    if ($args[0] -eq 'deploy')
+    {
+        if ($args[3] -eq $true)
+        {
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Renaming...Kirby"
 
-    $args[0].MoveFile('site', 'site__del')
-    $args[0].MoveFile('site__up', 'site')
+            $args[1].MoveFile('kirby', 'kirby__del')
+            $args[1].MoveFile('kirby__up', 'kirby')
+        }
 
-    Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Renaming...Public"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Renaming...Site"
 
-    $args[0].MoveFile(($args[1] + 'public/.htaccess'), ($args[1] + 'public/.htaccess__del'))
-    $args[0].MoveFile(($args[1] + 'public/index.php'), ($args[1] + 'public/index.php__del'))
-    $args[0].MoveFile(($args[1] + 'public/main.min.css'), ($args[1] + 'public/main.min.css__del'))
-    $args[0].MoveFile(($args[1] + 'public/main.min.js'), ($args[1] + 'public/main.min.js__del'))
-    $args[0].MoveFile(($args[1] + 'public/panel.min.css'), ($args[1] + 'public/panel.min.css__del'))
-    $args[0].MoveFile(($args[1] + 'public/panel.min.js'), ($args[1] + 'public/panel.min.js__del'))
-    $args[0].MoveFile(($args[1] + 'public/vendor.head.min.js'), ($args[1] + 'public/vendor.head.min.js__del'))
-    $args[0].MoveFile(($args[1] + 'public/vendor.min.js'), ($args[1] + 'public/vendor.min.js__del'))
+        $args[1].MoveFile('site', 'site__del')
+        $args[1].MoveFile('site__up', 'site')
 
-    $args[0].MoveFile(($args[1] + 'public/.htaccess__up'), ($args[1] + 'public/.htaccess'))
-    $args[0].MoveFile(($args[1] + 'public/index.php__up'), ($args[1] + 'public/index.php'))
-    $args[0].MoveFile(($args[1] + 'public/main.min.css__up'), ($args[1] + 'public/main.min.css'))
-    $args[0].MoveFile(($args[1] + 'public/main.min.js__up'), ($args[1] + 'public/main.min.js'))
-    $args[0].MoveFile(($args[1] + 'public/panel.min.css__up'), ($args[1] + 'public/panel.min.css'))
-    $args[0].MoveFile(($args[1] + 'public/panel.min.js__up'), ($args[1] + 'public/panel.min.js'))
-    $args[0].MoveFile(($args[1] + 'public/vendor.head.min.js__up'), ($args[1] + 'public/vendor.head.min.js'))
-    $args[0].MoveFile(($args[1] + 'public/vendor.min.js__up'), ($args[1] + 'public/vendor.min.js'))
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Renaming...Public"
 
-    Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Deleting...Folder"
+        $args[1].MoveFile(($args[2] + 'public/.htaccess'), ($args[2] + 'public/.htaccess__del'))
+        $args[1].MoveFile(($args[2] + 'public/index.php'), ($args[2] + 'public/index.php__del'))
+        $args[1].MoveFile(($args[2] + 'public/main.min.css'), ($args[2] + 'public/main.min.css__del'))
+        $args[1].MoveFile(($args[2] + 'public/main.min.js'), ($args[2] + 'public/main.min.js__del'))
+        $args[1].MoveFile(($args[2] + 'public/panel.min.css'), ($args[2] + 'public/panel.min.css__del'))
+        $args[1].MoveFile(($args[2] + 'public/panel.min.js'), ($args[2] + 'public/panel.min.js__del'))
+        $args[1].MoveFile(($args[2] + 'public/vendor.head.min.js'), ($args[2] + 'public/vendor.head.min.js__del'))
+        $args[1].MoveFile(($args[2] + 'public/vendor.min.js'), ($args[2] + 'public/vendor.min.js__del'))
 
-    $args[0].RemoveFiles('*__del')
+        $args[1].MoveFile(($args[2] + 'public/.htaccess__up'), ($args[2] + 'public/.htaccess'))
+        $args[1].MoveFile(($args[2] + 'public/index.php__up'), ($args[2] + 'public/index.php'))
+        $args[1].MoveFile(($args[2] + 'public/main.min.css__up'), ($args[2] + 'public/main.min.css'))
+        $args[1].MoveFile(($args[2] + 'public/main.min.js__up'), ($args[2] + 'public/main.min.js'))
+        $args[1].MoveFile(($args[2] + 'public/panel.min.css__up'), ($args[2] + 'public/panel.min.css'))
+        $args[1].MoveFile(($args[2] + 'public/panel.min.js__up'), ($args[2] + 'public/panel.min.js'))
+        $args[1].MoveFile(($args[2] + 'public/vendor.head.min.js__up'), ($args[2] + 'public/vendor.head.min.js'))
+        $args[1].MoveFile(($args[2] + 'public/vendor.min.js__up'), ($args[2] + 'public/vendor.min.js'))
 
-    Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Deleting...Files"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Deleting...Folder"
 
-    Write-Host
-    $args[0].RemoveFiles($args[1] + 'public/*__del')
+        $args[1].RemoveFiles('*__del')
 
-    return $true
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Deleting...Files"
+
+        Write-Host
+        $args[1].RemoveFiles($args[2] + 'public/*__del')
+
+        return $true
+    }
+
+
 }
 
 Function LogTransferredFiles
@@ -89,10 +125,10 @@ Function LogTransferredFiles
 
     if ($e.Error -eq $Null)
     {
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Working... $($e.Destination)"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Working... $($e.Destination)"
     }
     else
     {
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') ...Error... $($e.Error) - $($e.Destination)"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') .. Error... $($e.Error) - $($e.Destination)"
     }
 }

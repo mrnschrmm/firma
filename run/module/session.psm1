@@ -6,6 +6,7 @@ Function SessionSettings
       UserName = $args[1]
       Password = [System.Net.NetworkCredential]::new('', $args[2]).Password
       FtpSecure = [WinSCP.FtpSecure]::Explicit
+      TimeoutInMilliseconds = 4200
     }
 
     $options.AddRawSettings('AddressFamily', '1')
