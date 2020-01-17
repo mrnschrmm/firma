@@ -48,12 +48,10 @@ try
         # Backup
         do
         {
-            $done = FileActionsHandler "clone" $baseLocalBackup $baseLocalContent
+            $done = FileActionsHandler "clone" $baseLocalEntryPath $baseLocalBackup $baseLocalContent
         }
 
         while ($done -eq $false)
-
-        # reset state
         $done = $false
 
         # Clone
@@ -63,8 +61,6 @@ try
         }
 
         while ($done -eq $false)
-
-        # reset state
         $done = $false
     }
 
