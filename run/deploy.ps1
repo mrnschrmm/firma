@@ -22,8 +22,6 @@ $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 $session = $Null
 $sessionOptions = $Null
 $done = $False
-$queues = @()
-
 
 try
 {

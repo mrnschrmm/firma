@@ -41,18 +41,6 @@ Function TransferQueueHandler
 
         while ($done -eq $False)
 
-        # $transfer = $args[1].PutFiles($args[3] + $args[0] + '\', ($args[4] + $args[0]
-
-        # $transfer_dot = $args[1].PutFiles($args[3] + $args[0] + '\.*', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
-        # $transfer_php = $args[1].PutFiles($args[3] + $args[0] + '\*.php', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
-        # $transfer_js = $args[1].PutFiles($args[3] + $args[0] + '\*.js', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
-        # $transfer_css = $args[1].PutFiles($args[3] + $args[0] + '\*.css', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
-
-        # $transferHtaccess.Check()
-        # $transferPHP.Check()
-        # $transferJS.Check()
-        # $transferCSS.Check()
-
         return $True
     }
 
