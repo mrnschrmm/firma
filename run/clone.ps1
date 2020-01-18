@@ -45,14 +45,16 @@ try
 
     try
     {
+        Write-Host '## RUN ## CLONE'
+
         # Backup
         do
         {
             $done = FileActionsHandler "clone" $baseLocalEntryPath $baseLocalBackup $baseLocalContent
         }
 
-        while ($done -eq $false)
-        $done = $false
+        while ($done -eq $False)
+        $done = $False
 
         # Clone
         do
@@ -60,8 +62,8 @@ try
             $done = TransferQueueHandler "clone" $session $baseRemoteContent $baseLocalContent
         }
 
-        while ($done -eq $false)
-        $done = $false
+        while ($done -eq $False)
+        $done = $False
     }
 
     finally

@@ -22,6 +22,8 @@ $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 $session = $Null
 $sessionOptions = $Null
 $done = $False
+$queues = @()
+
 
 try
 {
@@ -43,6 +45,8 @@ try
 
     try
     {
+        Write-Host '## RUN ## DEPLOY'
+
         do
         {
             $done = TransferQueueHandler "public" $session $transferOptions $baseLocalDist $baseRemoteEntry

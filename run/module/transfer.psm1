@@ -5,7 +5,7 @@ Function TransferQueueHandler
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
         Write-Host
-        Write-Host "## TransferQueue ## Upload" $scope.ToTitleCase($args[0])
+        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
         Write-Host
 
         $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
@@ -17,18 +17,41 @@ Function TransferQueueHandler
     if ($args[0] -eq 'public')
     {
         Write-Host
-        Write-Host "## TransferQueue ## Upload" $scope.ToTitleCase($args[0])
+        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
         Write-Host
 
-        $transferHtaccess = $args[1].PutFiles($args[3] + $args[0] + '\.htaccess', ($args[4] + $args[0] + '/*__up'), $False, $args[2])
-        $transferPHP = $args[1].PutFiles($args[3] + $args[0] + '\*.php', ($args[4] + $args[0] + '/*__up'), $False, $args[2])
-        $transferJS = $args[1].PutFiles($args[3] + $args[0] + '\*.js', ($args[4] + $args[0] + '/*__up'), $False, $args[2])
-        $transferCSS = $args[1].PutFiles($args[3] + $args[0] + '\*.css', ($args[4] + $args[0] + '/*__up'), $False, $args[2])
+        $masks = '.*', '*.php', '*.js', '*.css'
+        $done = $False
 
-        $transferHtaccess.Check()
-        $transferPHP.Check()
-        $transferJS.Check()
-        $transferCSS.Check()
+        Function TransferQueue()
+        {
+            foreach ($mask in $masks)
+            {
+                $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $mask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
+                $transfer.Check()
+            }
+
+            return $True
+        }
+
+        do
+        {
+            $done = TransferQueue $args[0] $args[1] $args[2] $args[3] $args[4]
+        }
+
+        while ($done -eq $False)
+
+        # $transfer = $args[1].PutFiles($args[3] + $args[0] + '\', ($args[4] + $args[0]
+
+        # $transfer_dot = $args[1].PutFiles($args[3] + $args[0] + '\.*', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
+        # $transfer_php = $args[1].PutFiles($args[3] + $args[0] + '\*.php', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
+        # $transfer_js = $args[1].PutFiles($args[3] + $args[0] + '\*.js', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
+        # $transfer_css = $args[1].PutFiles($args[3] + $args[0] + '\*.css', ($args[4] + $args[0] + '/*__up'), $False, $args[2]).Check()
+
+        # $transferHtaccess.Check()
+        # $transferPHP.Check()
+        # $transferJS.Check()
+        # $transferCSS.Check()
 
         return $True
     }
@@ -57,6 +80,7 @@ Function FileActionsHandler
 
         elseif ( !(Get-ChildItem $args[3] | Measure-Object).Count -eq 0 )
         {
+            Write-Host
             Write-Host "## TransferQueue ## Backup"
             Write-Host
 
@@ -83,7 +107,7 @@ Function FileActionsHandler
     if ($args[0] -eq 'deploy')
     {
         Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Upload Public"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Public Upload"
 
         $args[1].MoveFile(($args[2] + 'public/.htaccess'), ($args[2] + 'public/.htaccess__del'))
         $args[1].MoveFile(($args[2] + 'public/index.php'), ($args[2] + 'public/index.php__del'))
@@ -103,14 +127,14 @@ Function FileActionsHandler
         $args[1].MoveFile(($args[2] + 'public/vendor.head.min.js__up'), ($args[2] + 'public/vendor.head.min.js'))
         $args[1].MoveFile(($args[2] + 'public/vendor.min.js__up'), ($args[2] + 'public/vendor.min.js'))
 
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Upload Site"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Site Upload"
 
         $args[1].MoveFile('site', 'site__del')
         $args[1].MoveFile('site__up', 'site')
 
         if ($args[3] -eq $True)
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Upload Kirby"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Kirby Upload"
 
             $args[1].MoveFile('kirby', 'kirby__del')
             $args[1].MoveFile('kirby__up', 'kirby')
