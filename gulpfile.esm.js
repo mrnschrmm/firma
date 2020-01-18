@@ -148,12 +148,6 @@ function process__vendor () {
 // LOGIC
 ////////////////////////////////////////////////////////////////////////////////
 
-const index__src = (root_src + path.index).replace('//', '/')
-const index__dest = (root_dist + root_public).replace('//', '/')
-
-const htaccess__src = (root_src).replace('//', '/')
-const htaccess__dest = (root_dist + root_public).replace('//', '/')
-
 const configs__src = (root_src + path.configs).replace('//', '/')
 const configs__dest = (root_dist + site + path.configs).replace('//', '/')
 
@@ -175,10 +169,14 @@ const snippets__dest = (root_dist + site + path.snippets).replace('//', '/')
 const templates__src = (root_src + path.templates).replace('//', '/')
 const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 
+const htaccess__src = (root_src).replace('//', '/')
+const htaccess__dest = (root_dist + root_public).replace('//', '/')
+
+const index__src = (root_src + path.index).replace('//', '/')
+const index__dest = (root_dist + root_public).replace('//', '/')
+
 // CLEAN -------------------------------------------------------------
 
-function clean__index () { return del([index__dest + 'index.php']) }
-function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
 function clean__configs () { return del([configs__dest]) }
 function clean__languages () { return del([languages__dest]) }
 function clean__blueprints () { return del([blueprints__dest]) }
@@ -186,30 +184,20 @@ function clean__collections () { return del([collections__dest]) }
 function clean__controllers () { return del([controllers__dest]) }
 function clean__snippets () { return del([snippets__dest]) }
 function clean__templates () { return del([templates__dest]) }
+function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
+function clean__license () { return del([configs__dest + '.license']) }
+function clean__index () { return del([index__dest + 'index.php']) }
 
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
-  return src(['./app/{config,index,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
+  return src(['./app/{config,languages,collections,controllers,templates,snippets,index}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
 }
 
 // COPY -------------------------------------------------------------
-
-function copy__htaccess () {
-  return src([htaccess__src + '.htaccess'])
-    .pipe(gulpif(DEBUG, debug({ title: '## HTACCESS:' })))
-    .pipe(dest(index__dest))
-}
-
-function copy__index () {
-  return src([index__src + (!PROD ? 'index.dev.php' : 'index.prod.php')])
-    .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
-    .pipe(rename('index.php'))
-    .pipe(dest(index__dest))
-}
 
 function copy__configs () {
   return src([configs__src + 'config.php'])
@@ -253,11 +241,29 @@ function copy__templates () {
     .pipe(dest(templates__dest))
 }
 
+function copy__htaccess () {
+  return src([htaccess__src + '.htaccess'])
+    .pipe(gulpif(DEBUG, debug({ title: '## HTACCESS:' })))
+    .pipe(dest(index__dest))
+}
+
+function copy__license () {
+  return src([configs__src + (!PROD ? '.license.dev' : '.license.prod')])
+    .pipe(gulpif(DEBUG, debug({ title: '## LICENSE:' })))
+    .pipe(rename('.license'))
+    .pipe(dest(configs__dest))
+}
+
+function copy__index () {
+  return src([index__src + (!PROD ? 'index.dev.php' : 'index.prod.php')])
+    .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
+    .pipe(rename('index.php'))
+    .pipe(dest(index__dest))
+}
+
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch(index__src + 'index.dev.php', series(index, reload))
-  watch(htaccess__src + '.htaccess', series(htaccess, reload))
   watch('D:/Tools/__config/sites/firma/config.php', series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
@@ -265,12 +271,13 @@ function watch__logic () {
   watch(controllers__src + '**/*.php', series(controllers, reload))
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
+  watch(htaccess__src + '.htaccess', series(htaccess, reload))
+  watch('D:/Tools/__config/sites/firma/.license.dev', series(license, reload))
+  watch(index__src + 'index.dev.php', series(index, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
 
-const index = series(clean__index, copy__index)
-const htaccess = series(clean__htaccess, copy__htaccess)
 const configs = series(clean__configs, copy__configs)
 const languages = series(clean__languages, copy__languages)
 const blueprints = series(clean__blueprints, copy__blueprints)
@@ -278,6 +285,9 @@ const collections = series(clean__collections, copy__collections)
 const controllers = series(clean__controllers, copy__controllers)
 const snippets = series(clean__snippets, copy__snippets)
 const templates = series(clean__templates, copy__templates)
+const htaccess = series(clean__htaccess, copy__htaccess)
+const license = series(clean__license, copy__license)
+const index = series(clean__index, copy__index)
 
 ////////////////////////////////////////////////////////////////////////////////
 // ASSETS
@@ -550,7 +560,7 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(index, htaccess, configs, languages, blueprints, collections, controllers, snippets, templates, vendor)
+const LOGIC = series(configs, languages, blueprints, collections, controllers, snippets, templates, htaccess, license, index, vendor)
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)

@@ -12,6 +12,8 @@
 # LARAVEL
 .env
 .env.backup
+.license.dev
+.license.prod
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
