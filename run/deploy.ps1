@@ -1,9 +1,9 @@
-# scope
+# Scope
 $id = "firma"
 $HostName = 'wp1177004.server-he.de'
 $UserName = 'ftp1177004-s'
 
-# locations
+# Locations
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
 $baseLocalConfigPath = 'D:\Tools\__config\sites\' + $id + '\'
@@ -14,7 +14,7 @@ $baseRemoteEntry = '/'
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
-# authentication
+# Authentication
 $hsh = $baseLocalEntryPath + 'env\hash.txt'
 $key = $baseLocalConfigPath + 'aeskey.txt'
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))

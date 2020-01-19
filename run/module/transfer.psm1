@@ -1,18 +1,54 @@
-Function TransferQueueHandler
+Function TransferHandler()
 {
-    $scope = (Get-Culture).TextInfo
-    $done = $False
-
-    Function TransferHandler()
+    foreach ($filemask in $args[5])
     {
-        foreach ($filemask in $args[5])
+        $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $filemask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
+        $transfer.Check()
+    }
+
+    return $True
+}
+
+Function ActionHandler()
+{
+    if ($args[0] -eq 'del')
+    {
+        $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
+
+        foreach ($file in $files)
         {
-            $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $filemask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
-            $transfer.Check()
+            if ($file.FullName -notmatch "__up$")
+            {
+                Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $($file.FullName)__del"
+                $args[1].MoveFile($file.FullName, $file.FullName + '__del')
+            }
         }
 
         return $True
     }
+
+    if ($args[0] -eq 'up')
+    {
+        $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
+
+        foreach ($file in $files)
+        {
+            if ($file.FullName -notmatch "__del$")
+            {
+                $filename = $file.FullName -replace "__up"
+                Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $filename"
+                $args[1].MoveFile($file.FullName, $filename)
+            }
+        }
+
+        return $True
+    }
+}
+
+Function TransferQueueHandler
+{
+    $scope = (Get-Culture).TextInfo
+    $done = $False
 
     if ($args[0] -eq 'public')
     {
@@ -60,6 +96,8 @@ Function TransferQueueHandler
 
 Function FileActionsHandler
 {
+    $done = $False
+
     if ($args[0] -eq 'clone')
     {
         if (!(Test-Path $args[3] -PathType container))
@@ -100,43 +138,6 @@ Function FileActionsHandler
         Write-Host
 
         $path = $args[2] + 'public'
-        $done = $False
-
-        Function ActionHandler()
-        {
-            if ($args[0] -eq 'del')
-            {
-                $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
-
-                foreach ($file in $files)
-                {
-                    if ($file.FullName -notmatch "__up$")
-                    {
-                        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $($file.FullName)__del"
-                        $args[1].MoveFile($file.FullName, $file.FullName + '__del')
-                    }
-                }
-
-                return $True
-            }
-
-            if ($args[0] -eq 'up')
-            {
-                $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
-
-                foreach ($file in $files)
-                {
-                    if ($file.FullName -notmatch "__del$")
-                    {
-                        $filename = $file.FullName -replace "__up"
-                        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $filename"
-                        $args[1].MoveFile($file.FullName, $filename)
-                    }
-                }
-
-                return $True
-            }
-        }
 
         if ($args[1].FileExists($path))
         {
