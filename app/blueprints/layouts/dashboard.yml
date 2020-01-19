@@ -10,8 +10,8 @@ tabs:
         widgets:
           - devicesType
           - referrerType
-          - popularPages
-          - websites
+          # - popularPages
+          # - websites
 
       dashboard_metrics_side:
         type: matomo-sidebar
