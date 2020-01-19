@@ -71,15 +71,26 @@ try
             }
 
             while($done -eq $False)
-
             $done = $False
 
-            FileActionsHandler "deploy" $session $baseRemoteEntry $True
+            do
+            {
+                $done = FileActionsHandler "deploy" $session $baseRemoteEntry $True
+            }
+
+            while($done -eq $False)
+            $done = $False
         }
 
         else
         {
-            FileActionsHandler "deploy" $session $baseRemoteEntry $False
+            do
+            {
+                $done = FileActionsHandler "deploy" $session $baseRemoteEntry $False
+            }
+
+            while($done -eq $False)
+            $done = $False
         }
     }
 
@@ -93,11 +104,14 @@ try
 
 catch
 {
-    Write-Host '///'
+    Write-Host
+    Write-Host '## Error ##'
+    Write-Host
     Write-Host "$($_.Exception.Message)"
-    Write-Host '///'
+    Write-Host
     Write-Host "$($_.ScriptStackTrace)"
-    Write-Host '///'
+    Write-Host
+    Write-Host '##'
 
     exit 1
 }

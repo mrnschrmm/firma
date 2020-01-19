@@ -1,15 +1,15 @@
 Function TransferQueueHandler
 {
     $scope = (Get-Culture).TextInfo
+    $done = $False
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    Function TransferHandler()
     {
-        Write-Host
-        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
-        Write-Host
-
-        $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
-        $transfer.Check()
+        foreach ($filemask in $args[5])
+        {
+            $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $filemask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
+            $transfer.Check()
+        }
 
         return $True
     }
@@ -20,26 +20,27 @@ Function TransferQueueHandler
         Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
         Write-Host
 
-        $masks = '.*', '*.php', '*.js', '*.css'
-        $done = $False
-
-        Function TransferQueue()
-        {
-            foreach ($mask in $masks)
-            {
-                $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $mask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
-                $transfer.Check()
-            }
-
-            return $True
-        }
+        $filemasks = '.*', '*.php', '*.js', '*.css'
 
         do
         {
-            $done = TransferQueue $args[0] $args[1] $args[2] $args[3] $args[4]
+            $done = TransferHandler $args[0] $args[1] $args[2] $args[3] $args[4] $filemasks
         }
 
         while ($done -eq $False)
+        $done = $False
+
+        return $True
+    }
+
+    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    {
+        Write-Host
+        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
+        Write-Host
+
+        $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
+        $transfer.Check()
 
         return $True
     }
@@ -61,7 +62,7 @@ Function FileActionsHandler
 {
     if ($args[0] -eq 'clone')
     {
-        if ( !(Test-Path $args[3] -PathType container) )
+        if (!(Test-Path $args[3] -PathType container))
         {
             New-Item -Path $args[1] -Name "db" -ItemType "directory" | Out-Null
         }
@@ -96,45 +97,93 @@ Function FileActionsHandler
     {
         Write-Host
         Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Public Upload"
+        Write-Host
 
-        $args[1].MoveFile(($args[2] + 'public/.htaccess'), ($args[2] + 'public/.htaccess__del'))
-        $args[1].MoveFile(($args[2] + 'public/index.php'), ($args[2] + 'public/index.php__del'))
-        $args[1].MoveFile(($args[2] + 'public/main.min.css'), ($args[2] + 'public/main.min.css__del'))
-        $args[1].MoveFile(($args[2] + 'public/main.min.js'), ($args[2] + 'public/main.min.js__del'))
-        $args[1].MoveFile(($args[2] + 'public/panel.min.css'), ($args[2] + 'public/panel.min.css__del'))
-        $args[1].MoveFile(($args[2] + 'public/panel.min.js'), ($args[2] + 'public/panel.min.js__del'))
-        $args[1].MoveFile(($args[2] + 'public/vendor.head.min.js'), ($args[2] + 'public/vendor.head.min.js__del'))
-        $args[1].MoveFile(($args[2] + 'public/vendor.min.js'), ($args[2] + 'public/vendor.min.js__del'))
+        $path = $args[2] + 'public'
+        $done = $False
 
-        $args[1].MoveFile(($args[2] + 'public/.htaccess__up'), ($args[2] + 'public/.htaccess'))
-        $args[1].MoveFile(($args[2] + 'public/index.php__up'), ($args[2] + 'public/index.php'))
-        $args[1].MoveFile(($args[2] + 'public/main.min.css__up'), ($args[2] + 'public/main.min.css'))
-        $args[1].MoveFile(($args[2] + 'public/main.min.js__up'), ($args[2] + 'public/main.min.js'))
-        $args[1].MoveFile(($args[2] + 'public/panel.min.css__up'), ($args[2] + 'public/panel.min.css'))
-        $args[1].MoveFile(($args[2] + 'public/panel.min.js__up'), ($args[2] + 'public/panel.min.js'))
-        $args[1].MoveFile(($args[2] + 'public/vendor.head.min.js__up'), ($args[2] + 'public/vendor.head.min.js'))
-        $args[1].MoveFile(($args[2] + 'public/vendor.min.js__up'), ($args[2] + 'public/vendor.min.js'))
+        Function ActionHandler()
+        {
+            if ($args[0] -eq 'del')
+            {
+                $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
 
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Site Upload"
+                foreach ($file in $files)
+                {
+                    if ($file.FullName -notmatch "__up$")
+                    {
+                        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $($file.FullName)__del"
+                        $args[1].MoveFile($file.FullName, $file.FullName + '__del')
+                    }
+                }
+
+                return $True
+            }
+
+            if ($args[0] -eq 'up')
+            {
+                $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
+
+                foreach ($file in $files)
+                {
+                    if ($file.FullName -notmatch "__del$")
+                    {
+                        $filename = $file.FullName -replace "__up"
+                        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $filename"
+                        $args[1].MoveFile($file.FullName, $filename)
+                    }
+                }
+
+                return $True
+            }
+        }
+
+        if ($args[1].FileExists($path))
+        {
+            do
+            {
+                $done = ActionHandler "del" $args[1] $path
+            }
+
+            while($done -eq $False)
+            $done = $False
+
+            do
+            {
+                $done = ActionHandler "up" $args[1] $path
+            }
+
+            while($done -eq $False)
+            $done = $False
+        }
+
+        Write-Host
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Move New Site Files"
 
         $args[1].MoveFile('site', 'site__del')
         $args[1].MoveFile('site__up', 'site')
 
         if ($args[3] -eq $True)
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Kirby Upload"
+            Write-Host
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Move New Kirby Files"
 
             $args[1].MoveFile('kirby', 'kirby__del')
             $args[1].MoveFile('kirby__up', 'kirby')
+
+            Write-Host
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Kirby Files"
+
+            $args[1].RemoveFiles('kirby__del')
         }
 
         Write-Host
-        Write-Host -NoNewLine "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Folders"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Site Files"
 
-        $args[1].RemoveFiles('*__del')
+        $args[1].RemoveFiles('site__del')
 
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Files"
         Write-Host
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Public Files"
 
         $args[1].RemoveFiles($args[2] + 'public/*__del')
 
@@ -153,6 +202,6 @@ Function LogTransferredFiles
 
     else
     {
-        Write-Host "## Error $($e.Error) ##  $($e.Destination)"
+        Write-Host "## Error $($e.Error) ## $($e.Destination)"
     }
 }

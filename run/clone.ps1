@@ -77,11 +77,11 @@ try
 
 catch
 {
-    Write-Host '///'
+    Write-Host '##'
     Write-Host "$($_.Exception.Message)"
-    Write-Host '///'
+    Write-Host
     Write-Host "$($_.ScriptStackTrace)"
-    Write-Host '///'
+    Write-Host '##'
 
     exit 1
 }
