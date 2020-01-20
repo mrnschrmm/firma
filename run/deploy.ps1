@@ -51,7 +51,6 @@ try
         }
 
         while ($done -eq $False)
-
         $done = $False
 
         do
@@ -60,7 +59,6 @@ try
         }
 
         while ($done -eq $False)
-
         $done = $False
 
         if ($args -eq "-full")

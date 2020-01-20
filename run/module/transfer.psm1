@@ -1,12 +1,23 @@
 Function TransferHandler()
 {
-    foreach ($filemask in $args[5])
+    if ($args[0] -eq 'public')
     {
-        $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $filemask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
-        $transfer.Check()
+        foreach ($filemask in $args[5])
+        {
+            $transfer = $args[1].PutFiles($args[3] + $args[0] + '\' + $filemask, ($args[4] + $args[0] + '/*__up'), $False, $args[2])
+            $transfer.Check()
+        }
+
+        return $True
     }
 
-    return $True
+    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    {
+        $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
+        $transfer.Check()
+
+        return $True
+    }
 }
 
 Function ActionHandler()
@@ -36,6 +47,7 @@ Function ActionHandler()
             if ($file.FullName -notmatch "__del$")
             {
                 $filename = $file.FullName -replace "__up"
+
                 Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $filename"
                 $args[1].MoveFile($file.FullName, $filename)
             }
@@ -75,8 +87,16 @@ Function TransferQueueHandler
         Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
         Write-Host
 
-        $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
-        $transfer.Check()
+        do
+        {
+            $done = TransferHandler $args[0] $args[1] $args[2] $args[3] $args[4]
+        }
+
+        while ($done -eq $False)
+        $done = $False
+
+        # $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
+        # $transfer.Check()
 
         return $True
     }
@@ -196,7 +216,7 @@ Function LogTransferredFiles
 {
     param($e)
 
-    if ($e.Error -eq $Null)
+    if ($Null -eq $e.Error)
     {
         Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($e.Destination)"
     }
