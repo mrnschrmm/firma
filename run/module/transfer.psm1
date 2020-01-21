@@ -95,9 +95,6 @@ Function TransferQueueHandler
         while ($done -eq $False)
         $done = $False
 
-        # $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
-        # $transfer.Check()
-
         return $True
     }
 
@@ -194,17 +191,17 @@ Function FileActionsHandler
 
             Write-Host
             Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Kirby Files"
+            Write-Host
 
             $args[1].RemoveFiles('kirby__del')
         }
 
-        Write-Host
         Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Site Files"
 
         $args[1].RemoveFiles('site__del')
 
-        Write-Host
         Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Public Files"
+        Write-Host
 
         $args[1].RemoveFiles($args[2] + 'public/*__del')
 
