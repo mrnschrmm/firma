@@ -248,7 +248,7 @@ function copy__htaccess () {
 }
 
 function copy__license () {
-  return src([configs__src + (!PROD ? '.license.dev' : '.license.prod')])
+  return src([configs__src + (!PROD ? '.license.dev' : '.license.live')])
     .pipe(gulpif(DEBUG, debug({ title: '## LICENSE:' })))
     .pipe(rename('.license'))
     .pipe(dest(configs__dest))
@@ -272,7 +272,7 @@ function watch__logic () {
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
   watch(htaccess__src + '.htaccess', series(htaccess, reload))
-  watch('D:/Tools/__config/sites/firma/.license.dev', series(license, reload))
+  watch('D:/Tools/__config/sites/firma/license/.dev', series(license, reload))
   watch(index__src + 'index.dev.php', series(index, reload))
 }
 

@@ -22,38 +22,81 @@ Function TransferHandler()
 
 Function ActionHandler()
 {
-    if ($args[0] -eq 'del')
-    {
-        $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
+    $directoryName = $args[2].Split().Substring(1)
 
-        foreach ($file in $files)
+    if ($directoryName -eq 'public')
+    {
+        if ($args[0] -eq 'unlink')
         {
-            if ($file.FullName -notmatch "__up$")
+            $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
+
+            foreach ($file in $files)
             {
-                Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $($file.FullName)__del"
-                $args[1].MoveFile($file.FullName, $file.FullName + '__del')
+                if ($file.FullName -notmatch "__up$")
+                {
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $($file.FullName)__del"
+                    $args[1].MoveFile($file.FullName, $file.FullName + '__del')
+                }
             }
+
+            return $True
         }
 
-        return $True
+        if ($args[0] -eq 'link')
+        {
+            $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
+
+            foreach ($file in $files)
+            {
+                if ($file.FullName -notmatch "__del$")
+                {
+                    $filename = $file.FullName -replace "__up"
+
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $filename"
+                    $args[1].MoveFile($file.FullName, $filename)
+                }
+            }
+
+            return $True
+        }
+
+        if ($args[0] -eq 'cleanup')
+        {
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($directoryName) Files"
+            Write-Host
+
+            $args[1].RemoveFiles($args[2] + '/*__del')
+
+            return $True
+        }
     }
 
-    if ($args[0] -eq 'up')
+    if ($directoryName -eq 'kirby' -OR $directoryName -eq 'site')
     {
-        $files = $args[1].EnumerateRemoteFiles($args[2], '*', [WinSCP.EnumerationOptions]::None)
-
-        foreach ($file in $files)
+        if ($args[0] -eq 'unlink')
         {
-            if ($file.FullName -notmatch "__del$")
-            {
-                $filename = $file.FullName -replace "__up"
+            $args[1].MoveFile($directoryName, $directoryName + '__del')
 
-                Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($file.FullName) => $filename"
-                $args[1].MoveFile($file.FullName, $filename)
-            }
+            return $True
         }
 
-        return $True
+        if ($args[0] -eq 'link')
+        {
+            $args[1].MoveFile($directoryName + '__up', $directoryName)
+
+            return $True
+        }
+
+        if ($args[0] -eq 'cleanup')
+        {
+            Write-Host
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($directoryName) Files"
+            Write-Host
+
+            $args[1].RemoveFiles($directoryName + '__del')
+
+            return $True
+        }
     }
 }
 
@@ -115,6 +158,75 @@ Function FileActionsHandler
 {
     $done = $False
 
+    if ($args[0] -eq 'public')
+    {
+        ## MOVE
+
+        Write-Host
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Public Upload"
+        Write-Host
+
+        do
+        {
+            $done = ActionHandler "unlink" $args[1] ($args[2] + 'public')
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = ActionHandler "link" $args[1] ($args[2] + 'public')
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = ActionHandler "cleanup" $args[1] ($args[2] + 'public')
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        return $True
+    }
+
+    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    {
+        ## MOVE
+
+        Write-Host
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Move New $($args[0]) Files"
+
+        do
+        {
+            $done = ActionHandler "unlink" $args[1] ($args[2] + $args[0])
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = ActionHandler "link" $args[1] ($args[2] + $args[0])
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = ActionHandler "cleanup" $args[1] ($args[2] + $args[0])
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        return $True
+    }
+
     if ($args[0] -eq 'clone')
     {
         if (!(Test-Path $args[3] -PathType container))
@@ -122,7 +234,7 @@ Function FileActionsHandler
             New-Item -Path $args[1] -Name "db" -ItemType "directory" | Out-Null
         }
 
-        elseif ( !(Get-ChildItem $args[3] | Measure-Object).Count -eq 0 )
+        elseif (!(Get-ChildItem $args[3] | Measure-Object).Count -eq 0)
         {
             Write-Host
             Write-Host "## TransferQueue ## Backup"
@@ -130,7 +242,7 @@ Function FileActionsHandler
 
             $timestamp = $(Get-Date -Format "yyyyMMddHHmmss")
 
-            if ( !(Test-Path $args[2] -PathType container) )
+            if (!(Test-Path $args[2] -PathType container))
             {
                 New-Item -Path $args[1] -Name "backup" -ItemType "directory" | Out-Null
             }
@@ -144,66 +256,6 @@ Function FileActionsHandler
                 Copy-Item ($args[3] + '*') ($args[2] + $timestamp) -Recurse
             }
         }
-
-        return $True
-    }
-
-    if ($args[0] -eq 'deploy')
-    {
-        Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Public Upload"
-        Write-Host
-
-        $path = $args[2] + 'public'
-
-        if ($args[1].FileExists($path))
-        {
-            do
-            {
-                $done = ActionHandler "del" $args[1] $path
-            }
-
-            while($done -eq $False)
-            $done = $False
-
-            do
-            {
-                $done = ActionHandler "up" $args[1] $path
-            }
-
-            while($done -eq $False)
-            $done = $False
-        }
-
-        Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Move New Site Files"
-
-        $args[1].MoveFile('site', 'site__del')
-        $args[1].MoveFile('site__up', 'site')
-
-        if ($args[3] -eq $True)
-        {
-            Write-Host
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Move New Kirby Files"
-
-            $args[1].MoveFile('kirby', 'kirby__del')
-            $args[1].MoveFile('kirby__up', 'kirby')
-
-            Write-Host
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Kirby Files"
-            Write-Host
-
-            $args[1].RemoveFiles('kirby__del')
-        }
-
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Site Files"
-
-        $args[1].RemoveFiles('site__del')
-
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated Public Files"
-        Write-Host
-
-        $args[1].RemoveFiles($args[2] + 'public/*__del')
 
         return $True
     }
