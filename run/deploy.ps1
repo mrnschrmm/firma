@@ -6,7 +6,7 @@ $UserName = if ($args -eq '-live') { "ftp1177004-s" } else { "ftp1177004-sprevie
 # Location
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
-$baseLocalConfigPath = 'D:\Tools\__config\sites\' + $id + '\'
+$baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 
 $baseRemoteEntry = '/'
