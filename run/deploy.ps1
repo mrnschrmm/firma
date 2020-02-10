@@ -62,13 +62,13 @@ try
 
         $done = $False
 
-        # do
-        # {
-        #     $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
-        # }
-        # while($done -eq $False)
+        do
+        {
+            $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
+        }
+        while($done -eq $False)
 
-        # $done = $False
+        $done = $False
 
         do
         {
@@ -86,13 +86,13 @@ try
 
         $done = $False
 
-        # do
-        # {
-        #     $done = FileActionsHandler "kirby" $session $baseRemoteEntry
-        # }
-        # while($done -eq $False)
+        do
+        {
+            $done = FileActionsHandler "kirby" $session $baseRemoteEntry
+        }
+        while($done -eq $False)
 
-        # $done = $False
+        $done = $False
     }
     finally
     {
