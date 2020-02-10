@@ -1,6 +1,6 @@
 # Site - Project: Firma
 
-`Node 10.18.1` `NPM 6.13.6` `PHP 7.3.12` `Composer 1.9.1` `Kirby 3.3.2`
+`Node 12.15.0` `NPM 6.13.7` `PHP 7.3.14` `Composer 1.9.3` `Kirby 3.3.3`
 
 ## Setup
 ```
@@ -21,12 +21,13 @@ npm run start
 ## Build
 ```
 npm run build
+npm run build.preview
 ```
 
 ## Deploy
 ```
 npm run deploy
-npm run deploy.full
+npm run deploy.preview
 ```
 
 ## Debug

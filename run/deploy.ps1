@@ -1,12 +1,12 @@
-# scope
+# Scope
 $id = "firma"
-$HostName = 'wp1177004.server-he.de'
-$UserName = 'ftp1177004-s'
+$HostName = "wp1177004.server-he.de"
+$UserName = if ($args -eq '-preview') { "ftp1177004-spreview" } else { "ftp1177004-s" }
 
-# locations
+# Location
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
-$baseLocalConfigPath = 'D:\Tools\__config\sites\' + $id + '\'
+$baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 
 $baseRemoteEntry = '/'
@@ -14,9 +14,10 @@ $baseRemoteEntry = '/'
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
-# authentication
-$hsh = $baseLocalEntryPath + 'env\hash.txt'
-$key = $baseLocalConfigPath + 'aeskey.txt'
+# Authentication
+$hsh = $baseLocalEntryPath + $(if ($args -eq '-preview') { "env\preview" } else { "env\prod" })
+$key = $baseLocalConfigPath + $(if ($args -eq '-preview') { "auth\preview" } else { "auth\prod" })
+
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
 $session = $Null
@@ -25,6 +26,8 @@ $done = $False
 
 try
 {
+    Write-Host '## RUN ## DEPLOY'
+
     Add-Type -Path $winSCPdnet
 
     Import-Module ($baseLocalEntryPath + 'run\module\session.psm1')
@@ -47,7 +50,6 @@ try
         {
             $done = TransferQueueHandler "public" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
-
         while ($done -eq $False)
 
         $done = $False
@@ -56,31 +58,42 @@ try
         {
             $done = TransferQueueHandler "site" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
-
         while ($done -eq $False)
 
         $done = $False
 
-        if ($args -eq "-full")
+        do
         {
-            do
-            {
-                $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
-            }
-
-            while($done -eq $False)
-
-            $done = $False
-
-            FileActionsHandler "deploy" $session $baseRemoteEntry $True
+            $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
         }
+        while($done -eq $False)
 
-        else
+        $done = $False
+
+        do
         {
-            FileActionsHandler "deploy" $session $baseRemoteEntry $False
+            $done = FileActionsHandler "public" $session $baseRemoteEntry
         }
+        while($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = FileActionsHandler "site" $session $baseRemoteEntry
+        }
+        while($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = FileActionsHandler "kirby" $session $baseRemoteEntry
+        }
+        while($done -eq $False)
+
+        $done = $False
     }
-
     finally
     {
         $session.Dispose()
@@ -88,14 +101,16 @@ try
 
     exit 0
 }
-
 catch
 {
-    Write-Host '///'
+    Write-Host
+    Write-Host '## Error ##'
+    Write-Host
     Write-Host "$($_.Exception.Message)"
-    Write-Host '///'
-    Write-Host "$($_.ScriptStackTrace)"
-    Write-Host '///'
+    Write-Host
+    Write-Host "$($e.Destination)"
+    Write-Host
+    Write-Host '##'
 
     exit 1
 }

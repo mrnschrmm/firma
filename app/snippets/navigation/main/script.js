@@ -29,7 +29,7 @@ class NavigationMain extends window.HTMLDivElement {
   }
 
   connectedCallback () {
-    console.log('### NAVIGATION-MAIN - SCRIPT.JS ###')
+    // console.log('### NAVIGATION-MAIN - SCRIPT.JS ###')
 
     const headroom = new Headroom(this.$.get(0), {
       offset: 100,

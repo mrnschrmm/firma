@@ -29,6 +29,7 @@ import config from './config'
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS.prod) ? true : false
 const DEBUG = (ARGS.debug) ? true : false
+const PREVIEW = (ARGS.preview) ? true : false
 
 // PATHS
 const path = prep(config.path)
@@ -130,7 +131,7 @@ function process__vendor_head () {
   return src(config.vendor.head)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR_HEAD:' })))
     .pipe(concat('vendor.head.js'))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
@@ -139,7 +140,7 @@ function process__vendor () {
   return src(config.vendor.src)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR:' })))
     .pipe(concat('vendor.js'))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
@@ -147,12 +148,6 @@ function process__vendor () {
 ////////////////////////////////////////////////////////////////////////////////
 // LOGIC
 ////////////////////////////////////////////////////////////////////////////////
-
-const index__src = (root_src + path.index).replace('//', '/')
-const index__dest = (root_dist + root_public).replace('//', '/')
-
-const htaccess__src = (root_src).replace('//', '/')
-const htaccess__dest = (root_dist + root_public).replace('//', '/')
 
 const configs__src = (root_src + path.configs).replace('//', '/')
 const configs__dest = (root_dist + site + path.configs).replace('//', '/')
@@ -175,10 +170,14 @@ const snippets__dest = (root_dist + site + path.snippets).replace('//', '/')
 const templates__src = (root_src + path.templates).replace('//', '/')
 const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 
+const htaccess__src = (root_src).replace('//', '/')
+const htaccess__dest = (root_dist + root_public).replace('//', '/')
+
+const index__src = (root_src + path.index).replace('//', '/')
+const index__dest = (root_dist + root_public).replace('//', '/')
+
 // CLEAN -------------------------------------------------------------
 
-function clean__index () { return del([index__dest + 'index.php']) }
-function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
 function clean__configs () { return del([configs__dest]) }
 function clean__languages () { return del([languages__dest]) }
 function clean__blueprints () { return del([blueprints__dest]) }
@@ -186,30 +185,20 @@ function clean__collections () { return del([collections__dest]) }
 function clean__controllers () { return del([controllers__dest]) }
 function clean__snippets () { return del([snippets__dest]) }
 function clean__templates () { return del([templates__dest]) }
+function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
+function clean__license () { return del([configs__dest + '.license']) }
+function clean__index () { return del([index__dest + 'index.php']) }
 
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
-  return src(['./app/{config,index,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
+  return src(['./app/{config,languages,collections,controllers,templates,snippets,index}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
 }
 
 // COPY -------------------------------------------------------------
-
-function copy__htaccess () {
-  return src([htaccess__src + '.htaccess'])
-    .pipe(gulpif(DEBUG, debug({ title: '## HTACCESS:' })))
-    .pipe(dest(index__dest))
-}
-
-function copy__index () {
-  return src([index__src + (!PROD ? 'index.dev.php' : 'index.prod.php')])
-    .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
-    .pipe(rename('index.php'))
-    .pipe(dest(index__dest))
-}
 
 function copy__configs () {
   return src([configs__src + 'config.php'])
@@ -253,24 +242,43 @@ function copy__templates () {
     .pipe(dest(templates__dest))
 }
 
+function copy__htaccess () {
+  return src([htaccess__src + '.htaccess'])
+    .pipe(gulpif(DEBUG, debug({ title: '## HTACCESS:' })))
+    .pipe(dest(index__dest))
+}
+
+function copy__license () {
+  return src([configs__src + (!PROD ? (!PREVIEW ? '.license.dev' : '.license.preview') : '.license.prod')])
+    .pipe(gulpif(DEBUG, debug({ title: '## LICENSE:' })))
+    .pipe(rename('.license'))
+    .pipe(dest(configs__dest))
+}
+
+function copy__index () {
+  return src([index__src + (!PROD ? (!PREVIEW ? 'index.dev.php' : 'index.preview.php') : 'index.prod.php')])
+    .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
+    .pipe(rename('index.php'))
+    .pipe(dest(index__dest))
+}
+
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch(index__src + 'index.dev.php', series(index, reload))
-  watch(htaccess__src + '.htaccess', series(htaccess, reload))
-  watch('D:/Tools/__config/sites/firma/config.php', series(configs, reload))
+  watch('D:/Tools/__configs/M-1/sites/firma/config.php', series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
   watch(controllers__src + '**/*.php', series(controllers, reload))
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
+  watch(htaccess__src + '.htaccess', series(htaccess, reload))
+  watch('D:/Tools/__configs/M-1/sites/firma/license/dev', series(license, reload))
+  watch(index__src + 'index.dev.php', series(index, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
 
-const index = series(clean__index, copy__index)
-const htaccess = series(clean__htaccess, copy__htaccess)
 const configs = series(clean__configs, copy__configs)
 const languages = series(clean__languages, copy__languages)
 const blueprints = series(clean__blueprints, copy__blueprints)
@@ -278,6 +286,9 @@ const collections = series(clean__collections, copy__collections)
 const controllers = series(clean__controllers, copy__controllers)
 const snippets = series(clean__snippets, copy__snippets)
 const templates = series(clean__templates, copy__templates)
+const htaccess = series(clean__htaccess, copy__htaccess)
+const license = series(clean__license, copy__license)
+const index = series(clean__index, copy__index)
 
 ////////////////////////////////////////////////////////////////////////////////
 // ASSETS
@@ -309,7 +320,7 @@ function process__images () {
     .pipe(gulpif(DEBUG, debug({ title: '## IMAGES:' })))
     .pipe(cache(imagemin([
       imagemin.gifsicle({ interlaced: true }),
-      imagemin.jpegtran({ progressive: true }),
+      imagemin.mozjpeg({ quality: 75, progressive: true }),
       imagemin.optipng({ optimizationLevel: 7 })
     ])))
     .pipe(dest(assets__images__dest))
@@ -344,14 +355,14 @@ function process__favicons () {
       online: false,
       replace: true,
       icons: {
-        android: PROD ? true : false,
-        appleIcon: PROD ? true : false,
-        appleStartup: PROD ? true : false,
-        coast: PROD ? true : false,
+        android: PROD ? true : (!PREVIEW ? false : true),
+        appleIcon: PROD ? true : (!PREVIEW ? false : true),
+        appleStartup: PROD ? true : (!PREVIEW ? false : true),
+        coast: PROD ? true : (!PREVIEW ? false : true),
         favicons: true,
-        firefox: PROD ? true : false,
-        windows: PROD ? true : false,
-        yandex: PROD ? true : false
+        firefox: PROD ? true : (!PREVIEW ? false : true),
+        windows: PROD ? true : (!PREVIEW ? false : true),
+        yandex: PROD ? true : (!PREVIEW ? false : true)
       }
     }))
     .pipe(dest(assets__favicons__dest))
@@ -404,20 +415,20 @@ function lint__scripts () {
 // PROCESS -------------------------------------------------------------
 
 function process__scripts__main () {
-  return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? true : false })
+  return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
     .pipe(concat('main.js'))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
+    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }
 
 function process__scripts__panel () {
-  return src(scripts__src + 'panel.js', { sourcemaps: !PROD ? true : false })
+  return src(scripts__src + 'panel.js', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## PANEL:' })))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
+    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -448,18 +459,18 @@ function clean__styles () { return del(styles__dest + '*.min.{css,css.map}') }
 function lint__styles () {
   return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? true : false }))
+    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? (!PREVIEW ? false : true) : false }))
 }
 
 // PROCESS -------------------------------------------------------------
 
 function process__styles () {
   scss.compiler = sass
-  return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? true : false })
+  return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
     .pipe(scss({ outputStyle: PROD ? 'compressed' : 'expanded' }).on('error', scss.logError))
     .pipe(autoprefixer()).pipe(rename({ suffix: '.min' }))
-    .pipe(dest(styles__dest, { sourcemaps: !PROD ? '.' : false }))
+    .pipe(dest(styles__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -514,8 +525,8 @@ function process__plugins_vue (done) {
         outDir: `./dist/site/plugins/${plugin}`,
         outFile: 'index.js',
         watch: false,
-        minify: PROD ? true : false,
-        sourceMaps: !PROD ? true : false,
+        minify: PROD ? (!PREVIEW ? false : true) : false,
+        sourceMaps: !PROD ? (!PREVIEW ? true : false) : false,
         cache: false,
         contentHash: false,
         autoInstall: false,
@@ -550,7 +561,7 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(index, htaccess, configs, languages, blueprints, collections, controllers, snippets, templates, vendor)
+const LOGIC = series(configs, languages, blueprints, collections, controllers, snippets, templates, htaccess, license, index, vendor)
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
@@ -559,7 +570,7 @@ const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__as
 
 // MAIN -------------------------------------------------------------
 
-if (PROD) {
+if (PROD || PREVIEW) {
   exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET)
 } else {
   exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN) : series(DATA, LOGIC, STYLE, ASSET, RUN)
