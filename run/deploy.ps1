@@ -1,7 +1,7 @@
 # Scope
 $id = "firma"
 $HostName = "wp1177004.server-he.de"
-$UserName = if ($args -eq '-live') { "ftp1177004-s" } else { "ftp1177004-spreview" }
+$UserName = if ($args -eq '-preview') { "ftp1177004-spreview" } else { "ftp1177004-s" }
 
 # Location
 $baseLocalEntry = 'E:\Sites\'
@@ -15,8 +15,8 @@ $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 # Authentication
-$hsh = $baseLocalEntryPath + $(if ($args -eq '-live') { "env\live" } else { "env\dev" })
-$key = $baseLocalConfigPath + $(if ($args -eq '-live') { "auth\live" } else { "auth\dev" })
+$hsh = $baseLocalEntryPath + $(if ($args -eq '-preview') { "env\preview" } else { "env\prod" })
+$key = $baseLocalConfigPath + $(if ($args -eq '-preview') { "auth\preview" } else { "auth\prod" })
 
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 

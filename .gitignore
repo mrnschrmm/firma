@@ -13,7 +13,8 @@
 .env
 .env.backup
 .license.dev
-.license.live
+.license.prod
+.license.preview
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

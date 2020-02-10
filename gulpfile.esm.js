@@ -29,6 +29,7 @@ import config from './config'
 const ARGS = minimist(process.argv.slice(2))
 const PROD = (ARGS.prod) ? true : false
 const DEBUG = (ARGS.debug) ? true : false
+const PREVIEW = (ARGS.preview) ? true : false
 
 // PATHS
 const path = prep(config.path)
@@ -130,7 +131,7 @@ function process__vendor_head () {
   return src(config.vendor.head)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR_HEAD:' })))
     .pipe(concat('vendor.head.js'))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
@@ -139,7 +140,7 @@ function process__vendor () {
   return src(config.vendor.src)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR:' })))
     .pipe(concat('vendor.js'))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
@@ -248,14 +249,14 @@ function copy__htaccess () {
 }
 
 function copy__license () {
-  return src([configs__src + (!PROD ? '.license.dev' : '.license.live')])
+  return src([configs__src + (!PROD ? (!PREVIEW ? '.license.dev' : '.license.preview') : '.license.prod')])
     .pipe(gulpif(DEBUG, debug({ title: '## LICENSE:' })))
     .pipe(rename('.license'))
     .pipe(dest(configs__dest))
 }
 
 function copy__index () {
-  return src([index__src + (!PROD ? 'index.dev.php' : 'index.prod.php')])
+  return src([index__src + (!PROD ? (!PREVIEW ? 'index.dev.php' : 'index.preview.php') : 'index.prod.php')])
     .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
     .pipe(rename('index.php'))
     .pipe(dest(index__dest))
@@ -264,7 +265,7 @@ function copy__index () {
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch('D:/Tools/__config/sites/firma/config.php', series(configs, reload))
+  watch('D:/Tools/__configs/M-1/sites/firma/config.php', series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
@@ -272,7 +273,7 @@ function watch__logic () {
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
   watch(htaccess__src + '.htaccess', series(htaccess, reload))
-  watch('D:/Tools/__config/sites/firma/license/.dev', series(license, reload))
+  watch('D:/Tools/__configs/M-1/sites/firma/license/dev', series(license, reload))
   watch(index__src + 'index.dev.php', series(index, reload))
 }
 
@@ -354,14 +355,14 @@ function process__favicons () {
       online: false,
       replace: true,
       icons: {
-        android: PROD ? true : false,
-        appleIcon: PROD ? true : false,
-        appleStartup: PROD ? true : false,
-        coast: PROD ? true : false,
+        android: PROD ? (!PREVIEW ? false : true) : false,
+        appleIcon: PROD ? (!PREVIEW ? false : true) : false,
+        appleStartup: PROD ? (!PREVIEW ? false : true) : false,
+        coast: PROD ? (!PREVIEW ? false : true) : false,
         favicons: true,
-        firefox: PROD ? true : false,
-        windows: PROD ? true : false,
-        yandex: PROD ? true : false
+        firefox: PROD ? (!PREVIEW ? false : true) : false,
+        windows: PROD ? (!PREVIEW ? false : true) : false,
+        yandex: PROD ? (!PREVIEW ? false : true) : false
       }
     }))
     .pipe(dest(assets__favicons__dest))
@@ -414,20 +415,20 @@ function lint__scripts () {
 // PROCESS -------------------------------------------------------------
 
 function process__scripts__main () {
-  return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? true : false })
+  return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
     .pipe(concat('main.js'))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
+    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }
 
 function process__scripts__panel () {
-  return src(scripts__src + 'panel.js', { sourcemaps: !PROD ? true : false })
+  return src(scripts__src + 'panel.js', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## PANEL:' })))
-    .pipe(gulpif(PROD, uglify()))
+    .pipe(gulpif((PROD || PREVIEW), uglify()))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? '.' : false }))
+    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -458,18 +459,18 @@ function clean__styles () { return del(styles__dest + '*.min.{css,css.map}') }
 function lint__styles () {
   return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? true : false }))
+    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? (!PREVIEW ? false : true) : false }))
 }
 
 // PROCESS -------------------------------------------------------------
 
 function process__styles () {
   scss.compiler = sass
-  return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? true : false })
+  return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
     .pipe(scss({ outputStyle: PROD ? 'compressed' : 'expanded' }).on('error', scss.logError))
     .pipe(autoprefixer()).pipe(rename({ suffix: '.min' }))
-    .pipe(dest(styles__dest, { sourcemaps: !PROD ? '.' : false }))
+    .pipe(dest(styles__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -524,8 +525,8 @@ function process__plugins_vue (done) {
         outDir: `./dist/site/plugins/${plugin}`,
         outFile: 'index.js',
         watch: false,
-        minify: PROD ? true : false,
-        sourceMaps: !PROD ? true : false,
+        minify: PROD ? (!PREVIEW ? false : true) : false,
+        sourceMaps: !PROD ? (!PREVIEW ? true : false) : false,
         cache: false,
         contentHash: false,
         autoInstall: false,
@@ -569,7 +570,7 @@ const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__as
 
 // MAIN -------------------------------------------------------------
 
-if (PROD) {
+if (PROD || PREVIEW) {
   exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET)
 } else {
   exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN) : series(DATA, LOGIC, STYLE, ASSET, RUN)
