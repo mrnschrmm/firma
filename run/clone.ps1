@@ -6,7 +6,7 @@ $UserName = 'ftp1177004-s'
 # Locations
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
-$baseLocalConfigPath = 'D:\Tools\__config\sites\' + $id + '\'
+$baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalBackup = $baseLocalEntryPath + 'backup' + '\'
 $baseLocalContent = $baseLocalEntryPath + 'db' + '\'
 
@@ -17,8 +17,8 @@ $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 # Authentication
-$hsh = $baseLocalEntryPath + 'env\hash.txt'
-$key = $baseLocalConfigPath + 'aeskey.txt'
+$hsh = $baseLocalEntryPath + 'env\live'
+$key = $baseLocalConfigPath + 'auth\live'
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
 $session = $null

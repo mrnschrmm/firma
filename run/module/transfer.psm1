@@ -22,8 +22,6 @@ Function TransferHandler()
 
 Function ActionHandler()
 {
-    Write-Host 'args3:' $args[3]
-
     if ($args[3] -eq 'public')
     {
         if ($args[0] -eq 'unlink')
