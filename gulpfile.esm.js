@@ -355,14 +355,14 @@ function process__favicons () {
       online: false,
       replace: true,
       icons: {
-        android: PROD ? (!PREVIEW ? false : true) : false,
-        appleIcon: PROD ? (!PREVIEW ? false : true) : false,
-        appleStartup: PROD ? (!PREVIEW ? false : true) : false,
-        coast: PROD ? (!PREVIEW ? false : true) : false,
+        android: PROD ? true : (!PREVIEW ? false : true),
+        appleIcon: PROD ? true : (!PREVIEW ? false : true),
+        appleStartup: PROD ? true : (!PREVIEW ? false : true),
+        coast: PROD ? true : (!PREVIEW ? false : true),
         favicons: true,
-        firefox: PROD ? (!PREVIEW ? false : true) : false,
-        windows: PROD ? (!PREVIEW ? false : true) : false,
-        yandex: PROD ? (!PREVIEW ? false : true) : false
+        firefox: PROD ? true : (!PREVIEW ? false : true),
+        windows: PROD ? true : (!PREVIEW ? false : true),
+        yandex: PROD ? true : (!PREVIEW ? false : true)
       }
     }))
     .pipe(dest(assets__favicons__dest))
