@@ -62,60 +62,44 @@ try
 
         $done = $False
 
+        # do
+        # {
+        #     $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
+        # }
+        # while($done -eq $False)
+
+        # $done = $False
+
         do
         {
-            $done = TransferQueueHandler "kirby" $session $transferOptions $baseLocalDist $baseRemoteEntry
+            $done = FileActionsHandler "public" $session $baseRemoteEntry
         }
         while($done -eq $False)
 
         $done = $False
 
-        try
+        do
         {
-            do
-            {
-                $done = FileActionsHandler "public" $session $baseRemoteEntry
-            }
-            while($done -eq $False)
-
-            $done = $False
-
-            do
-            {
-                $done = FileActionsHandler "site" $session $baseRemoteEntry
-            }
-            while($done -eq $False)
-
-            $done = $False
-
-            do
-            {
-                $done = FileActionsHandler "kirby" $session $baseRemoteEntry
-            }
-            while($done -eq $False)
-
-            $done = $False
+            $done = FileActionsHandler "site" $session $baseRemoteEntry
         }
-        finally
-        {
-            $session.Dispose()
-        }
+        while($done -eq $False)
 
-        exit 0
+        $done = $False
+
+        # do
+        # {
+        #     $done = FileActionsHandler "kirby" $session $baseRemoteEntry
+        # }
+        # while($done -eq $False)
+
+        # $done = $False
     }
-    catch
+    finally
     {
-        Write-Host
-        Write-Host '## Error ##'
-        Write-Host
-        Write-Host "$($_.Exception.Message)"
-        Write-Host
-        Write-Host "$($e.Destination)"
-        Write-Host
-        Write-Host '##'
-
-        exit 1
+        $session.Dispose()
     }
+
+    exit 0
 }
 catch
 {
