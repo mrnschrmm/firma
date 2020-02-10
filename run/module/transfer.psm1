@@ -28,9 +28,7 @@ Function ActionHandler()
     {
         if ($args[0] -eq 'unlink')
         {
-            Write-Host 'args2:' $args[2]
             $files = $args[1].EnumerateRemoteFiles($args[2] + $args[3], '*', [WinSCP.EnumerationOptions]::None)
-            Write-Host 'File:' $files
 
             foreach ($file in $files)
             {
@@ -45,9 +43,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'link')
         {
-            Write-Host 'args2:' $args[2]
             $files = $args[1].EnumerateRemoteFiles($args[2] + $args[3], '*', [WinSCP.EnumerationOptions]::None)
-            Write-Host 'File:' $files
 
             foreach ($file in $files)
             {
@@ -78,9 +74,7 @@ Function ActionHandler()
     {
         if ($args[0] -eq 'unlink')
         {
-            Write-Host 'args2:' $args[2]
             $files = $args[1].EnumerateRemoteFiles($args[2], $args[3], [WinSCP.EnumerationOptions]::MatchDirectories)
-            Write-Host 'File:' $files
 
             foreach ($file in $files)
             {
@@ -95,9 +89,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'link')
         {
-            Write-Host 'args2:' $args[2]
             $files = $args[1].EnumerateRemoteFiles($args[2], $args[3] + '__up', [WinSCP.EnumerationOptions]::MatchDirectories)
-            Write-Host 'File:' $files
 
             foreach ($file in $files)
             {
