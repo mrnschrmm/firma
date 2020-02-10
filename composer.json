@@ -15,6 +15,6 @@
     "kirby-plugin-path": "dist/site/plugins"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "3.5.3"
+    "squizlabs/php_codesniffer": "3.5.4"
   }
 }
