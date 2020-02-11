@@ -27,9 +27,9 @@ import config from './config'
 
 // ARGS
 const ARGS = minimist(process.argv.slice(2))
-const PROD = (ARGS.prod) ? true : false
 const DEBUG = (ARGS.debug) ? true : false
 const PREVIEW = (ARGS.preview) ? true : false
+const PROD = (ARGS.prod) ? true : false
 
 // PATHS
 const path = prep(config.path)
@@ -409,7 +409,7 @@ function lint__scripts () {
     .pipe(gulpif(DEBUG, debug({ title: '## SCRIPT:' })))
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(gulpif(PROD, eslint.failAfterError()))
+    .pipe(gulpif((PROD || PREVIEW), eslint.failAfterError()))
 }
 
 // PROCESS -------------------------------------------------------------
@@ -468,7 +468,7 @@ function process__styles () {
   scss.compiler = sass
   return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(scss({ outputStyle: PROD ? 'compressed' : 'expanded' }).on('error', scss.logError))
+    .pipe(scss({ outputStyle: PROD ? (PREVIEW ? 'compressed' : 'expanded') : 'expanded' }).on('error', scss.logError))
     .pipe(autoprefixer()).pipe(rename({ suffix: '.min' }))
     .pipe(dest(styles__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
 }

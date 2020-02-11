@@ -111,11 +111,6 @@ Function ActionHandler()
 
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
-            # if (!(Test-Path ($args[3] + '__del') -PathType container))
-            # {
-            #     $args[1].RemoveFiles($file + '__del')
-            # }
-
             return $True
         }
     }
