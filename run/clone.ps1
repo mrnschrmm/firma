@@ -17,8 +17,8 @@ $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 # Authentication
-$hsh = $baseLocalEntryPath + 'env\live'
-$key = $baseLocalConfigPath + 'auth\live'
+$hsh = $baseLocalEntryPath + 'env\prod'
+$key = $baseLocalConfigPath + 'auth\prod'
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
 $session = $null
