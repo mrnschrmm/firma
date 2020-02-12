@@ -1,6 +1,6 @@
 {
   "name": "firma",
-  "description": "clean",
+  "description": "Company Website",
   "version": "2.0.0",
   "main": "gulpfile.js",
   "scripts": {
@@ -89,10 +89,10 @@
   "author": "Marian Schramm",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mrnschrmm/firma/issues"
+    "url": "https://github.com/mrnmrhcs/firma/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrnschrmm/firma.git"
+    "url": "git+https://github.com/mrnmrhcs/firma.git"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "mrnschrmm/firma",
-  "description": "web",
+  "name": "mrnmrhcs/firma",
+  "description": "Company Website",
   "require": {
     "getkirby/cms": "3.3.3",
     "sylvainjule/locator": "1.0.5",
