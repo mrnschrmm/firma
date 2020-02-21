@@ -1,23 +1,26 @@
 type: group
 
 fields:
-  site_description:
-    type: textarea
-    buttons: false
-    uploads: false
-    size: small
-    label:
-      en: Description
-      de: Beschreibung
+    site_description:
+        type: textarea
+        buttons: false
+        uploads: false
+        size: small
 
-  site_keywords:
-    type: tags
-    label:
-      en: Keywords
-      de: Schlagworte
+        label:
+            en: Description
+            de: Beschreibung
 
-  site_author:
-    type: text
-    label:
-      en: Author
-      de: Verfasser
+    site_keywords:
+        type: tags
+
+        label:
+            en: Keywords
+            de: Schlagworte
+
+    site_author:
+        type: text
+
+        label:
+            en: Author
+            de: Verfasser

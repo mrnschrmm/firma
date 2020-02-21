@@ -1,20 +1,20 @@
 type: pages
 
 empty:
-  en: No items
-  de: Keine Einträge
+    en: No items
+    de: Keine Einträge
 
 templates:
-  - compartment
+    - compartment
 
 status: listed
 layout: cards
 size: small
 
 image:
-  back: white
-  ratio: 3/2
+    back: white
+    ratio: 3/2
 
 headline:
-  en: Public Compartments
-  de: Öffentliche Bereiche
+    en: Public Compartments
+    de: Öffentliche Bereiche

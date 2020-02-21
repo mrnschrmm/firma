@@ -1,36 +1,37 @@
 tabs:
-  dashboard_index_tab:
-    label:
-      en: Dashboard
-      de: Dashboard
+    dashboard_index_tab:
+        label:
+            en: Dashboard
+            de: Dashboard
 
-    sections:
-      dashboard_metrics_main:
-        type: matomo-main
-        widgets:
-          - devicesType
-          - referrerType
-          # - popularPages
-          # - websites
+        sections:
+            dashboard_metrics_main:
+                type: matomo-main
 
-      dashboard_metrics_side:
-        type: matomo-sidebar
-        link: false
-        realtime: false
+                widgets:
+                    - devicesType
+                    - referrerType
+                    # - popularPages
+                    # - websites
 
-  dashboard_content_tab:
-    label:
-      en: Content
-      de: Inhalte
+            dashboard_metrics_side:
+                type: matomo-sidebar
+                link: false
+                realtime: false
 
-    sections:
-      dashboard_pages_draft: sections/pages.draft
-      dashboard_pages_listed: sections/pages.listed
+    dashboard_content_tab:
+        label:
+            en: Content
+            de: Inhalt
 
-  dashboard_settings_tab:
-    label:
-      en: Settings
-      de: Einstellungen
+        sections:
+            dashboard_pages_draft: sections/pages.draft
+            dashboard_pages_listed: sections/pages.listed
 
-    sections:
-      dashboard_settings: sections/settings.site
+    dashboard_settings_tab:
+        label:
+            en: Settings
+            de: Einstellungen
+
+        sections:
+            dashboard_settings: sections/settings.site

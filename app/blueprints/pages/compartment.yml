@@ -1,6 +1,6 @@
 title:
-  en: Compartment
-  de: Fachbereich
+    en: Compartment
+    de: Fachbereich
 
 extends: layouts/compartment
 icon: cog

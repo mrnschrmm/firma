@@ -1,12 +1,12 @@
 title:
-  en: Company
-  de: Unternehmen
+    en: Company
+    de: Unternehmen
 
 extends: layouts/company
 icon: page
 
 options:
-  changeTitle:
-    admin: true
-    editor: false
-    manager: true
+    changeTitle:
+        admin: true
+        editor: false
+        manager: true

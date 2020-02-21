@@ -1,18 +1,20 @@
 type: group
 
 fields:
-  page_headline:
-    type: headline
-    numbered: true
-    label:
-      en: Info
-      de: Info
+    page_headline:
+        type: headline
+        numbered: true
 
-  page_description:
-    type: textarea
-    buttons: false
-    uploads: false
-    size: small
-    label:
-      en: Description
-      de: Beschreibung
+        label:
+            en: Information
+            de: Information
+
+    page_description:
+        type: textarea
+        buttons: false
+        uploads: false
+        size: small
+
+        label:
+            en: Description
+            de: Beschreibung

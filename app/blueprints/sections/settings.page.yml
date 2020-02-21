@@ -1,11 +1,12 @@
 type: fields
 
 fields:
-  settings_site_headline:
-    type: headline
-    numbered: true
-    label:
-      en: Page Information
-      de: Seiten Information
+    settings_site_headline:
+        type: headline
+        numbered: true
 
-  settings_site: fields/settings/page
+        label:
+            en: Meta Information
+            de: Meta Information
+
+    settings_site: fields/settings/page

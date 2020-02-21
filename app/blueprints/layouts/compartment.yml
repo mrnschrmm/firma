@@ -1,7 +1,21 @@
-sections:
-  compartment_page:
-    type: fields
+tabs:
+    compartment_content_tab:
+        label:
+            en: Content
+            de: Inhalt
 
-    fields:
-      compartment_info: fields/page/default
-      compartment_services: fields/services
+        sections:
+            compartment_page:
+                type: fields
+
+                fields:
+                    compartment_info: fields/page/default
+                    compartment_services: fields/services
+
+    compartment_settings_tab:
+        label:
+            en: Settings
+            de: Einstellungen
+
+        sections:
+            compartment_settings: sections/settings.page

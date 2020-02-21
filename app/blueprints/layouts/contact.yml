@@ -1,32 +1,49 @@
-columns:
-  - width: 1/1
-    sections:
-      contact_page:
-        type: fields
-        fields:
-          contact_default: fields/page/default
+tabs:
+    contact_content_tab:
+        label:
+            en: Content
+            de: Inhalt
 
-      contact_details:
-        type: fields
-        fields:
-          contact_location_headline:
-            type: headline
-            numbered: true
-            label:
-              en: Address
-              de: Anschrift
+        sections:
+            contact_page:
+                type: fields
 
-          contact_company:
-            extends: fields/company
+                fields:
+                    contact_default: fields/page/default
 
-          contact_location:
-            extends: fields/location
+            contact_details:
+                type: fields
 
-          contact_channel_headline:
-            type: headline
-            numbered: true
-            label:
-              en: Communication Channels
-              de: Kommunikationskanäle
+                fields:
+                    contact_location_headline:
+                        type: headline
+                        numbered: true
 
-          contact_channel: fields/channel
+                        label:
+                            en: Address
+                            de: Anschrift
+
+                    contact_company:
+                        extends: fields/company
+
+                    contact_location:
+                        extends: fields/location
+
+                    contact_channel_headline:
+                        type: headline
+                        numbered: true
+
+                        label:
+                            en: Communication Channels
+                            de: Kommunikationskanäle
+
+                    contact_channel: fields/channel
+
+
+    contact_settings_tab:
+        label:
+            en: Settings
+            de: Einstellungen
+
+        sections:
+            company_settings: sections/settings.page

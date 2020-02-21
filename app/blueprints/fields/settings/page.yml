@@ -1,11 +1,12 @@
 type: group
 
 fields:
-  site_description:
-    type: textarea
-    buttons: false
-    uploads: false
-    size: small
-    label:
-      en: Description
-      de: Beschreibung
+    site_description:
+        type: textarea
+        buttons: false
+        uploads: false
+        size: small
+
+        label:
+            en: Description
+            de: Beschreibung
