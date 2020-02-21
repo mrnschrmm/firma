@@ -33,4 +33,4 @@ tabs:
       de: Einstellungen
 
     sections:
-      dashboard_settings: sections/settings
+      dashboard_settings: sections/settings.site

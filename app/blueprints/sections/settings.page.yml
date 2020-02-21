@@ -1,0 +1,11 @@
+type: fields
+
+fields:
+  settings_site_headline:
+    type: headline
+    numbered: true
+    label:
+      en: Page Information
+      de: Seiten Information
+
+  settings_site: fields/settings/page
