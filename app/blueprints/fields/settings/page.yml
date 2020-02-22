@@ -1,7 +1,7 @@
 type: group
 
 fields:
-    site_description:
+    page_meta_description:
         type: textarea
         buttons: false
         uploads: false

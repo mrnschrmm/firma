@@ -1,7 +1,7 @@
 type: fields
 
 fields:
-    settings_site_headline:
+    settings_page_headline:
         type: headline
         numbered: true
 
@@ -9,4 +9,4 @@ fields:
             en: Meta Information
             de: Meta Information
 
-    settings_site: fields/settings/page
+    settings_page: fields/settings/page
