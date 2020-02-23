@@ -13,7 +13,6 @@
     <meta name="author" content="<?= $site->site_author()->h() ?>">
     <?php endif ?>
     <meta name="language" content="<?= $kirby->language()->code() ?>">
-    <meta name="robots" content="noodp">
     <title><?= $site->title()->h() ?></title>
     <link rel="icon" type="image/png" sizes="32x32" href="<?= url('/assets/favicons/favicon-32x32.png') ?>">
     <link rel="icon" type="image/png" sizes="16x16" href="<?= url('/assets/favicons/favicon-16x16.png') ?>">
