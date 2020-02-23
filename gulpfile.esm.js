@@ -146,6 +146,38 @@ function process__vendor () {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// SEO
+////////////////////////////////////////////////////////////////////////////////
+
+const seo__src = (root_src + path.index).replace('//', '/')
+const seo__dest = (root_dist + root_public).replace('//', '/')
+
+// CLEAN -------------------------------------------------------------
+
+function clean__robots () { return del([seo__dest + 'robots.txt']) }
+function clean__sitemap () { return del([seo__dest + 'sitemap.xml']) }
+
+// COPY -------------------------------------------------------------
+
+function copy__robots () {
+  return src([seo__src + (!PREVIEW ? 'robots.prod' : 'robots.preview')])
+    .pipe(gulpif(DEBUG, debug({ title: '## ROBOTS:' })))
+    .pipe(rename('robots.txt'))
+    .pipe(dest(seo__dest))
+}
+
+function copy__sitemap () {
+  return src([seo__src + 'sitemap.xml'])
+    .pipe(gulpif(DEBUG, debug({ title: '## SITEMAP:' })))
+    .pipe(dest(seo__dest))
+}
+
+// COMPOSITION -------------------------------------------------------------
+
+const robots = series(clean__robots, copy__robots)
+const sitemap = series(clean__sitemap, copy__sitemap)
+
+////////////////////////////////////////////////////////////////////////////////
 // LOGIC
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -566,12 +598,13 @@ const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
+const SEO = PREVIEW ? series(robots, clean__sitemap) : series(robots, sitemap)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
 
 if (PROD || PREVIEW) {
-  exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET)
+  exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, SEO, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET, SEO)
 } else {
   exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN) : series(DATA, LOGIC, STYLE, ASSET, RUN)
 }
