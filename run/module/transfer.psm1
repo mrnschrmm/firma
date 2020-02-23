@@ -143,7 +143,7 @@ Function TransferQueueHandler
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
         Write-Host
-        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
+        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
         Write-Host
 
         do
@@ -160,8 +160,12 @@ Function TransferQueueHandler
     if ($args[0] -eq 'clone')
     {
         Write-Host
-        Write-Host '## TransferQueue ## Content'
+        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[2])
         Write-Host
+
+        # Get-ChildItem $args[3] -Recurse -Include *.* | Remove-Item
+        Write-Host '## ARGS 3 ##' $args[3]
+        Remove-Item ($args[3] + '*') -Recurse
 
         $transfer = $args[1].GetFiles($args[2] + '*', $args[3] + '*')
         $transfer.Check()

@@ -9,9 +9,11 @@ $baseLocalEntryPath = $baseLocalEntry + $id + '\'
 $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalBackup = $baseLocalEntryPath + 'backup' + '\'
 $baseLocalContent = $baseLocalEntryPath + 'db' + '\'
+$baseLocalStorage = $baseLocalEntryPath + 'dist\storage' + '\'
 
 $baseRemoteEntry = '/'
 $baseRemoteContent = $baseRemoteEntry + 'content' + '/'
+$baseRemoteStorage = $baseRemoteEntry + 'storage' + '/'
 
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
@@ -58,6 +60,14 @@ try
         do
         {
             $done = TransferQueueHandler "clone" $session $baseRemoteContent $baseLocalContent
+        }
+
+        while ($done -eq $False)
+        $done = $False
+
+        do
+        {
+            $done = TransferQueueHandler "clone" $session $baseRemoteStorage $baseLocalStorage
         }
 
         while ($done -eq $False)
