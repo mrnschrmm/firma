@@ -127,7 +127,7 @@ Function TransferQueueHandler
         Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
         Write-Host
 
-        $filemasks = '.*', '*.php', '*.js', '*.css'
+        $filemasks = '.*', '*.php', '*.js', '*.css', '*.xml', '*.txt'
 
         do
         {
