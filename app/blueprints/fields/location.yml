@@ -1,16 +1,16 @@
 type: group
 
 fields:
-  location_data:
-    type: locator
-    liststyle: columns
+    location_data:
+        type: locator
+        liststyle: columns
 
-    display:
-      - address
-      - number
-      - postcode
-      - city
+        display:
+            - address
+            - number
+            - postcode
+            - city
 
-    label:
-      en: Location
-      de: Standort
+        label:
+            en: Location
+            de: Standort

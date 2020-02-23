@@ -1,12 +1,12 @@
 title:
-  en: Contact
-  de: Kontakt
+    en: Contact
+    de: Kontakt
 
 extends: layouts/contact
 icon: page
 
 options:
-  changeTitle:
-    admin: true
-    editor: false
-    manager: true
+    changeTitle:
+        admin: true
+        editor: false
+        manager: true

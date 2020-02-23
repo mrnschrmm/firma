@@ -1,0 +1,22 @@
+type: fields
+
+fields:
+    settings_site_headline:
+        type: headline
+        numbered: true
+
+        label:
+            en: Site Information
+            de: Site Information
+
+    settings_site: fields/settings/site
+
+    settings_site_privacy_headline:
+        type: headline
+        numbered: true
+
+        label:
+            en: Privacy
+            de: Privatsphäre
+
+    settings_site_privacy: fields/settings/privacy

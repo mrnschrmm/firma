@@ -1,15 +1,7 @@
 type: group
 
 fields:
-    page_headline:
-        type: headline
-        numbered: true
-
-        label:
-            en: Information
-            de: Information
-
-    page_description:
+    page_meta_description:
         type: textarea
         buttons: false
         uploads: false

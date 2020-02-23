@@ -1,0 +1,12 @@
+type: fields
+
+fields:
+    settings_page_headline:
+        type: headline
+        numbered: true
+
+        label:
+            en: Meta Information
+            de: Meta Information
+
+    settings_page: fields/settings/page

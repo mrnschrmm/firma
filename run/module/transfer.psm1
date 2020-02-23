@@ -127,7 +127,7 @@ Function TransferQueueHandler
         Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
         Write-Host
 
-        $filemasks = '.*', '*.php', '*.js', '*.css'
+        $filemasks = '.*', '*.php', '*.js', '*.css', '*.xml', '*.txt'
 
         do
         {
@@ -143,7 +143,7 @@ Function TransferQueueHandler
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
         Write-Host
-        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
+        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
         Write-Host
 
         do
@@ -157,11 +157,13 @@ Function TransferQueueHandler
         return $True
     }
 
-    if ($args[0] -eq 'clone')
+    if ($args[0] -eq 'clone::content' -OR $args[0] -eq 'clone::storage')
     {
         Write-Host
-        Write-Host '## TransferQueue ## Content'
+        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
         Write-Host
+
+        Remove-Item ($args[3] + '*') -Recurse
 
         $transfer = $args[1].GetFiles($args[2] + '*', $args[3] + '*')
         $transfer.Check()

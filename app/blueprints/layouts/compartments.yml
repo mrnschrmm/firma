@@ -1,3 +1,17 @@
-sections:
-  compartments_draft: sections/compartments.draft
-  compartments_listed: sections/compartments.listed
+tabs:
+    compartments_content_tab:
+        label:
+            en: Content
+            de: Inhalt
+
+        sections:
+            compartments_draft: sections/compartments.draft
+            compartments_listed: sections/compartments.listed
+
+    compartments_settings_tab:
+        label:
+            en: Settings
+            de: Einstellungen
+
+        sections:
+            compartments_settings: sections/settings.page

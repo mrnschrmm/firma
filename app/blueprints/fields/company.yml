@@ -1,16 +1,18 @@
 type: group
 
 fields:
-  company_title:
-    type: text
-    width: 1/2
-    label:
-      en: Name
-      de: Name
+    company_title:
+        type: text
+        width: 1/2
 
-  company_extra:
-    type: text
-    width: 1/2
-    label:
-      en: Extra
-      de: Zusatz
+        label:
+            en: Name
+            de: Name
+
+    company_extra:
+        type: text
+        width: 1/2
+
+        label:
+            en: Extra
+            de: Zusatz

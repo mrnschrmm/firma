@@ -1,12 +1,12 @@
 title:
-  en: Compartments
-  de: Fachbereiche
+    en: Compartments
+    de: Fachbereiche
 
 extends: layouts/compartments
 icon: page
 
 options:
-  changeTitle:
-    admin: true
-    editor: false
-    manager: true
+    changeTitle:
+        admin: true
+        editor: false
+        manager: true
