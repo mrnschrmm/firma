@@ -157,14 +157,12 @@ Function TransferQueueHandler
         return $True
     }
 
-    if ($args[0] -eq 'clone')
+    if ($args[0] -eq 'clone::content' -OR $args[0] -eq 'clone::storage')
     {
         Write-Host
-        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[2])
+        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
         Write-Host
 
-        # Get-ChildItem $args[3] -Recurse -Include *.* | Remove-Item
-        Write-Host '## ARGS 3 ##' $args[3]
         Remove-Item ($args[3] + '*') -Recurse
 
         $transfer = $args[1].GetFiles($args[2] + '*', $args[3] + '*')

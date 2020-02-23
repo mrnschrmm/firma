@@ -59,7 +59,7 @@ try
 
         do
         {
-            $done = TransferQueueHandler "clone" $session $baseRemoteContent $baseLocalContent
+            $done = TransferQueueHandler "clone::content" $session $baseRemoteContent $baseLocalContent
         }
 
         while ($done -eq $False)
@@ -67,7 +67,7 @@ try
 
         do
         {
-            $done = TransferQueueHandler "clone" $session $baseRemoteStorage $baseLocalStorage
+            $done = TransferQueueHandler "clone::storage" $session $baseRemoteStorage $baseLocalStorage
         }
 
         while ($done -eq $False)
