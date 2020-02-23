@@ -11,7 +11,7 @@ fields:
 
     settings_site: fields/settings/site
 
-    settings_privacy_headline:
+    settings_site_privacy_headline:
         type: headline
         numbered: true
 
@@ -19,4 +19,4 @@ fields:
             en: Privacy
             de: Privatsphäre
 
-    settings_privacy: fields/settings/privacy
+    settings_site_privacy: fields/settings/privacy
