@@ -1,6 +1,5 @@
 user-agent: *
-allow: /de/
-allow: /en/
-disallow: /
+disallow: /metrics/
+disallow: /panel/
 
 Sitemap: https://www.schramm-reinigung.de/sitemap.xml
