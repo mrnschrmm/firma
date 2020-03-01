@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
+        <loc>https://www.schramm-reinigung.de</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -15,6 +34,10 @@
         <loc>https://www.schramm-reinigung.de/en</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de"/>
         <xhtml:link
@@ -23,7 +46,26 @@
             href="https://www.schramm-reinigung.de/en"/>
     </url>
     <url>
+        <loc>https://www.schramm-reinigung.de/unternehmen</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/unternehmen"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/unternehmen"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/unternehmen"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de/unternehmen</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/unternehmen"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -37,6 +79,10 @@
         <loc>https://www.schramm-reinigung.de/en/unternehmen</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/unternehmen"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/unternehmen"/>
         <xhtml:link
@@ -45,7 +91,26 @@
             href="https://www.schramm-reinigung.de/en/unternehmen"/>
     </url>
     <url>
+        <loc>https://www.schramm-reinigung.de/kontakt</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/kontakt"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/kontakt"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/kontakt"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de/kontakt</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/kontakt"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -59,6 +124,10 @@
         <loc>https://www.schramm-reinigung.de/en/kontakt</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/kontakt"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/kontakt"/>
         <xhtml:link
@@ -67,7 +136,26 @@
             href="https://www.schramm-reinigung.de/en/kontakt"/>
     </url>
     <url>
+    <loc>https://www.schramm-reinigung.de/reinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/reinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/reinigung"/>
+    </url>
+    <url>
     <loc>https://www.schramm-reinigung.de/de/reinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -81,6 +169,10 @@
         <loc>https://www.schramm-reinigung.de/en/reinigung</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/reinigung"/>
         <xhtml:link
@@ -89,7 +181,26 @@
             href="https://www.schramm-reinigung.de/en/reinigung"/>
     </url>
     <url>
+        <loc>https://www.schramm-reinigung.de/reinigung/glasreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/glasreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/reinigung/glasreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/reinigung/glasreinigung"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de/reinigung/glasreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/glasreinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -103,6 +214,10 @@
         <loc>https://www.schramm-reinigung.de/en/reinigung/glasreinigung</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/glasreinigung"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/reinigung/glasreinigung"/>
         <xhtml:link
@@ -111,7 +226,11 @@
             href="https://www.schramm-reinigung.de/en/reinigung/glasreinigung"/>
     </url>
     <url>
-        <loc>https://www.schramm-reinigung.de/de/reinigung/bueroreinigung</loc>
+        <loc>https://www.schramm-reinigung.de/reinigung/bueroreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/bueroreinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -120,11 +239,32 @@
             rel="alternate"
             hreflang="en"
             href="https://www.schramm-reinigung.de/en/reinigung/bueroreinigung"/>
+
+    </url>
+    <url>
+        <loc>https://www.schramm-reinigung.de/de/reinigung/bueroreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/bueroreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/reinigung/bueroreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/reinigung/bueroreinigung"/>
+
     </url>
     <url>
         <loc>https://www.schramm-reinigung.de/en/reinigung/bueroreinigung</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/bueroreinigung"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/reinigung/bueroreinigung"/>
         <xhtml:link
@@ -133,7 +273,26 @@
             href="https://www.schramm-reinigung.de/en/reinigung/bueroreinigung"/>
     </url>
     <url>
+        <loc>https://www.schramm-reinigung.de/reinigung/baureinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/baureinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/reinigung/baureinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/reinigung/baureinigung"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de/reinigung/baureinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/baureinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -147,6 +306,10 @@
         <loc>https://www.schramm-reinigung.de/en/reinigung/baureinigung</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/baureinigung"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/reinigung/baureinigung"/>
         <xhtml:link
@@ -155,7 +318,26 @@
             href="https://www.schramm-reinigung.de/en/reinigung/baureinigung"/>
     </url>
     <url>
+        <loc>https://www.schramm-reinigung.de/reinigung/unterhaltsreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/unterhaltsreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/reinigung/unterhaltsreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/reinigung/unterhaltsreinigung"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de/reinigung/unterhaltsreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/unterhaltsreinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -169,6 +351,10 @@
         <loc>https://www.schramm-reinigung.de/en/reinigung/unterhaltsreinigung</loc>
         <xhtml:link
             rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/unterhaltsreinigung"/>
+        <xhtml:link
+            rel="alternate"
             hreflang="de"
             href="https://www.schramm-reinigung.de/de/reinigung/unterhaltsreinigung"/>
         <xhtml:link
@@ -177,7 +363,26 @@
             href="https://www.schramm-reinigung.de/en/reinigung/unterhaltsreinigung"/>
     </url>
     <url>
+        <loc>https://www.schramm-reinigung.de/reinigung/grundreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/grundreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="de"
+            href="https://www.schramm-reinigung.de/de/reinigung/grundreinigung"/>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://www.schramm-reinigung.de/en/reinigung/grundreinigung"/>
+    </url>
+    <url>
         <loc>https://www.schramm-reinigung.de/de/reinigung/grundreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/grundreinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
@@ -189,6 +394,10 @@
     </url>
     <url>
         <loc>https://www.schramm-reinigung.de/en/reinigung/grundreinigung</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://www.schramm-reinigung.de/reinigung/grundreinigung"/>
         <xhtml:link
             rel="alternate"
             hreflang="de"
