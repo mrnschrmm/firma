@@ -14,6 +14,9 @@ tabs:
                     # - popularPages
                     # - websites
 
+                defaults:
+                    period: week
+
             dashboard_metrics_side:
                 type: matomo-sidebar
                 link: false
