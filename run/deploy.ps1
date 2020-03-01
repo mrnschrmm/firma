@@ -3,25 +3,29 @@ $id = "firma"
 $HostName = "wp1177004.server-he.de"
 $UserName = if ($args -eq '-preview') { "ftp1177004-spreview" } else { "ftp1177004-s" }
 
+# WinSCP
+$winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
+$winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
+
 # Location
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
 $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
-
 $baseRemoteEntry = '/'
-
-$winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
-$winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 # Authentication
 $hsh = $baseLocalEntryPath + $(if ($args -eq '-preview') { "env\preview" } else { "env\prod" })
 $key = $baseLocalConfigPath + $(if ($args -eq '-preview') { "auth\preview" } else { "auth\prod" })
-
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
+# Session
 $session = $Null
 $sessionOptions = $Null
+$sessionLogPath = $baseLocalEntry + '_logs\_transfer.log'
+$sessionDebugPath = $baseLocalEntry + '_logs\_transfer.debug.log'
+
+# Helper
 $done = $False
 
 try
@@ -37,12 +41,13 @@ try
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec
+    $session.SessionLogPath = $sessionLogPath
+    $session.DebugLogPath = $sessionDebugPath
 
     $session.Open($sessionOptions)
     $session.add_FileTransferred({LogTransferredFiles($_)})
 
     $transferOptions = New-Object WinSCP.TransferOptions
-    $transferOptions.ResumeSupport.State = [WinSCP.TransferResumeSupportState]::On
 
     try
     {
