@@ -43,6 +43,10 @@ Function ActionHandler()
 
         if ($args[0] -eq 'link')
         {
+            Write-Host
+            Write-Host "## Activate Upload ## $($scope.ToTitleCase($args[3]))"
+            Write-Host
+
             $files = $args[1].EnumerateRemoteFiles($args[2] + $args[3], '*', [WinSCP.EnumerationOptions]::None)
 
             foreach ($file in $files)
@@ -61,8 +65,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($scope.ToTitleCase($args[3])) Files"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /Delete Outdated $($scope.ToTitleCase($args[3])) Files"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '/*__del')
 
@@ -89,6 +92,10 @@ Function ActionHandler()
 
         if ($args[0] -eq 'link')
         {
+            Write-Host
+            Write-Host "## Activate Upload ## $($scope.ToTitleCase($args[3]))"
+            Write-Host
+
             $files = $args[1].EnumerateRemoteFiles($args[2], $args[3] + '__up', [WinSCP.EnumerationOptions]::MatchDirectories)
 
             foreach ($file in $files)
@@ -107,8 +114,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($scope.ToTitleCase($args[3])) Files"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /Delete Outdated $($scope.ToTitleCase($args[3])) Files"
 
             if ($args[3] -eq 'kirby')
             {
@@ -183,10 +189,6 @@ Function FileActionsHandler
 
     if ($args[0] -eq 'public')
     {
-        Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate $($scope.ToTitleCase($args[0])) Upload"
-        Write-Host
-
         do
         {
             $done = ActionHandler "unlink" $args[1] $args[2] 'public'
@@ -216,10 +218,6 @@ Function FileActionsHandler
 
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
-        Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate $($scope.ToTitleCase($args[0])) Upload"
-        Write-Host
-
         do
         {
             $done = ActionHandler "unlink" $args[1] $args[2] $args[0]
