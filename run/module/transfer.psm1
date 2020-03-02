@@ -1,3 +1,5 @@
+$scope = (Get-Culture).TextInfo
+
 Function TransferHandler()
 {
     if ($args[0] -eq 'public')
@@ -59,8 +61,8 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($args[3]) Files"
             Write-Host
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($scope.ToTitleCase($args[3])) Files"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '/*__del')
 
@@ -106,8 +108,12 @@ Function ActionHandler()
         if ($args[0] -eq 'cleanup')
         {
             Write-Host
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($args[3]) Files"
-            Write-Host
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Remove Outdated $($scope.ToTitleCase($args[3])) Files"
+
+            if ($args[3] -eq 'kirby')
+            {
+                $args[1].RemoveFiles($args[2] + $args[3] + '__del/vendor')
+            }
 
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
@@ -118,7 +124,6 @@ Function ActionHandler()
 
 Function TransferQueueHandler
 {
-    $scope = (Get-Culture).TextInfo
     $done = $False
 
     if ($args[0] -eq 'public')
@@ -178,9 +183,8 @@ Function FileActionsHandler
 
     if ($args[0] -eq 'public')
     {
-        ## MOVE
         Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate Public Upload"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate $($scope.ToTitleCase($args[0])) Upload"
         Write-Host
 
         do
@@ -212,9 +216,9 @@ Function FileActionsHandler
 
     if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
     {
-        ## MOVE
         Write-Host
-        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Move New $($args[0]) Files"
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... Activate $($scope.ToTitleCase($args[0])) Upload"
+        Write-Host
 
         do
         {

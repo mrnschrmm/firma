@@ -1,9 +1,8 @@
-# Scope
 $id = "firma"
 $HostName = 'wp1177004.server-he.de'
 $UserName = 'ftp1177004-s'
 
-# Locations
+# Location
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
 $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
@@ -15,6 +14,7 @@ $baseRemoteEntry = '/'
 $baseRemoteContent = $baseRemoteEntry + 'content' + '/'
 $baseRemoteStorage = $baseRemoteEntry + 'storage' + '/'
 
+# WinSCP
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
@@ -23,12 +23,19 @@ $hsh = $baseLocalEntryPath + 'env\prod'
 $key = $baseLocalConfigPath + 'auth\prod'
 $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
-$session = $null
-$sessionOptions = $null
+# Session
+$session = $Null
+$sessionOptions = $Null
+$sessionLogPath = $baseLocalEntry + '_logs\_winscp.deploy.log'
+$sessionDebugPath = $baseLocalEntry + '_logs\_winscp.deploy.debug.log'
+
+# Helper
 $done = $false
 
 try
 {
+    Write-Host '## RUN ## CLONE'
+
     Add-Type -Path $winSCPdnet
 
     Import-Module ($baseLocalEntryPath + 'run\module\session.psm1')
@@ -38,51 +45,48 @@ try
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec
+    $session.SessionLogPath = $sessionLogPath
+    $session.DebugLogPath = $sessionDebugPath
 
     $session.Open($sessionOptions)
     $session.add_FileTransferred({LogTransferredFiles($_)})
 
-    $transferOptions = New-Object WinSCP.TransferOptions
-    $transferOptions.ResumeSupport.State = [WinSCP.TransferResumeSupportState]::On
-
     try
     {
-        Write-Host '## RUN ## CLONE'
-
         do
         {
             $done = FileActionsHandler "clone" $baseLocalEntryPath $baseLocalBackup $baseLocalContent
         }
-
         while ($done -eq $False)
+
         $done = $False
 
         do
         {
             $done = TransferQueueHandler "clone::content" $session $baseRemoteContent $baseLocalContent
         }
-
         while ($done -eq $False)
+
         $done = $False
 
         do
         {
             $done = TransferQueueHandler "clone::storage" $session $baseRemoteStorage $baseLocalStorage
         }
-
         while ($done -eq $False)
+
         $done = $False
     }
-
     finally
     {
-        Write-Host
         $session.Dispose()
+        Write-Host
+        Write-Host '## Complete ##'
+        Write-Host
     }
 
     exit 0
 }
-
 catch
 {
     Write-Host
