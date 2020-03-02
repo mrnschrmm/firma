@@ -191,7 +191,7 @@ Function FileActionsHandler
         {
             $done = ActionHandler "unlink" $args[1] $args[2] 'public'
         }
-        while($done -eq $False)
+        while ($done -eq $False)
 
         $done = $False
 
@@ -199,7 +199,7 @@ Function FileActionsHandler
         {
             $done = ActionHandler "link" $args[1] $args[2] 'public'
         }
-        while($done -eq $False)
+        while ($done -eq $False)
 
         $done = $False
 
@@ -207,7 +207,7 @@ Function FileActionsHandler
         {
             $done = ActionHandler "cleanup" $args[1] $args[2] 'public'
         }
-        while($done -eq $False)
+        while ($done -eq $False)
 
         $done = $False
 
@@ -224,7 +224,7 @@ Function FileActionsHandler
         {
             $done = ActionHandler "unlink" $args[1] $args[2] $args[0]
         }
-        while($done -eq $False)
+        while ($done -eq $False)
 
         $done = $False
 
@@ -232,7 +232,7 @@ Function FileActionsHandler
         {
             $done = ActionHandler "link" $args[1] $args[2] $args[0]
         }
-        while($done -eq $False)
+        while ($done -eq $False)
 
         $done = $False
 
@@ -240,7 +240,7 @@ Function FileActionsHandler
         {
             $done = ActionHandler "cleanup" $args[1] $args[2] $args[0]
         }
-        while($done -eq $False)
+        while ($done -eq $False)
 
         $done = $False
 
@@ -289,7 +289,6 @@ Function LogTransferredFiles
     {
         Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... $($e.Destination)"
     }
-
     else
     {
         Write-Host "## Error $($e.Error) ## $($e.Destination)"
