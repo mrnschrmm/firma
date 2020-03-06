@@ -155,7 +155,6 @@ const seo__dest = (root_dist + root_public).replace('//', '/')
 // CLEAN -------------------------------------------------------------
 
 function clean__robots () { return del([seo__dest + 'robots.txt']) }
-function clean__sitemap () { return del([seo__dest + 'sitemap.xml']) }
 
 // COPY -------------------------------------------------------------
 
@@ -166,16 +165,9 @@ function copy__robots () {
     .pipe(dest(seo__dest))
 }
 
-function copy__sitemap () {
-  return src([seo__src + 'sitemap.xml'])
-    .pipe(gulpif(DEBUG, debug({ title: '## SITEMAP:' })))
-    .pipe(dest(seo__dest))
-}
-
 // COMPOSITION -------------------------------------------------------------
 
 const robots = series(clean__robots, copy__robots)
-const sitemap = series(clean__sitemap, copy__sitemap)
 
 ////////////////////////////////////////////////////////////////////////////////
 // LOGIC
@@ -598,7 +590,7 @@ const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
-const SEO = PREVIEW ? series(robots, clean__sitemap) : series(robots, sitemap)
+const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
