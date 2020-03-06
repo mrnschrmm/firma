@@ -13,7 +13,7 @@ Function TransferHandler()
         return $True
     }
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    if ($args[0] -ne 'public')
     {
         $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
         $transfer.Check()
@@ -73,7 +73,7 @@ Function ActionHandler()
         }
     }
 
-    if ($args[3] -eq 'kirby' -OR $args[3] -eq 'site')
+    if ($args[3] -ne 'public')
     {
         if ($args[0] -eq 'unlink')
         {
@@ -116,11 +116,6 @@ Function ActionHandler()
         {
             Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /Delete Outdated $($scope.ToTitleCase($args[3])) Files"
 
-            if ($args[3] -eq 'kirby')
-            {
-                $args[1].RemoveFiles($args[2] + $args[3] + '__del/vendor')
-            }
-
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
             return $True
@@ -151,7 +146,7 @@ Function TransferQueueHandler
         return $True
     }
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    if ($args[0] -ne 'public' -AND $args[0] -ne 'clone::content' -AND $args[0] -ne 'clone::storage')
     {
         Write-Host
         Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
@@ -216,7 +211,7 @@ Function FileActionsHandler
         return $True
     }
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    if ($args[0] -ne 'public' -AND $args[0] -ne 'clone')
     {
         do
         {
