@@ -76,6 +76,14 @@ try
             while ($done -eq $False)
 
             $done = $False
+
+            do
+            {
+                $done = TransferQueueHandler "vendor" $session $transferOptions $baseLocalDist $baseRemoteEntry
+            }
+            while ($done -eq $False)
+
+            $done = $False
         }
 
         do
@@ -99,6 +107,14 @@ try
             do
             {
                 $done = FileActionsHandler "kirby" $session $baseRemoteEntry
+            }
+            while ($done -eq $False)
+
+            $done = $False
+
+            do
+            {
+                $done = FileActionsHandler "vendor" $session $baseRemoteEntry
             }
             while ($done -eq $False)
 

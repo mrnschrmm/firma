@@ -73,18 +73,6 @@ function reload (done) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// CACHE
-////////////////////////////////////////////////////////////////////////////////
-
-const clear = series(clean__cache)
-
-// CLEAN -------------------------------------------------------------
-
-function clean__cache () {
-  return cache.clearAll()
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // CONTENT
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -117,13 +105,11 @@ const content = series(clean__content, copy__content)
 // VENDOR
 ////////////////////////////////////////////////////////////////////////////////
 
-const vendor = series(clean__vendor, process__vendor_head, process__vendor)
-
 // CLEAN -------------------------------------------------------------
 
-function clean__vendor () {
-  return del([config.vendor.dest + '{vendor.head,vendor}.min.js'])
-}
+function clean__vendor () { return del([config.vendor.dest + '{vendor.head,vendor}.min.js']) }
+function clean__composer_vendor () { return del([root_dist + '/vendor']) }
+function clean__composer_json () { return del([root_dist + '/composer.{json,lock}']) }
 
 // PROCESS -------------------------------------------------------------
 
@@ -145,6 +131,17 @@ function process__vendor () {
     .pipe(dest(config.vendor.dest))
 }
 
+function process__composer_json () {
+  return src(root_src + 'composer.json')
+    .pipe(gulpif(DEBUG, debug({ title: '## COMPOSER_JSON:' })))
+    .pipe(dest(root_dist))
+}
+
+// COMPOSITION -------------------------------------------------------------
+
+const vendor = series(clean__vendor, process__vendor_head, process__vendor)
+const composer = (PROD || PREVIEW) ? series(clean__composer_vendor, clean__composer_json, process__composer_json) : series(clean__composer_vendor, clean__composer_json)
+
 ////////////////////////////////////////////////////////////////////////////////
 // SEO
 ////////////////////////////////////////////////////////////////////////////////
@@ -155,7 +152,6 @@ const seo__dest = (root_dist + root_public).replace('//', '/')
 // CLEAN -------------------------------------------------------------
 
 function clean__robots () { return del([seo__dest + 'robots.txt']) }
-function clean__sitemap () { return del([seo__dest + 'sitemap.xml']) }
 
 // COPY -------------------------------------------------------------
 
@@ -166,16 +162,9 @@ function copy__robots () {
     .pipe(dest(seo__dest))
 }
 
-function copy__sitemap () {
-  return src([seo__src + 'sitemap.xml'])
-    .pipe(gulpif(DEBUG, debug({ title: '## SITEMAP:' })))
-    .pipe(dest(seo__dest))
-}
-
 // COMPOSITION -------------------------------------------------------------
 
 const robots = series(clean__robots, copy__robots)
-const sitemap = series(clean__sitemap, copy__sitemap)
 
 ////////////////////////////////////////////////////////////////////////////////
 // LOGIC
@@ -598,10 +587,12 @@ const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
 const LINT = series(lint__logic, lint__styles, lint__scripts)
-const SEO = PREVIEW ? series(robots, clean__sitemap) : series(robots, sitemap)
+const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
+
+exports.composer_clean = (PROD || PREVIEW) ? series(clean__composer_vendor, process__composer_json) : series(clean__composer_vendor)
 
 if (PROD || PREVIEW) {
   exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, SEO, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET, SEO)

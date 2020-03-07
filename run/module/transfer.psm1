@@ -13,7 +13,7 @@ Function TransferHandler()
         return $True
     }
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby' -OR $args[0] -eq 'vendor')
     {
         $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
         $transfer.Check()
@@ -44,7 +44,7 @@ Function ActionHandler()
         if ($args[0] -eq 'link')
         {
             Write-Host
-            Write-Host "## Activate Upload ## $($scope.ToTitleCase($args[3]))"
+            Write-Host "## Activate ## $($scope.ToTitleCase($args[3]))"
             Write-Host
 
             $files = $args[1].EnumerateRemoteFiles($args[2] + $args[3], '*', [WinSCP.EnumerationOptions]::None)
@@ -65,7 +65,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /Delete Outdated $($scope.ToTitleCase($args[3])) Files"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del cleanup"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '/*__del')
 
@@ -73,7 +73,7 @@ Function ActionHandler()
         }
     }
 
-    if ($args[3] -eq 'kirby' -OR $args[3] -eq 'site')
+    if ($args[3] -eq 'site' -OR $args[3] -eq 'kirby' -OR $args[3] -eq 'vendor')
     {
         if ($args[0] -eq 'unlink')
         {
@@ -93,7 +93,7 @@ Function ActionHandler()
         if ($args[0] -eq 'link')
         {
             Write-Host
-            Write-Host "## Activate Upload ## $($scope.ToTitleCase($args[3]))"
+            Write-Host "## Activate ## $($scope.ToTitleCase($args[3]))"
             Write-Host
 
             $files = $args[1].EnumerateRemoteFiles($args[2], $args[3] + '__up', [WinSCP.EnumerationOptions]::MatchDirectories)
@@ -114,12 +114,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /Delete Outdated $($scope.ToTitleCase($args[3])) Files"
-
-            if ($args[3] -eq 'kirby')
-            {
-                $args[1].RemoveFiles($args[2] + $args[3] + '__del/vendor')
-            }
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del cleanup"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
@@ -132,13 +127,13 @@ Function TransferQueueHandler
 {
     $done = $False
 
+    Write-Host
+    Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
+    Write-Host
+
     if ($args[0] -eq 'public')
     {
-        Write-Host
-        Write-Host "## TransferQueue ##" $scope.ToTitleCase($args[0])
-        Write-Host
-
-        $filemasks = '.*', '*.php', '*.js', '*.css', '*.xml', '*.txt'
+        $filemasks = '.*', '*.php', '*.js', '*.css', '*.txt'
 
         do
         {
@@ -151,12 +146,8 @@ Function TransferQueueHandler
         return $True
     }
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby' -OR $args[0] -eq 'vendor')
     {
-        Write-Host
-        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
-        Write-Host
-
         do
         {
             $done = TransferHandler $args[0] $args[1] $args[2] $args[3] $args[4]
@@ -170,10 +161,6 @@ Function TransferQueueHandler
 
     if ($args[0] -eq 'clone::content' -OR $args[0] -eq 'clone::storage')
     {
-        Write-Host
-        Write-Host '## TransferQueue ##' $scope.ToTitleCase($args[0])
-        Write-Host
-
         Remove-Item ($args[3] + '*') -Recurse
 
         $transfer = $args[1].GetFiles($args[2] + '*', $args[3] + '*')
@@ -216,7 +203,7 @@ Function FileActionsHandler
         return $True
     }
 
-    if ($args[0] -eq 'kirby' -OR $args[0] -eq 'site')
+    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby' -OR $args[0] -eq 'vendor')
     {
         do
         {
