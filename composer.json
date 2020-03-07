@@ -7,8 +7,7 @@
     "sylvainjule/matomo": "1.0.4"
   },
   "config": {
-    "vendor-dir": "dist/vendor",
-    "optimize-autoloader": true
+    "optimize-autoloader": false
   },
   "extra": {
     "kirby-cms-path": "dist/kirby",

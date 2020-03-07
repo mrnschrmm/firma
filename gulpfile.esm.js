@@ -218,7 +218,7 @@ function clean__index () { return del([index__dest + 'index.php']) }
 function lint__logic () {
   return src(['./app/{config,languages,collections,controllers,templates,snippets,index}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
-    .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
+    .pipe(phpcs({ bin: 'vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
 }
 

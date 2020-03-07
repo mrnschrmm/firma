@@ -1,10 +1,11 @@
 # FOLDER
 **/.cache
 **/app/config/config.php
-**/node_modules
-**/dist
 **/backup
 **/db/**/*
+**/dist
+**/node_modules
+**/vendor
 
 # FILES
 .vscode
