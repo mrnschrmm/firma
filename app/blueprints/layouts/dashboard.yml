@@ -11,8 +11,6 @@ tabs:
                 widgets:
                     - devicesType
                     - referrerType
-                    # - popularPages
-                    # - websites
 
                 defaults:
                     period: week

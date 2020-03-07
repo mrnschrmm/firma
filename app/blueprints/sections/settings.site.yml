@@ -6,8 +6,8 @@ fields:
         numbered: true
 
         label:
-            en: Site Information
-            de: Site Information
+            en: Meta Information
+            de: Meta Information
 
     settings_site: fields/settings/site
 
