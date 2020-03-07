@@ -44,7 +44,7 @@ Function ActionHandler()
         if ($args[0] -eq 'link')
         {
             Write-Host
-            Write-Host "## Activate Upload ## $($scope.ToTitleCase($args[3]))"
+            Write-Host "## Activate ## $($scope.ToTitleCase($args[3]))"
             Write-Host
 
             $files = $args[1].EnumerateRemoteFiles($args[2] + $args[3], '*', [WinSCP.EnumerationOptions]::None)
@@ -65,7 +65,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /remove outdated $($args[3]) files"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del cleanup"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '/*__del')
 
@@ -93,7 +93,7 @@ Function ActionHandler()
         if ($args[0] -eq 'link')
         {
             Write-Host
-            Write-Host "## Activate Upload ## $($scope.ToTitleCase($args[3]))"
+            Write-Host "## Activate ## $($scope.ToTitleCase($args[3]))"
             Write-Host
 
             $files = $args[1].EnumerateRemoteFiles($args[2], $args[3] + '__up', [WinSCP.EnumerationOptions]::MatchDirectories)
@@ -114,7 +114,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /remove outdated $($args[3]) files"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del cleanup"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
