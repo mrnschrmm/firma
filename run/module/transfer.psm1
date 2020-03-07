@@ -65,7 +65,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del => cleanup.."
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del => delete"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '/*__del')
 
@@ -114,7 +114,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del => cleanup.."
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /$($args[3])__del => delete"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
