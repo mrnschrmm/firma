@@ -1,39 +1,32 @@
 # Site - Project: Firma
 
-`Node 12.16.1` `NPM 6.14.2` `PHP 7.3.15` `Composer 1.9.3` `Kirby 3.3.4`
-
-## Setup
-```
-npm install
-composer install
-```
-
-## Clone
-```
-npm run clone
-```
+`Node 12.16.1` `NPM 6.14.2` `PHP 7.3.15` `Composer 1.9.3` `Kirby 3.3.4` `WinSCP 5.17.1` `PowerShell 7.0.0`
 
 ## Run
 ```
 npm run start
+npm run start.debug
 ```
 
 ## Build
 ```
 npm run build
+npm run build.debug
+
 npm run build.preview
+npm run build.preview.debug
 ```
 
 ## Deploy
 ```
 npm run deploy
 npm run deploy.full
+
 npm run deploy.preview
 npm run deploy.preview.full
 ```
 
-## Debug
+## Clone
 ```
-npm run start.debug
-npm run build.debug
+npm run clone
 ```
