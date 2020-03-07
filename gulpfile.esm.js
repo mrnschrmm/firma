@@ -73,18 +73,6 @@ function reload (done) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// CACHE
-////////////////////////////////////////////////////////////////////////////////
-
-const clear = series(clean__cache)
-
-// CLEAN -------------------------------------------------------------
-
-function clean__cache () {
-  return cache.clearAll()
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // CONTENT
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -117,13 +105,11 @@ const content = series(clean__content, copy__content)
 // VENDOR
 ////////////////////////////////////////////////////////////////////////////////
 
-const vendor = series(clean__vendor, process__vendor_head, process__vendor)
-
 // CLEAN -------------------------------------------------------------
 
-function clean__vendor () {
-  return del([config.vendor.dest + '{vendor.head,vendor}.min.js'])
-}
+function clean__vendor () { return del([config.vendor.dest + '{vendor.head,vendor}.min.js']) }
+function clean__composer_vendor () { return del([root_dist + '/vendor']) }
+function clean__composer_json () { return del([root_dist + '/composer.{json,lock}']) }
 
 // PROCESS -------------------------------------------------------------
 
@@ -144,6 +130,17 @@ function process__vendor () {
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
+
+function process__composer_json () {
+  return src(root_src + 'composer.json')
+    .pipe(gulpif(DEBUG, debug({ title: '## COMPOSER_JSON:' })))
+    .pipe(dest(root_dist))
+}
+
+// COMPOSITION -------------------------------------------------------------
+
+const vendor = series(clean__vendor, process__vendor_head, process__vendor)
+const composer = (PROD || PREVIEW) ? series(clean__composer_vendor, clean__composer_json, process__composer_json) : series(clean__composer_vendor, clean__composer_json)
 
 ////////////////////////////////////////////////////////////////////////////////
 // SEO
@@ -594,6 +591,8 @@ const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
+
+exports.composer_clean = (PROD || PREVIEW) ? series(clean__composer_vendor, process__composer_json) : series(clean__composer_vendor)
 
 if (PROD || PREVIEW) {
   exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, SEO, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET, SEO)

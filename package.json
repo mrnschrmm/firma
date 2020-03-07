@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "gulp --dev",
-    "build": "gulp --prod",
-    "build.preview": "gulp --preview",
+    "start": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command gulp composer_clean --dev; composer install --no-suggest; gulp --dev",
+    "build": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command gulp composer_clean --prod; cd ./dist; composer install --no-suggest; cd ..; gulp --prod; cd ./dist; composer remove squizlabs/php_codesniffer --dev; rm composer.json; rm composer.lock",
+    "build.preview": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command gulp composer_clean --preview; cd ./dist; composer install --no-suggest; cd ..; gulp --preview; cd ./dist; composer remove squizlabs/php_codesniffer --dev; rm composer.json; rm composer.lock",
     "clone": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./run/clone.ps1",
     "deploy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./run/deploy.ps1",
     "deploy.full": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./run/deploy.ps1 -full",

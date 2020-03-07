@@ -1,0 +1,20 @@
+{
+    "name": "mrnmrhcs/firma",
+    "description": "Company Website",
+    "require": {
+        "getkirby/cms": "3.3.4",
+        "sylvainjule/locator": "1.0.5",
+        "sylvainjule/matomo": "1.0.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.5.4"
+    },
+    "config": {
+        "vendor-dir": "dist/vendor",
+        "optimize-autoloader": false
+    },
+    "extra": {
+        "kirby-cms-path": "dist/kirby",
+        "kirby-plugin-path": "dist/site/plugins"
+    }
+}
