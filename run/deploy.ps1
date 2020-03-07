@@ -77,13 +77,13 @@ try
 
             $done = $False
 
-            # do
-            # {
-            #     $done = TransferQueueHandler "vendor" $session $transferOptions $baseLocalEntryPath $baseRemoteEntry
-            # }
-            # while ($done -eq $False)
+            do
+            {
+                $done = TransferQueueHandler "vendor" $session $transferOptions $baseLocalDist $baseRemoteEntry
+            }
+            while ($done -eq $False)
 
-            # $done = $False
+            $done = $False
         }
 
         do
@@ -112,13 +112,13 @@ try
 
             $done = $False
 
-            # do
-            # {
-            #     $done = FileActionsHandler "vendor" $session $baseRemoteEntry
-            # }
-            # while ($done -eq $False)
+            do
+            {
+                $done = FileActionsHandler "vendor" $session $baseRemoteEntry
+            }
+            while ($done -eq $False)
 
-            # $done = $False
+            $done = $False
         }
     }
     finally

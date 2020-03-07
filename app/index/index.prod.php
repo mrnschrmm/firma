@@ -1,5 +1,5 @@
 <?php
-include '../kirby/bootstrap.php';
+include '../vendor/autoload.php';
 
 $kirby = new Kirby([
     'urls' => [

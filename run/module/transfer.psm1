@@ -13,7 +13,7 @@ Function TransferHandler()
         return $True
     }
 
-    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby')
+    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby' -OR $args[0] -eq 'vendor')
     {
         $transfer = $args[1].PutFiles($args[3] + $args[0], ($args[4] + $args[0] + '__up'), $False, $args[2])
         $transfer.Check()
@@ -65,7 +65,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /delete outdated $($args[3]) files"
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /remove outdated $($args[3]) files"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '/*__del')
 
@@ -73,7 +73,7 @@ Function ActionHandler()
         }
     }
 
-    if ($args[3] -eq 'site' -OR $args[3] -eq 'kirby')
+    if ($args[3] -eq 'site' -OR $args[3] -eq 'kirby' -OR $args[3] -eq 'vendor')
     {
         if ($args[0] -eq 'unlink')
         {
@@ -114,12 +114,7 @@ Function ActionHandler()
 
         if ($args[0] -eq 'cleanup')
         {
-            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /delete outdated $($args[3]) files"
-
-            if ($args[3] -eq 'kirby')
-            {
-                $args[1].RemoveFiles($args[2] + $args[3] + '__del/vendor')
-            }
+            Write-Host "$(Get-Date -Format 'HH:mm:ss') Working... /remove outdated $($args[3]) files"
 
             $args[1].RemoveFiles($args[2] + $args[3] + '__del')
 
@@ -151,7 +146,7 @@ Function TransferQueueHandler
         return $True
     }
 
-    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby')
+    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby' -OR $args[0] -eq 'vendor')
     {
         do
         {
@@ -208,7 +203,7 @@ Function FileActionsHandler
         return $True
     }
 
-    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby')
+    if ($args[0] -eq 'site' -OR $args[0] -eq 'kirby' -OR $args[0] -eq 'vendor')
     {
         do
         {
