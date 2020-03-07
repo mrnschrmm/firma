@@ -12,7 +12,6 @@ npm run start.debug
 ```
 npm run build
 npm run build.debug
-
 npm run build.preview
 npm run build.preview.debug
 ```
@@ -21,7 +20,6 @@ npm run build.preview.debug
 ```
 npm run deploy
 npm run deploy.full
-
 npm run deploy.preview
 npm run deploy.preview.full
 ```
