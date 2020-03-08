@@ -1,8 +1,10 @@
 <script type="text/javascript">
     var _paq = window._paq || [];
-    _paq.push(['disableCookies']);
-    _paq.push(['trackPageView']);
+    _paq.push(["disableCookies"]);
+    _paq.push(['enableHeartBeatTimer']);
     _paq.push(['enableLinkTracking']);
+    _paq.push(['setDocumentTitle', document.documentElement.lang '-' document.title]);
+    _paq.push(['trackPageView']);
     (function() {
         var u='<?php echo rtrim(option('sylvainjule.matomo.url'), '/') . '/' ?>';
         _paq.push(['setTrackerUrl', u+'matomo.php']);
