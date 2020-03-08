@@ -7,6 +7,6 @@ fields:
 
         label:
             en: Meta Information
-            de: Meta Information
+            de: Meta Informationen
 
     settings_page: fields/settings/page
