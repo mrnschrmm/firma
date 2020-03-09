@@ -2,50 +2,41 @@
 #// KIRBY .HTACCESS
 #////////////////////////////////////////////////////////////////////////////////
 
-# SERVER INFORMATION
+# SERVER INFO
 ServerSignature Off
 
 # REWRITE RULES
 <IfModule mod_rewrite.c>
 
-  # enable awesome urls. i.e.:
-  # http://yourdomain.com/about-us/team
   RewriteEngine on
 
   # If your homepage is http://yourdomain.com/mysite
-  # Set the RewriteBase to:
-  #
   # RewriteBase /mysite
 
   # In some environments it's necessary to
-  # set the RewriteBase to:
-  #
   RewriteBase /
 
   # block files and folders beginning with a dot, such as .git
   # except for the .well-known folder, which is used for Let's Encrypt and security.txt
   RewriteRule (^|/)\.(?!well-known\/) index.php [L]
 
-  # block text files in the content folder from being accessed directly
+  # block direct access to all files in the site folder, text files in the content folder and to kirby and the panel sources
   RewriteRule ^content/(.*)\.(txt|md|mdown)$ index.php [L]
-
-  # block all files in the site folder from being accessed directly
-  # except for requests to plugin assets files
   RewriteRule ^site/(.*) index.php [L]
+  RewriteRule ^kirby/(.*) index.php [L]
 
   # Enable authentication header
   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
-
-  # block direct access to kirby and the panel sources
-  RewriteRule ^kirby/(.*) index.php [L]
 
   # make site links work
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*) index.php [L]
 
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  # redirect to https
+  RewriteCond %{SERVER_PORT} !^443$
+  RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
+
 </IfModule>
 
 # compress text file responses
@@ -69,7 +60,7 @@ ServerSignature Off
   # Header set Content-Security-Policy "default-src 'self' 'unsafe-eval' 'unsafe-inline' maps.googleapis.com; form-src 'self'"
   Header set Feature-Policy "fullscreen 'self'; geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; payment 'none'"
   Header set Referrer-Policy "no-referrer-when-downgrade"
-  Header set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+  Header set Strict-Transport-Security "max-age=31536000"
 
   Header unset X-Powered-By
 
