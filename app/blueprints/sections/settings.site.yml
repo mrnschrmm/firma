@@ -7,7 +7,7 @@ fields:
 
         label:
             en: Meta Information
-            de: Meta Information
+            de: Meta Informationen
 
     settings_site: fields/settings/site
 
