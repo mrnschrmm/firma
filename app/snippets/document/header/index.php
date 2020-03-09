@@ -1,27 +1,35 @@
 <!DOCTYPE html>
-<html class="app <?= $page->template() ?> theme-default" lang="<?= $kirby->language()->code() ?>">
+<html lang="<?= $kirby->language()->code() ?>" class="app <?= $page->template() ?> theme-default">
 
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <?= ($page->template() == 'home') ? ($site->site_meta_description()->isNotEmpty() ? "<meta name='description' content='" . $site->site_meta_description()->h() . "'>" : "") : ($page->page_meta_description()->isNotEmpty() ? "<meta name='description' content='" . $page->page_meta_description()->h() . "'>" : ""); ?>
-        <?php if ($site->site_keywords()->isNotEmpty()) : ?>
-        <meta name="keywords" content="<?= $site->site_keywords()->h() ?>">
-        <?php endif ?>
-        <?php if ($site->site_author()->isNotEmpty()) : ?>
-        <meta name="author" content="<?= $site->site_author()->h() ?>">
-        <?php endif ?>
-        <meta name="language" content="<?= $kirby->language()->code() ?>">
-        <title><?= $site->title()->h() ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+        <title><?= ($page->template() == 'home') ? $site->title()->h() : $page->title()->h() . ' | ' . $site->title()->h() ?></title>
+
+        <link rel="stylesheet" href="<?= url('main.min.css') ?>">
+        <link rel="script" href="<?= url('vendor.head.min.js') ?>">
         <link rel="icon" type="image/png" sizes="32x32" href="<?= url('/assets/favicons/favicon-32x32.png') ?>">
         <link rel="icon" type="image/png" sizes="16x16" href="<?= url('/assets/favicons/favicon-16x16.png') ?>">
         <link rel="icon shortcut" sizes="16x16 32x32" href="<?= url('/assets/favicons/favicon.ico') ?>">
-        <link rel="stylesheet" href="<?= url('main.min.css') ?>">
-        <script src='<?= url('vendor.head.min.js') ?>'></script>
+
+        <meta name="description" content="<?= ($page->template() == 'home') ? $site->site_meta_description()->h() : $page->page_meta_description()->h() ?>" />
+        <meta name="author" content="<?= $site->site_author()->h() ?>">
+        <meta name="keywords" content="<?= $site->site_keywords()->h() ?>">
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="<?= ($page->template() == 'home') ? $site->title()->h() : $page->title()->h() . ' | ' . $site->title()->h() ?>" />
+        <meta property="og:url" content="<?= html($site->url()) ?>" />
+        <meta property="og:locale" content="<?= $kirby->language()->code() ?>_DE">
+        <meta property="og:description" content="<?= ($page->template() == 'home') ? $site->site_meta_description()->h() : $page->page_meta_description()->h() ?>">
+
+        <meta itemprop="name" content="<?= ($page->template() == 'home') ? $site->title()->h() : $page->title()->h() . ' | ' . $site->title()->h() ?>">
+        <meta itemprop="description" content="<?= ($page->template() == 'home') ? $site->site_meta_description()->h() : $page->page_meta_description()->h() ?>">
+
         <?php if ($site->privacy_metrics()->isTrue()) : ?>
         <?php snippet('metrics') ?>
         <?php endif ?>
+
     </head>
 
     <body>
