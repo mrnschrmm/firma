@@ -1,5 +1,5 @@
 #////////////////////////////////////////////////////////////////////////////////
-#// KIRBY .HTACCESS
+#// .HTACCESS
 #////////////////////////////////////////////////////////////////////////////////
 
 # SERVER INFO
@@ -23,10 +23,11 @@ ServerSignature Off
   # block direct access to all files in the site folder, text files in the content folder and to kirby and the panel sources
   RewriteRule ^content/(.*)\.(txt|md|mdown)$ index.php [L]
   RewriteRule ^site/(.*) index.php [L]
-  RewriteRule ^kirby/(.*) index.php [L]
 
   # Enable authentication header
   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
+  RewriteRule ^kirby/(.*) index.php [L]
 
   # make site links work
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -39,7 +40,7 @@ ServerSignature Off
 
 </IfModule>
 
-# compress text file responses
+# compress responses
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/html
@@ -64,7 +65,7 @@ ServerSignature Off
 
   Header unset X-Powered-By
 
-  # response header should be send only for HTML documents and not for the other resources.
+  # response header should be send only for HTML documents
   <FilesMatch "\.(appcache|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|webmanifest|woff2?|xloc|xml|xpi)$">
     Header unset X-XSS-Protection
     Header unset Content-Security-Policy
