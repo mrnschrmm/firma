@@ -1,32 +1,23 @@
-$id = "firma"
-$HostName = "wp1177004.server-he.de"
-$UserName = if ($args -eq '-preview') { "ftp1177004-spreview" } else { "ftp1177004-s" }
+# NAME
+$id = 'firma'
 
-# Location
+# LOCATION
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
 $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 $baseRemoteEntry = '/'
 
-# WinSCP
+# DEPENDENCY
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
-# Authentication
-$hsh = $baseLocalEntryPath + $(if ($args -eq '-preview') { "env\preview" } else { "env\prod" })
-$key = $baseLocalConfigPath + $(if ($args -eq '-preview') { "auth\preview" } else { "auth\prod" })
-$pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
-
-# Session
+# CONFIG
+$full = if ($args -eq '-full') { $True } else { $False }
+$done = $False
+$envConfig = $Null
 $session = $Null
 $sessionOptions = $Null
-$sessionLogPath = $baseLocalEntry + '_logs\winscp.' + $id + '.deploy.log'
-$sessionDebugPath = $baseLocalEntry + '_logs\winscp.' + $id + '.deploy.debug.log'
-
-# Helper
-$done = $False
-$full = if ($args -eq '-full') { $True } else { $False }
 
 try
 {
@@ -34,15 +25,31 @@ try
 
     Add-Type -Path $winSCPdnet
 
+    Import-Module ($baseLocalEntryPath + 'run\module\enviroment.psm1')
     Import-Module ($baseLocalEntryPath + 'run\module\session.psm1')
     Import-Module ($baseLocalEntryPath + 'run\module\transfer.psm1')
 
-    $sessionOptions = SessionSettings $HostName $UserName $pwd
+    # Enviroment
+    $envConfig = GetEnvConfig $baseLocalEntryPath
+
+    # Authentication
+    $hst = $envConfig.SESSION_HOST
+    $usr = $(if ($args -eq '-preview') { $envConfig.SESSION_USER_PREVIEW } else { $envConfig.SESSION_USER })
+    $hsh = $(if ($args -eq '-preview') { $envConfig.SESSION_HASH_PREVIEW } else { $envConfig.SESSION_HASH })
+    # $key = $(if ($args -eq '-preview') { $envConfig.SESSION_KEY_PREVIEW } else { $envConfig.SESSION_KEY })
+    # $pwd = $($hsh | ConvertTo-SecureString -Key $key)
+    $hsh = $baseLocalEntryPath + $(if ($args -eq '-preview') { "env\preview" } else { "env\prod" })
+    $key = $baseLocalConfigPath + $(if ($args -eq '-preview') { "auth\preview" } else { "auth\prod" })
+    $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
+    # $pwd = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
+
+    # Session
+    $sessionOptions = SessionSettings $hst $usr $pwd
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec
-    $session.SessionLogPath = $sessionLogPath
-    $session.DebugLogPath = $sessionDebugPath
+    $session.SessionLogPath = $baseLocalEntry + '_logs\winscp.' + $id + '.deploy.log'
+    $session.DebugLogPath = $baseLocalEntry + '_logs\winscp.' + $id + '.deploy.debug.log'
 
     $session.Open($sessionOptions)
     $session.add_FileTransferred({LogTransferredFiles($_)})

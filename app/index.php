@@ -1,10 +1,12 @@
 <?php
 include '../vendor/autoload.php';
 
+require_once dirname(__DIR__) . '/site/config/application.php';
+
 $kirby = new Kirby([
     'urls' => [
-        'index' => 'https://www.schramm-reinigung.de',
-        'media' => 'https://www.schramm-reinigung.de/media',
+        'index' => $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '',
+        'media' => $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/media'
     ],
     'roots' => [
         'index'    => __DIR__,

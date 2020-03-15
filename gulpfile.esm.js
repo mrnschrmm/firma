@@ -26,10 +26,11 @@ import Parcel from 'parcel-bundler'
 import config from './config'
 
 // ARGS
+const ENV = process.env.NODE_ENV
 const ARGS = minimist(process.argv.slice(2))
 const DEBUG = (ARGS.debug) ? true : false
 const PREVIEW = (ARGS.preview) ? true : false
-const PROD = (ARGS.prod) ? true : false
+const PROD = (process.env.NODE_ENV === 'production') ? true : false
 
 // PATHS
 const path = prep(config.path)
@@ -39,6 +40,10 @@ const root_public = path.root_public
 const resources = path.resources
 const site = path.site
 const db = path.db
+
+console.log('ENV:', ENV)
+console.log('PROD:', PROD)
+console.log('PREVIEW:', PREVIEW)
 
 // STATES
 const STATE_PLUGINS = (typeof config.plugins !== 'undefined' && config.plugins.length > 0) ? true : false
@@ -194,8 +199,11 @@ const templates__dest = (root_dist + site + path.templates).replace('//', '/')
 const htaccess__src = (root_src).replace('//', '/')
 const htaccess__dest = (root_dist + root_public).replace('//', '/')
 
-const index__src = (root_src + path.index).replace('//', '/')
+const index__src = (root_src).replace('//', '/')
 const index__dest = (root_dist + root_public).replace('//', '/')
+
+const env__src = ('E:/Sites/firma').replace('//', '/')
+const env__dest = (root_dist + root_public).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
 
@@ -209,6 +217,7 @@ function clean__templates () { return del([templates__dest]) }
 function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
 function clean__license () { return del([configs__dest + '.license']) }
 function clean__index () { return del([index__dest + 'index.php']) }
+function clean__env () { return del([env__dest + '.env']) }
 
 // LINT -------------------------------------------------------------
 
@@ -222,7 +231,7 @@ function lint__logic () {
 // COPY -------------------------------------------------------------
 
 function copy__configs () {
-  return src([configs__src + 'config.php'])
+  return src([configs__src + '{application,config}.php', configs__src + '/environments/**/*'])
     .pipe(gulpif(DEBUG, debug({ title: '## CONFIGS:' })))
     .pipe(dest(configs__dest))
 }
@@ -277,16 +286,22 @@ function copy__license () {
 }
 
 function copy__index () {
-  return src([index__src + (!PROD ? (!PREVIEW ? 'index.dev.php' : 'index.preview.php') : 'index.prod.php')])
+  return src([index__src + 'index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
-    .pipe(rename('index.php'))
+    // .pipe(rename('index.php'))
     .pipe(dest(index__dest))
+}
+
+function copy__env () {
+  return src([env__src + '/.env'])
+    .pipe(gulpif(DEBUG, debug({ title: '## ENV:' })))
+    .pipe(dest(env__dest))
 }
 
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch('D:/Tools/__configs/M-1/sites/firma/config.php', series(configs, reload))
+  watch([configs__src + 'application.php', configs__src + '/environments/*.php', 'D:/Tools/__configs/M-1/sites/firma/config.php'], series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
@@ -295,7 +310,8 @@ function watch__logic () {
   watch(templates__src + '**/*.php', series(templates, reload))
   watch(htaccess__src + '.htaccess', series(htaccess, reload))
   watch('D:/Tools/__configs/M-1/sites/firma/license/dev', series(license, reload))
-  watch(index__src + 'index.dev.php', series(index, reload))
+  watch(index__src + 'index.php', series(index, reload))
+  watch(env__src + '.env', series(env, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
@@ -310,6 +326,7 @@ const templates = series(clean__templates, copy__templates)
 const htaccess = series(clean__htaccess, copy__htaccess)
 const license = series(clean__license, copy__license)
 const index = series(clean__index, copy__index)
+const env = series(clean__env, copy__env)
 
 ////////////////////////////////////////////////////////////////////////////////
 // ASSETS
@@ -582,7 +599,7 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(configs, languages, blueprints, collections, controllers, snippets, templates, htaccess, license, index, vendor)
+const LOGIC = series(env, configs, languages, blueprints, collections, controllers, snippets, templates, htaccess, license, index, vendor)
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)

@@ -25,7 +25,7 @@ ServerSignature Off
   RewriteRule ^site/(.*) index.php [L]
 
   # Enable authentication header
-  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+  #SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
   RewriteRule ^kirby/(.*) index.php [L]
 
@@ -35,8 +35,8 @@ ServerSignature Off
   RewriteRule ^(.*) index.php [L]
 
   # redirect to https
-  RewriteCond %{SERVER_PORT} !^443$
-  RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
+  #RewriteCond %{SERVER_PORT} !^443$
+  #RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
 
 </IfModule>
 
