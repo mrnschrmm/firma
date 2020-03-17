@@ -19,34 +19,33 @@ import debug from 'gulp-debug'
 import scss from 'gulp-sass'
 import sass from 'node-sass'
 import sync from 'browser-sync'
-import minimist from 'minimist'
 import del from 'del'
 import Parcel from 'parcel-bundler'
 
 import config from './config'
 
-// ARGS
+const NAME = process.env.APP_NAME
 const ENV = process.env.NODE_ENV
-const ARGS = minimist(process.argv.slice(2))
-const DEBUG = (ARGS.debug) ? true : false
-const PREVIEW = (ARGS.preview) ? true : false
-const PROD = (process.env.NODE_ENV === 'production') ? true : false
+const DEBUG = (process.env.NODE_DEBUG) ? true : false
 
 // PATHS
 const path = prep(config.path)
+const root = path.root
 const root_src = path.root_src
 const root_dist = path.root_dist
 const root_public = path.root_public
+const root_secure = path.root_secure
 const resources = path.resources
 const site = path.site
 const db = path.db
 
-console.log('ENV:', ENV)
-console.log('PROD:', PROD)
-console.log('PREVIEW:', PREVIEW)
-
 // STATES
 const STATE_PLUGINS = (typeof config.plugins !== 'undefined' && config.plugins.length > 0) ? true : false
+
+// INFO
+console.log('APP:', NAME)
+console.log('ENV:', ENV)
+console.log('DEBUG:', DEBUG)
 
 ////////////////////////////////////////////////////////////////////////////////
 // BROWSERSYNC
@@ -122,7 +121,7 @@ function process__vendor_head () {
   return src(config.vendor.head)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR_HEAD:' })))
     .pipe(concat('vendor.head.js'))
-    .pipe(gulpif((PROD || PREVIEW), uglify()))
+    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
@@ -131,7 +130,7 @@ function process__vendor () {
   return src(config.vendor.src)
     .pipe(gulpif(DEBUG, debug({ title: '## VENDOR:' })))
     .pipe(concat('vendor.js'))
-    .pipe(gulpif((PROD || PREVIEW), uglify()))
+    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), uglify()))
     .pipe(rename({ suffix: '.min' }))
     .pipe(dest(config.vendor.dest))
 }
@@ -145,13 +144,13 @@ function process__composer_json () {
 // COMPOSITION -------------------------------------------------------------
 
 const vendor = series(clean__vendor, process__vendor_head, process__vendor)
-const composer = (PROD || PREVIEW) ? series(clean__composer_vendor, clean__composer_json, process__composer_json) : series(clean__composer_vendor, clean__composer_json)
+const composer = (ENV === 'production' || ENV === 'staging') ? series(clean__composer_vendor, clean__composer_json, process__composer_json) : series(clean__composer_vendor, clean__composer_json)
 
 ////////////////////////////////////////////////////////////////////////////////
 // SEO
 ////////////////////////////////////////////////////////////////////////////////
 
-const seo__src = (root_src + path.index).replace('//', '/')
+const seo__src = (root_src + path.configs).replace('//', '/')
 const seo__dest = (root_dist + root_public).replace('//', '/')
 
 // CLEAN -------------------------------------------------------------
@@ -161,7 +160,7 @@ function clean__robots () { return del([seo__dest + 'robots.txt']) }
 // COPY -------------------------------------------------------------
 
 function copy__robots () {
-  return src([seo__src + (!PREVIEW ? 'robots.prod' : 'robots.preview')])
+  return src([seo__src + `robots.${process.env.NODE_ENV}`])
     .pipe(gulpif(DEBUG, debug({ title: '## ROBOTS:' })))
     .pipe(rename('robots.txt'))
     .pipe(dest(seo__dest))
@@ -175,8 +174,16 @@ const robots = series(clean__robots, copy__robots)
 // LOGIC
 ////////////////////////////////////////////////////////////////////////////////
 
-const configs__src = (root_src + path.configs).replace('//', '/')
-const configs__dest = (root_dist + site + path.configs).replace('//', '/')
+const env__src = (root + path.env).replace('//', '/')
+const env__dest = (root_dist + path.env).replace('//', '/')
+
+const license_src = (root_secure + path.license).replace('//', '/')
+
+const enviroments__src = (root + path.env + path.enviroments).replace('//', '/')
+const enviroments__dest = (root_dist + path.env + path.enviroments).replace('//', '/')
+
+const config__src = (root_src + path.configs).replace('//', '/')
+const config__dest = (root_dist + site + path.configs).replace('//', '/')
 
 const languages__src = (root_src + path.languages).replace('//', '/')
 const languages__dest = (root_dist + site + path.languages).replace('//', '/')
@@ -202,12 +209,13 @@ const htaccess__dest = (root_dist + root_public).replace('//', '/')
 const index__src = (root_src).replace('//', '/')
 const index__dest = (root_dist + root_public).replace('//', '/')
 
-const env__src = ('E:/Sites/firma').replace('//', '/')
-const env__dest = (root_dist + root_public).replace('//', '/')
-
 // CLEAN -------------------------------------------------------------
 
-function clean__configs () { return del([configs__dest]) }
+function clean__dotenv () { return del([root_dist + '.env']) }
+function clean__application () { return del([env__dest + 'application.php']) }
+function clean__enviroments () { return del([enviroments__dest]) }
+function clean__license () { return del([config__dest + '.license']) }
+function clean__config () { return del([config__dest + 'config.php']) }
 function clean__languages () { return del([languages__dest]) }
 function clean__blueprints () { return del([blueprints__dest]) }
 function clean__collections () { return del([collections__dest]) }
@@ -215,14 +223,12 @@ function clean__controllers () { return del([controllers__dest]) }
 function clean__snippets () { return del([snippets__dest]) }
 function clean__templates () { return del([templates__dest]) }
 function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
-function clean__license () { return del([configs__dest + '.license']) }
 function clean__index () { return del([index__dest + 'index.php']) }
-function clean__env () { return del([env__dest + '.env']) }
 
 // LINT -------------------------------------------------------------
 
 function lint__logic () {
-  return src(['./app/{config,languages,collections,controllers,templates,snippets,index}/**/*.php', '!index.php'])
+  return src(['./app/{config,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
     .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
     .pipe(phpcs.reporter('log'))
@@ -230,10 +236,35 @@ function lint__logic () {
 
 // COPY -------------------------------------------------------------
 
-function copy__configs () {
-  return src([configs__src + '{application,config}.php', configs__src + '/environments/**/*'])
-    .pipe(gulpif(DEBUG, debug({ title: '## CONFIGS:' })))
-    .pipe(dest(configs__dest))
+function copy__dotenv () {
+  return src(root + '.env')
+    .pipe(gulpif(DEBUG, debug({ title: '## DOTENV:' })))
+    .pipe(dest(root_dist))
+}
+
+function copy__license () {
+  return src([license_src + `/.license.${ENV}`])
+    .pipe(gulpif(DEBUG, debug({ title: '## LICENSE:' })))
+    .pipe(rename('.license'))
+    .pipe(dest(config__dest))
+}
+
+function copy__enviroments () {
+  return src([enviroments__src + `${process.env.NODE_ENV}.php`])
+    .pipe(gulpif(DEBUG, debug({ title: '## ENVIROMENTS:' })))
+    .pipe(dest(enviroments__dest))
+}
+
+function copy__application () {
+  return src([env__src + 'application.php'])
+    .pipe(gulpif(DEBUG, debug({ title: '## APPLICATION:' })))
+    .pipe(dest(env__dest))
+}
+
+function copy__config () {
+  return src([config__src + 'config.php'])
+    .pipe(gulpif(DEBUG, debug({ title: '## CONFIG:' })))
+    .pipe(dest(config__dest))
 }
 
 function copy__languages () {
@@ -278,30 +309,20 @@ function copy__htaccess () {
     .pipe(dest(index__dest))
 }
 
-function copy__license () {
-  return src([configs__src + (!PROD ? (!PREVIEW ? '.license.dev' : '.license.preview') : '.license.prod')])
-    .pipe(gulpif(DEBUG, debug({ title: '## LICENSE:' })))
-    .pipe(rename('.license'))
-    .pipe(dest(configs__dest))
-}
-
 function copy__index () {
   return src([index__src + 'index.php'])
     .pipe(gulpif(DEBUG, debug({ title: '## INDEX:' })))
-    // .pipe(rename('index.php'))
     .pipe(dest(index__dest))
-}
-
-function copy__env () {
-  return src([env__src + '/.env'])
-    .pipe(gulpif(DEBUG, debug({ title: '## ENV:' })))
-    .pipe(dest(env__dest))
 }
 
 // WATCH -------------------------------------------------------------
 
 function watch__logic () {
-  watch([configs__src + 'application.php', configs__src + '/environments/*.php', 'D:/Tools/__configs/M-1/sites/firma/config.php'], series(configs, reload))
+  watch(root + '.env', series(dotenv, reload))
+  watch(config__src + '.license.development', series(license, reload))
+  watch(env__src + 'application.php', series(application, reload))
+  watch(enviroments__src + '*.php', series(enviroments, reload))
+  watch(config__src + 'config.php', series(configs, reload))
   watch(languages__src + '**/*.php', series(languages, reload))
   watch(blueprints__src + '**/*.yml', series(blueprints, reload))
   watch(collections__src + '**/*.php', series(collections, reload))
@@ -309,14 +330,17 @@ function watch__logic () {
   watch(snippets__src + '**/*.php', series(snippets, reload))
   watch(templates__src + '**/*.php', series(templates, reload))
   watch(htaccess__src + '.htaccess', series(htaccess, reload))
-  watch('D:/Tools/__configs/M-1/sites/firma/license/dev', series(license, reload))
   watch(index__src + 'index.php', series(index, reload))
-  watch(env__src + '.env', series(env, reload))
 }
 
 // COMPOSITION -------------------------------------------------------------
 
-const configs = series(clean__configs, copy__configs)
+const dotenv = series(clean__dotenv, copy__dotenv)
+const license = series(clean__license, copy__license)
+// const enviroments = (ENV === 'production' ? (ENV === 'staging' ? series(clean__enviroments, copy__enviroments) : series(clean__enviroments)) : series(clean__enviroments, copy__enviroments))
+const application = series(clean__application, copy__application)
+const enviroments = (ENV === 'development' || ENV === 'staging') ? series(clean__enviroments, copy__enviroments) : series(clean__enviroments)
+const configs = series(clean__config, copy__config)
 const languages = series(clean__languages, copy__languages)
 const blueprints = series(clean__blueprints, copy__blueprints)
 const collections = series(clean__collections, copy__collections)
@@ -324,9 +348,7 @@ const controllers = series(clean__controllers, copy__controllers)
 const snippets = series(clean__snippets, copy__snippets)
 const templates = series(clean__templates, copy__templates)
 const htaccess = series(clean__htaccess, copy__htaccess)
-const license = series(clean__license, copy__license)
 const index = series(clean__index, copy__index)
-const env = series(clean__env, copy__env)
 
 ////////////////////////////////////////////////////////////////////////////////
 // ASSETS
@@ -393,14 +415,14 @@ function process__favicons () {
       online: false,
       replace: true,
       icons: {
-        android: PROD ? true : (!PREVIEW ? false : true),
-        appleIcon: PROD ? true : (!PREVIEW ? false : true),
-        appleStartup: PROD ? true : (!PREVIEW ? false : true),
-        coast: PROD ? true : (!PREVIEW ? false : true),
+        android: ENV === 'production' || ENV === 'staging' ? true : false,
+        appleIcon: ENV === 'production' || ENV === 'staging' ? true : false,
+        appleStartup: ENV === 'production' || ENV === 'staging' ? true : false,
+        coast: ENV === 'production' || ENV === 'staging' ? true : false,
         favicons: true,
-        firefox: PROD ? true : (!PREVIEW ? false : true),
-        windows: PROD ? true : (!PREVIEW ? false : true),
-        yandex: PROD ? true : (!PREVIEW ? false : true)
+        firefox: ENV === 'production' || ENV === 'staging' ? true : false,
+        windows: ENV === 'production' || ENV === 'staging' ? true : false,
+        yandex: ENV === 'production' || ENV === 'staging' ? true : false
       }
     }))
     .pipe(dest(assets__favicons__dest))
@@ -447,26 +469,26 @@ function lint__scripts () {
     .pipe(gulpif(DEBUG, debug({ title: '## SCRIPT:' })))
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(gulpif((PROD || PREVIEW), eslint.failAfterError()))
+    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), eslint.failAfterError()))
 }
 
 // PROCESS -------------------------------------------------------------
 
 function process__scripts__main () {
-  return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
+  return src([scripts__src + 'main.js', snippets__src + '**/script.js'], { sourcemaps: !ENV === 'production' ? (!ENV === 'staging' ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## MAIN:' })))
     .pipe(concat('main.js'))
-    .pipe(gulpif((PROD || PREVIEW), uglify()))
+    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), uglify()))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
+    .pipe(dest(scripts__dest, { sourcemaps: !ENV === 'production' ? (!ENV === 'staging' ? '.' : false) : false }))
 }
 
 function process__scripts__panel () {
-  return src(scripts__src + 'panel.js', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
+  return src(scripts__src + 'panel.js', { sourcemaps: !ENV === 'production' ? (!ENV === 'staging' ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## PANEL:' })))
-    .pipe(gulpif((PROD || PREVIEW), uglify()))
+    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), uglify()))
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(scripts__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
+    .pipe(dest(scripts__dest, { sourcemaps: !ENV === 'production' ? (!ENV === 'staging' ? '.' : false) : false }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -497,18 +519,18 @@ function clean__styles () { return del(styles__dest + '*.min.{css,css.map}') }
 function lint__styles () {
   return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: PROD ? (!PREVIEW ? false : true) : false }))
+    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: ENV === 'production' ? (!ENV === 'staging' ? false : true) : false }))
 }
 
 // PROCESS -------------------------------------------------------------
 
 function process__styles () {
   scss.compiler = sass
-  return src(styles__src + '{main,panel}.scss', { sourcemaps: !PROD ? (!PREVIEW ? true : false) : false })
+  return src(styles__src + '{main,panel}.scss', { sourcemaps: !ENV === 'production' ? (!ENV === 'staging' ? true : false) : false })
     .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(scss({ outputStyle: PROD ? (PREVIEW ? 'compressed' : 'expanded') : 'expanded' }).on('error', scss.logError))
+    .pipe(scss({ outputStyle: ENV === 'production' ? (ENV === 'staging' ? 'compressed' : 'expanded') : 'expanded' }).on('error', scss.logError))
     .pipe(autoprefixer()).pipe(rename({ suffix: '.min' }))
-    .pipe(dest(styles__dest, { sourcemaps: !PROD ? (!PREVIEW ? '.' : false) : false }))
+    .pipe(dest(styles__dest, { sourcemaps: !ENV === 'production' ? (!ENV === 'staging' ? '.' : false) : false }))
 }
 
 // WATCH -------------------------------------------------------------
@@ -563,8 +585,8 @@ function process__plugins_vue (done) {
         outDir: `./dist/site/plugins/${plugin}`,
         outFile: 'index.js',
         watch: false,
-        minify: PROD ? (!PREVIEW ? false : true) : false,
-        sourceMaps: !PROD ? (!PREVIEW ? true : false) : false,
+        minify: ENV === 'production' ? (!ENV === 'staging' ? false : true) : false,
+        sourceMaps: !ENV === 'production' ? (!ENV === 'staging' ? true : false) : false,
         cache: false,
         contentHash: false,
         autoInstall: false,
@@ -599,7 +621,7 @@ const plugins = series(clean__plugins, process__plugins_php, process__plugins_vu
 ////////////////////////////////////////////////////////////////////////////////
 
 const DATA = series(content)
-const LOGIC = series(env, configs, languages, blueprints, collections, controllers, snippets, templates, htaccess, license, index, vendor)
+const LOGIC = series(dotenv, application, enviroments, htaccess, configs, languages, blueprints, collections, controllers, snippets, templates, license, index, vendor)
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
@@ -609,9 +631,9 @@ const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__as
 
 // MAIN -------------------------------------------------------------
 
-exports.composer_clean = (PROD || PREVIEW) ? series(clean__composer_vendor, process__composer_json) : series(clean__composer_vendor)
+exports.composer_clean = (ENV === 'production' || ENV === 'staging') ? series(clean__composer_vendor, process__composer_json) : series(clean__composer_vendor)
 
-if (PROD || PREVIEW) {
+if (ENV === 'production' || ENV === 'staging') {
   exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, SEO, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET, SEO)
 } else {
   exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN) : series(DATA, LOGIC, STYLE, ASSET, RUN)

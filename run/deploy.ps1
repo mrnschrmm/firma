@@ -1,5 +1,5 @@
 # NAME
-$id = 'firma'
+$id = $Env:APP_NAME
 
 # LOCATION
 $baseLocalEntry = 'E:\Sites\'
@@ -8,16 +8,18 @@ $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 $baseRemoteEntry = '/'
 
+# CONFIG
+$full = if ($args -eq '-full') { $True } else { $False }
+$envConfig = $Null
+$done = $False
+
+# SESSION
+$session = $Null
+$sessionOptions = $Null
+
 # DEPENDENCY
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
 $winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
-
-# CONFIG
-$full = if ($args -eq '-full') { $True } else { $False }
-$done = $False
-$envConfig = $Null
-$session = $Null
-$sessionOptions = $Null
 
 try
 {
@@ -25,7 +27,7 @@ try
 
     Add-Type -Path $winSCPdnet
 
-    Import-Module ($baseLocalEntryPath + 'run\module\enviroment.psm1')
+    Import-Module ($baseLocalEntryPath + 'run\module\env.psm1')
     Import-Module ($baseLocalEntryPath + 'run\module\session.psm1')
     Import-Module ($baseLocalEntryPath + 'run\module\transfer.psm1')
 
@@ -33,18 +35,13 @@ try
     $envConfig = GetEnvConfig $baseLocalEntryPath
 
     # Authentication
-    $hst = $envConfig.SESSION_HOST
-    $usr = $(if ($args -eq '-preview') { $envConfig.SESSION_USER_PREVIEW } else { $envConfig.SESSION_USER })
-    $hsh = $(if ($args -eq '-preview') { $envConfig.SESSION_HASH_PREVIEW } else { $envConfig.SESSION_HASH })
-    # $key = $(if ($args -eq '-preview') { $envConfig.SESSION_KEY_PREVIEW } else { $envConfig.SESSION_KEY })
-    # $pwd = $($hsh | ConvertTo-SecureString -Key $key)
-    $hsh = $baseLocalEntryPath + $(if ($args -eq '-preview') { "env\preview" } else { "env\prod" })
-    $key = $baseLocalConfigPath + $(if ($args -eq '-preview') { "auth\preview" } else { "auth\prod" })
-    $pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
-    # $pwd = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
+    $usr = $(if ($Env:NODE_ENV -eq 'staging') { $envConfig.SESSION_USER_PREVIEW } else { $envConfig.SESSION_USER })
+    $hsh = $(if ($Env:NODE_ENV -eq 'staging') { $envConfig.SESSION_HASH_PREVIEW } else { $envConfig.SESSION_HASH })
+    $key = $(if ($Env:NODE_ENV -eq 'staging') { $baseLocalConfigPath + "auth\staging" } else { $baseLocalConfigPath + "auth\production" })
+    $pwd = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
     # Session
-    $sessionOptions = SessionSettings $hst $usr $pwd
+    $sessionOptions = SessionSettings $envConfig.SESSION_HOST $usr $pwd
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec
@@ -58,6 +55,22 @@ try
 
     try
     {
+        do
+        {
+            $done = TransferQueueHandler "dotenv" $session $transferOptions $baseLocalDist $baseRemoteEntry
+        }
+        while ($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = TransferQueueHandler "config" $session $transferOptions $baseLocalDist $baseRemoteEntry
+        }
+        while ($done -eq $False)
+
+        $done = $False
+
         do
         {
             $done = TransferQueueHandler "public" $session $transferOptions $baseLocalDist $baseRemoteEntry
@@ -95,7 +108,23 @@ try
 
         do
         {
-            $done = FileActionsHandler "public" $session $baseRemoteEntry
+            $done = FileActionsHandler "dotenv" $session $baseRemoteEntry $baseLocalEntryPath
+        }
+        while ($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = FileActionsHandler "config" $session $baseRemoteEntry
+        }
+        while ($done -eq $False)
+
+        $done = $False
+
+        do
+        {
+            $done = FileActionsHandler "public" $session $baseRemoteEntry $baseLocalEntryPath
         }
         while ($done -eq $False)
 
