@@ -2,12 +2,12 @@
 
 $envPath = dirname(__DIR__);
 
-if (file_exists($envPath . '\.env')) {
+if (file_exists($envPath . '/.env')) {
     $dotenv = Dotenv\Dotenv::createMutable($envPath);
     $dotenv->load();
 }
 
-if ($_SERVER['HTTP_HOST'] !== 'schramm-reinigung.de' and $_SERVER['HTTP_HOST'] !== 'preview.schramm-reinigung.de') {
+if ($_SERVER['HTTP_HOST'] !== 'www.schramm-reinigung.de' and $_SERVER['HTTP_HOST'] !== 'preview.schramm-reinigung.de') {
     $_SERVER['APP_ENV'] = 'development';
 } elseif ($_SERVER['HTTP_HOST'] === 'preview.schramm-reinigung.de') {
     $_SERVER['APP_ENV'] = 'staging';

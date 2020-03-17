@@ -2,7 +2,6 @@
 include '../vendor/autoload.php';
 
 require_once dirname(__DIR__) . '/config/application.php';
-// require_once './application.php';
 
 $kirby = new Kirby([
     'urls' => [

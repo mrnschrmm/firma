@@ -26,7 +26,7 @@
         <meta itemprop="name" content="<?= ($page->template() == 'home') ? $site->title()->h() : $page->title()->h() . ' | ' . $site->title()->h() ?>">
         <meta itemprop="description" content="<?= ($page->template() == 'home') ? $site->site_meta_description()->h() : $page->page_meta_description()->h() ?>">
 
-        <?php if ($site->privacy_metrics()->isTrue()) : ?>
+        <?php if ($site->privacy_metrics()->isTrue() and $_SERVER['MATOMO'] === true) : ?>
         <?php snippet('metrics') ?>
         <?php endif ?>
 
