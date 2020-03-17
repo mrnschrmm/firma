@@ -8,7 +8,7 @@ $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
 $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 $baseRemoteEntry = '/'
 
-# CONFIG
+# OPTIONS
 $full = if ($args -eq '-full') { $True } else { $False }
 $envConfig = $Null
 $done = $False

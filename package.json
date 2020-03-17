@@ -10,7 +10,7 @@
     "build.debug": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='production'; $env:NODE_DEBUG='*'; $env:APP_NAME='%npm_package_name%'; gulp composer_clean; cd ./dist; composer install; cd ..; gulp; cd ./dist; composer update --no-dev; rm composer.json; rm composer.lock",
     "build.preview": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:APP_NAME='%npm_package_name%'; gulp composer_clean; cd ./dist; composer install --no-suggest; cd ..; gulp; cd ./dist; composer update --no-dev; rm composer.json; rm composer.lock",
     "build.preview.debug": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:NODE_DEBUG='*'; $env:APP_NAME='%npm_package_name%'; gulp composer_clean; cd ./dist; composer install; cd ..; gulp; cd ./dist; composer update --no-dev; rm composer.json; rm composer.lock",
-    "clone": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./run/clone.ps1",
+    "clone": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:APP_NAME='%npm_package_name%'; ./run/clone.ps1",
     "deploy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='production'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1",
     "deploy.full": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='production'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1 -full",
     "deploy.preview": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1",
