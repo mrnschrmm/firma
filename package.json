@@ -31,7 +31,7 @@
     "browser-sync": "2.26.7",
     "del": "5.1.0",
     "eslint": "6.8.0",
-    "eslint-config-standard": "14.1.0",
+    "eslint-config-standard": "14.1.1",
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-node": "11.0.0",
     "eslint-plugin-promise": "4.2.1",
@@ -51,16 +51,15 @@
     "gulp-sass": "4.0.2",
     "gulp-stylelint": "13.0.0",
     "gulp-uglify-es": "2.0.0",
-    "minimist": "1.2.0",
     "node-sass": "4.13.1",
     "parcel-bundler": "1.12.4",
-    "stylelint": "13.2.0",
+    "stylelint": "13.2.1",
     "stylelint-order": "4.0.0",
-    "stylelint-scss": "3.14.2",
+    "stylelint-scss": "3.16.0",
     "vue-template-compiler": "2.6.11"
   },
   "dependencies": {
-    "body-scroll-lock": "2.6.4",
+    "body-scroll-lock": "3.0.1",
     "headroom.js": "0.11.0",
     "document-register-element": "1.14.3",
     "jquery": "3.4.1"

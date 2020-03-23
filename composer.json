@@ -2,7 +2,7 @@
     "name": "mrnmrhcs/firma",
     "description": "Company Website",
     "require": {
-        "getkirby/cms": "3.3.4",
+        "getkirby/cms": "3.3.5",
         "sylvainjule/locator": "1.0.5",
         "sylvainjule/matomo": "1.0.4",
         "vlucas/phpdotenv": "4.1.2"
