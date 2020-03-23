@@ -1,8 +1,7 @@
-$id = "firma"
-$HostName = 'wp1177004.server-he.de'
-$UserName = 'ftp1177004-s'
+# NAME
+$id = $Env:APP_NAME
 
-# Location
+# LOCATION
 $baseLocalEntry = 'E:\Sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
 $baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
@@ -14,23 +13,18 @@ $baseRemoteEntry = '/'
 $baseRemoteContent = $baseRemoteEntry + 'content' + '/'
 $baseRemoteStorage = $baseRemoteEntry + 'storage' + '/'
 
-# WinSCP
-$winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
-$winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
+# OPTIONS
+$done = $false
 
-# Authentication
-$hsh = $baseLocalEntryPath + 'env\prod'
-$key = $baseLocalConfigPath + 'auth\prod'
-$pwd = $(Get-Content $hsh | ConvertTo-SecureString -Key (Get-Content $key))
-
-# Session
+# SESSION
 $session = $Null
 $sessionOptions = $Null
-$sessionLogPath = $baseLocalEntry + '_logs\_winscp.deploy.log'
-$sessionDebugPath = $baseLocalEntry + '_logs\_winscp.deploy.debug.log'
+$sessionLogPath = $baseLocalEntry + '_logs\_winscp.' + $id + ' .clone.log'
+$sessionDebugPath = $baseLocalEntry + '_logs\_winscp.' + $id + '.clone.debug.log'
 
-# Helper
-$done = $false
+# DEPENDENCY
+$winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
+$winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
 
 try
 {
@@ -38,10 +32,21 @@ try
 
     Add-Type -Path $winSCPdnet
 
+    Import-Module ($baseLocalEntryPath + 'run\module\env.psm1')
     Import-Module ($baseLocalEntryPath + 'run\module\session.psm1')
     Import-Module ($baseLocalEntryPath + 'run\module\transfer.psm1')
 
-    $sessionOptions = SessionSettings $HostName $UserName $pwd
+    # Enviroment
+    $envConfig = GetEnvConfig $baseLocalEntryPath
+
+    # Authentication
+    $usr = $envConfig.SESSION_USER
+    $hsh = $envConfig.SESSION_HASH
+    $key = $baseLocalConfigPath + 'auth\production'
+    $pwd = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
+
+    # Session
+    $sessionOptions = SessionSettings $envConfig.SESSION_HOST $usr $pwd
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec

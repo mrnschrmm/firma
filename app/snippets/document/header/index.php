@@ -8,7 +8,6 @@
         <title><?= ($page->template() == 'home') ? $site->title()->h() : $page->title()->h() . ' | ' . $site->title()->h() ?></title>
 
         <link rel="stylesheet" href="<?= url('main.min.css') ?>">
-        <link rel="script" href="<?= url('vendor.head.min.js') ?>">
         <link rel="icon" type="image/png" sizes="32x32" href="<?= url('/assets/favicons/favicon-32x32.png') ?>">
         <link rel="icon" type="image/png" sizes="16x16" href="<?= url('/assets/favicons/favicon-16x16.png') ?>">
         <link rel="icon shortcut" sizes="16x16 32x32" href="<?= url('/assets/favicons/favicon.ico') ?>">
@@ -26,7 +25,8 @@
         <meta itemprop="name" content="<?= ($page->template() == 'home') ? $site->title()->h() : $page->title()->h() . ' | ' . $site->title()->h() ?>">
         <meta itemprop="description" content="<?= ($page->template() == 'home') ? $site->site_meta_description()->h() : $page->page_meta_description()->h() ?>">
 
-        <?php if ($site->privacy_metrics()->isTrue()) : ?>
+        <script src="<?= url('vendor.head.min.js') ?>"></script>
+        <?php if ($site->privacy_metrics()->isTrue() and $_SERVER['MATOMO'] === 'true') : ?>
         <?php snippet('metrics') ?>
         <?php endif ?>
 

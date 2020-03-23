@@ -1,25 +1,26 @@
 {
-  "name": "mrnmrhcs/firma",
-  "description": "Company Website",
-  "require": {
-    "getkirby/cms": "3.3.4",
-    "sylvainjule/locator": "1.0.5",
-    "sylvainjule/matomo": "1.0.4"
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "3.5.4"
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "extra": {
-    "kirby-cms-path": "kirby",
-    "kirby-plugin-path": "site/plugins"
-  },
-  "autoload": {
-    "classmap": ["kirby/dependencies/"],
-    "psr-4": {
-      "Kirby\\": "kirby/src/"
+    "name": "mrnmrhcs/firma",
+    "description": "Company Website",
+    "require": {
+        "getkirby/cms": "3.3.4",
+        "sylvainjule/locator": "1.0.5",
+        "sylvainjule/matomo": "1.0.4",
+        "vlucas/phpdotenv": "4.1.2"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.5.4"
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "kirby-cms-path": "kirby",
+        "kirby-plugin-path": "site/plugins"
+    },
+    "autoload": {
+        "classmap": ["kirby/dependencies/"],
+        "psr-4": {
+            "Kirby\\": "kirby/src/"
+        }
     }
-  }
 }

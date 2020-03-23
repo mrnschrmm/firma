@@ -8,6 +8,7 @@
 **/vendor
 
 # FILES
+.env
 .vscode
 
 # LARAVEL
