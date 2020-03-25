@@ -12,6 +12,7 @@
   }
 
   &-main {
+    background-color: $c-bg;
     height: 100%;
   }
 
@@ -28,6 +29,7 @@
 }
 
 .document {
+  background-color: $c-bg;
   padding: 8rem 0 6rem;
 
   @media (min-width: $breakpoint-xs) {
