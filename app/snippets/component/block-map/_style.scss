@@ -30,4 +30,13 @@
       height: 75vh;
     }
   }
+
+  .infoWindow {
+    &,
+    &-link,
+    &-link:hover,
+    &-link:visited {
+      color: #444;
+    }
+  }
 }

@@ -18,10 +18,6 @@
     padding: 0 $global-container-padding-l;
   }
 
-  .home & {
-    background-color: transparent;
-  }
-
   &.headroom {
     $block: 'headroom';
     $nav-height-default: 88px;
