@@ -201,7 +201,7 @@ function initMap () {
         position: place.geometry.location
       })
       google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent('<div class="infoWindow"><strong>' + place.name + '</strong><br>' +
+        infowindow.setContent('<div class="infoWindow"><a class="infoWindow-link" href="https://g.page/schramm-reinigung?gm" target="blank"><strong>' + place.name + '</strong></a><br>' +
         place.formatted_address + '</div>')
         infowindow.open(map, this)
       })
