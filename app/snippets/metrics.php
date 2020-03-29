@@ -3,7 +3,7 @@
     _paq.push(["disableCookies"]);
     _paq.push(['enableHeartBeatTimer']);
     _paq.push(['enableLinkTracking']);
-    _paq.push(['setDocumentTitle', document.documentElement.lang+document.title]);
+    _paq.push(['setDocumentTitle', document.documentElement.lang+' - '+document.title]);
     _paq.push(['trackPageView']);
     (function() {
         var u='<?= rtrim(option('sylvainjule.matomo.url'), '/') . '/' ?>';
