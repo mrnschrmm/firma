@@ -1,4 +1,5 @@
-[is='list-services'] {
+list-services.snippet {
+  display: block;
   margin: 1.75rem 0 0;
 
   @media (min-width: $breakpoint-s) {

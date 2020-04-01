@@ -1,6 +1,6 @@
 var $ = window.jQuery
 
-class BlockNotify extends window.HTMLDivElement {
+class BlockNotify extends window.HTMLElement {
   constructor (...args) {
     const self = super(...args)
     self.init()
@@ -38,4 +38,4 @@ class BlockNotify extends window.HTMLDivElement {
   }
 }
 
-window.customElements.define('block-notify', BlockNotify, { extends: 'div' })
+window.customElements.define('block-notify', BlockNotify)

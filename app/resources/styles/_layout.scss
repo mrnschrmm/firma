@@ -2,7 +2,8 @@
 // LAYOUT
 ////////////////////////////////////////////////////////////////////////////////
 
-[is|='layout'] {
+// .layout-contact,
+[class|='snippet layout'] {
   > section {
     > [class$='-header'],
     > [class$='-main'],

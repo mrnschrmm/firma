@@ -1,14 +1,9 @@
 var $ = window.jQuery
 var geo
 
-class BlockMap extends window.HTMLDivElement {
-  constructor (...args) {
-    const self = super(...args)
-    self.init()
-    return self
-  }
-
-  init () {
+class BlockMap extends window.HTMLElement {
+  constructor () {
+    super()
     this.$ = $(this)
   }
 
@@ -17,7 +12,7 @@ class BlockMap extends window.HTMLDivElement {
   }
 }
 
-window.customElements.define('block-map', BlockMap, { extends: 'div' })
+window.customElements.define('block-map', BlockMap)
 
 function initMap () {
   const map = new google.maps.Map(document.getElementById('map'), {
