@@ -61,7 +61,6 @@
   "dependencies": {
     "body-scroll-lock": "3.0.1",
     "headroom.js": "0.11.0",
-    "document-register-element": "1.14.3",
     "jquery": "3.4.1"
   },
   "stylelint": {
