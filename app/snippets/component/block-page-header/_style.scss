@@ -1,4 +1,6 @@
-[is='block-page-header'] {
+block-page-header.snippet {
+  display: block;
+
   .container {
     .company & {
       margin: 0 auto;

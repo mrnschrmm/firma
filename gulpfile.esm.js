@@ -143,7 +143,8 @@ function process__composer_json () {
 
 // COMPOSITION -------------------------------------------------------------
 
-const vendor = series(clean__vendor, process__vendor_head, process__vendor)
+// const vendor = series(clean__vendor, process__vendor_head, process__vendor)
+const vendor = series(clean__vendor, process__vendor)
 const composer = (ENV === 'production' || ENV === 'staging') ? series(clean__composer_vendor, clean__composer_json, process__composer_json) : series(clean__composer_vendor, clean__composer_json)
 
 ////////////////////////////////////////////////////////////////////////////////

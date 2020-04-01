@@ -1,4 +1,4 @@
-[is='navigation-main'] {
+navigation-main.snippet {
   background-color: $c-bg;
   display: flex;
   flex-direction: column;
@@ -101,7 +101,7 @@
   .menu {
     display: none;
 
-    @at-root .snippet-isOpen#{&} {
+    @at-root navigation-main.snippet.snippet-isOpen .menu {
       align-items: center;
       background-color: #051d87;
       bottom: 0;

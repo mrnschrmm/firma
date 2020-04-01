@@ -5,13 +5,13 @@ if ($root = $pages->findOpen()) {
 }
 
 if ($items and $items->count()) : ?>
-<div class="snippet" is="navigation-sub">
-  <div class="container">
-    <div class="navigation-sub">
-      <nav class="menu">
-        <?php snippet('navigation/sub/partials/list/index', ['items' => $items]) ?>
-      </nav>
+<navigation-sub class="snippet">
+    <div class="container">
+        <div class="navigation-sub">
+            <nav class="menu">
+                <?php snippet('navigation/sub/partials/list/index', ['items' => $items]) ?>
+            </nav>
+        </div>
     </div>
-  </div>
-</div>
+</navigation-sub>
 <?php endif ?>
