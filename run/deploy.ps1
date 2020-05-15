@@ -45,8 +45,8 @@ try
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec
-    $session.SessionLogPath = $baseLocalEntry + '_logs\winscp.' + $id + '.deploy.log'
-    $session.DebugLogPath = $baseLocalEntry + '_logs\winscp.' + $id + '.deploy.debug.log'
+    $session.SessionLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.log'
+    $session.DebugLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.debug.log'
 
     $session.Open($sessionOptions)
     $session.add_FileTransferred({LogTransferredFiles($_)})

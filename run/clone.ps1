@@ -19,8 +19,8 @@ $done = $false
 # SESSION
 $session = $Null
 $sessionOptions = $Null
-$sessionLogPath = $baseLocalEntry + '_logs\_winscp.' + $id + ' .clone.log'
-$sessionDebugPath = $baseLocalEntry + '_logs\_winscp.' + $id + '.clone.debug.log'
+$sessionLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.log'
+$sessionDebugPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.debug.log'
 
 # DEPENDENCY
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'

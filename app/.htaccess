@@ -36,8 +36,8 @@ ServerSignature Off
   RewriteRule ^(.*) index.php [L]
 
   # redirect to https
-  RewriteCond %{SERVER_PORT} !^443$
-  RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
+  #RewriteCond %{SERVER_PORT} !^443$
+  #RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
 
 </IfModule>
 
@@ -72,5 +72,4 @@ ServerSignature Off
     Header unset Content-Security-Policy
     Header unset X-UA-Compatible
   </FilesMatch>
-
 </IfModule>
