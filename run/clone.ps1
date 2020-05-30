@@ -43,10 +43,10 @@ try
     $usr = $envConfig.SESSION_USER
     $hsh = $envConfig.SESSION_HASH
     $key = $baseLocalConfigPath + 'auth\production'
-    $pwd = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
+    $pw = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
     # Session
-    $sessionOptions = SessionSettings $envConfig.SESSION_HOST $usr $pwd
+    $sessionOptions = SessionSettings $envConfig.SESSION_HOST $usr $pw
 
     $session = New-Object WinSCP.Session
     $session.ExecutablePath = $winSCPexec

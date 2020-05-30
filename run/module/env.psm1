@@ -1,5 +1,5 @@
 Function GetEnvConfig {
-    $localEnvFile = $args[0] + ".env"
+    $localEnvFile = ".env"
     $conf = New-Object -TypeName psobject
 
     if (!(Test-Path $localEnvFile)) {
