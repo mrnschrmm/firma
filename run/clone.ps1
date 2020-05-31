@@ -14,13 +14,9 @@ $baseRemoteContent = $baseRemoteEntry + 'content' + '/'
 $baseRemoteStorage = $baseRemoteEntry + 'storage' + '/'
 
 # OPTIONS
-$done = $false
-
-# SESSION
+$envConfig = $Null
 $session = $Null
-$sessionOptions = $Null
-$sessionLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.log'
-$sessionDebugPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.debug.log'
+$done = $false
 
 # DEPENDENCY
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
@@ -31,40 +27,62 @@ try
     Write-Host '## RUN ## CLONE'
 
     Add-Type -Path $winSCPdnet
-
     Import-Module ($baseLocalEntryPath + 'run\module\env.psm1')
-    Import-Module ($baseLocalEntryPath + 'run\module\session.psm1')
-    Import-Module ($baseLocalEntryPath + 'run\module\transfer.psm1')
-
-    # Enviroment
-    $envConfig = GetEnvConfig $baseLocalEntryPath
 
     # Authentication
+    $envConfig = GetEnvConfig $baseLocalEntryPath
+
     $usr = $envConfig.SESSION_USER
     $hsh = $envConfig.SESSION_HASH
     $key = $baseLocalConfigPath + 'auth\production'
     $pw = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
 
-    # Session
-    $sessionOptions = SessionSettings $envConfig.SESSION_HOST $usr $pw
+    # Transfer
+    Import-Module ($baseLocalEntryPath + 'run\module\transfer.psm1')
 
-    $session = New-Object WinSCP.Session
-    $session.ExecutablePath = $winSCPexec
-    $session.SessionLogPath = $sessionLogPath
-    $session.DebugLogPath = $sessionDebugPath
+    Function SessionConnect
+    {
+        # Options
+        $options = New-Object WinSCP.SessionOptions -Property @{
+            Protocol = [WinSCP.Protocol]::Ftp
+            FtpSecure = [WinSCP.FtpSecure]::Explicit
+            HostName = $envConfig.SESSION_HOST
+            UserName = $usr
+            Password = [System.Net.NetworkCredential]::new('', $pw).Password
+            TimeoutInMilliseconds = '60000'
+        }
 
-    $session.Open($sessionOptions)
-    $session.add_FileTransferred({LogTransferredFiles($_)})
+        $options.AddRawSettings("AddressFamily", "1")
+        $options.AddRawSettings("FollowDirectorySymlinks", "1")
+        $options.AddRawSettings("Utf", "1")
+        $options.AddRawSettings("MinTlsVersion", "12")
+
+        $sssn = New-Object WinSCP.Session
+        $sssn.ExecutablePath = $winSCPexec
+        $sssn.DebugLogLevel = '0'
+        $sssn.SessionLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.log'
+        $sssn.DebugLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.debug.log'
+        $sssn.Open($options)
+
+        $sssn.add_FileTransferred({LogTransferredFiles($_)})
+
+        return $sssn
+    }
 
     try
     {
+        $session = SessionConnect
+
         do
         {
             $done = FileActionsHandler "clone" $baseLocalEntryPath $baseLocalBackup $baseLocalContent
         }
         while ($done -eq $False)
 
+        $session.Dispose()
         $done = $False
+
+        $session = SessionConnect
 
         do
         {
@@ -72,7 +90,10 @@ try
         }
         while ($done -eq $False)
 
+        $session.Dispose()
         $done = $False
+
+        $session = SessionConnect
 
         do
         {
@@ -80,11 +101,11 @@ try
         }
         while ($done -eq $False)
 
+        $session.Dispose()
         $done = $False
     }
     finally
     {
-        $session.Dispose()
         Write-Host
         Write-Host '## Complete ##'
         Write-Host
