@@ -9,12 +9,10 @@ $baseLocalDist = $baseLocalEntryPath + 'dist' + '\'
 $baseRemoteEntry = '/'
 
 # OPTIONS
-$full = if ($args -eq '-full') { $True } else { $False }
 $envConfig = $Null
-$done = $False
-
-# SESSION
+$full = if ($args -eq '-full') { $True } else { $False }
 $session = $Null
+$done = $False
 
 # DEPENDENCY
 $winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
@@ -58,7 +56,7 @@ try
 
         $sssn = New-Object WinSCP.Session
         $sssn.ExecutablePath = $winSCPexec
-        $sssn.DebugLogLevel = '2'
+        $sssn.DebugLogLevel = '0'
         $sssn.SessionLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.log'
         $sssn.DebugLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.debug.log'
         $sssn.Open($options)
