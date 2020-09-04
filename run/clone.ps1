@@ -2,9 +2,9 @@
 $id = $Env:APP_NAME
 
 # LOCATION
-$baseLocalEntry = 'E:\Sites\'
+$baseLocalEntry = 'T:\_sites\'
 $baseLocalEntryPath = $baseLocalEntry + $id + '\'
-$baseLocalConfigPath = 'D:\Tools\__configs\M-1\sites\' + $id + '\'
+$baseLocalConfigPath = 'T:\__configs\M-1\sites\' + $id + '\'
 $baseLocalBackup = $baseLocalEntryPath + 'backup' + '\'
 $baseLocalContent = $baseLocalEntryPath + 'db' + '\'
 $baseLocalStorage = $baseLocalEntryPath + 'dist\storage' + '\'
