@@ -8,7 +8,7 @@ module.exports = {
     root_src: 'app',
     root_dist: 'dist',
     root_public: 'public',
-    root_secure: 'D:/Tools/__configs/M-1/sites/firma',
+    root_secure: 'T:/__configs/M-1/sites/firma',
     env: 'config',
     license: 'license',
     enviroments: 'enviroments',
