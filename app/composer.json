@@ -2,10 +2,10 @@
     "name": "mrnmrhcs/firma",
     "description": "Company Website",
     "require": {
-        "getkirby/cms": "3.4.2",
+        "getkirby/cms": "3.4.3",
         "sylvainjule/locator": "1.0.6",
         "sylvainjule/matomo": "1.0.5",
-        "vlucas/phpdotenv": "5.1.0"
+        "vlucas/phpdotenv": "5.2.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.5.6"
