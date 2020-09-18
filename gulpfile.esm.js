@@ -5,7 +5,6 @@
 import { task, series, parallel, src, dest, watch } from 'gulp'
 
 import autoprefixer from 'gulp-autoprefixer'
-import stylelint from 'gulp-stylelint'
 import imagemin from 'gulp-imagemin'
 import favicon from 'gulp-favicons'
 import concat from 'gulp-concat'
@@ -515,14 +514,6 @@ const styles__dest = (root_dist + path.styles).replace('//', '/')
 
 function clean__styles () { return del(styles__dest + '*.min.{css,css.map}') }
 
-// LINT -------------------------------------------------------------
-
-function lint__styles () {
-  return src([styles__src + '**/*.scss', snippets__src + '**/*.scss'])
-    .pipe(gulpif(DEBUG, debug({ title: '## STYLE:' })))
-    .pipe(stylelint({ syntax: 'scss', reporters: [{ formatter: 'string', console: true }], failAfterError: ENV === 'production' ? (!ENV === 'staging' ? false : true) : false }))
-}
-
 // PROCESS -------------------------------------------------------------
 
 function process__styles () {
@@ -626,7 +617,7 @@ const LOGIC = series(dotenv, application, enviroments, htaccess, configs, langua
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
-const LINT = series(lint__logic, lint__styles, lint__scripts)
+const LINT = series(lint__logic, lint__scripts)
 const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
