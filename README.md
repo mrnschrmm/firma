@@ -1,6 +1,6 @@
 # Site - Project: Firma
 
-`Node 12.17.0` `NPM 6.14.5` `Composer 1.10.6` `PHP 7.4.6` `Kirby 3.3.6` `WinSCP 5.17.6` `PowerShell 7.1.0`
+`Node 13.14.0` `NPM 6.14.8` `Composer 1.10.13` `PHP 7.4.11` `Kirby 3.4.3` `WinSCP 5.17.7` `PowerShell 7.0.3`
 
 ## Build
 ```
