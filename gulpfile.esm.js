@@ -10,7 +10,6 @@ import favicon from 'gulp-favicons'
 import concat from 'gulp-concat'
 import rename from 'gulp-rename'
 import uglify from 'gulp-uglify-es'
-import eslint from 'gulp-eslint'
 import gulpif from 'gulp-if'
 import phpcs from 'gulp-phpcs'
 import cache from 'gulp-cache'
@@ -135,7 +134,7 @@ function process__vendor () {
 }
 
 function process__composer_json () {
-  return src(root_src + 'composer.json')
+  return src(root_src + 'composer.{json,lock}')
     .pipe(gulpif(DEBUG, debug({ title: '## COMPOSER_JSON:' })))
     .pipe(dest(root_dist))
 }
@@ -337,7 +336,6 @@ function watch__logic () {
 
 const dotenv = series(clean__dotenv, copy__dotenv)
 const license = series(clean__license, copy__license)
-// const enviroments = (ENV === 'production' ? (ENV === 'staging' ? series(clean__enviroments, copy__enviroments) : series(clean__enviroments)) : series(clean__enviroments, copy__enviroments))
 const application = series(clean__application, copy__application)
 const enviroments = (ENV === 'development' || ENV === 'staging') ? series(clean__enviroments, copy__enviroments) : series(clean__enviroments)
 const configs = series(clean__config, copy__config)
@@ -461,16 +459,6 @@ const scripts__dest = (root_dist + path.scripts).replace('//', '/')
 
 function clean__scripts__main () { return del(scripts__dest + 'main.min.{js,js.map}') }
 function clean__scripts__panel () { return del(scripts__dest + 'panel.min.{js,js.map}') }
-
-// LINT -------------------------------------------------------------
-
-function lint__scripts () {
-  return src([scripts__src + 'main.js', scripts__src + 'panel.js', snippets__src + '**/script.js'])
-    .pipe(gulpif(DEBUG, debug({ title: '## SCRIPT:' })))
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), eslint.failAfterError()))
-}
 
 // PROCESS -------------------------------------------------------------
 
@@ -617,7 +605,7 @@ const LOGIC = series(dotenv, application, enviroments, htaccess, configs, langua
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
-const LINT = series(lint__logic, lint__scripts)
+const LINT = series(lint__logic)
 const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
