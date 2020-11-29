@@ -11,7 +11,6 @@ import concat from 'gulp-concat'
 import rename from 'gulp-rename'
 import uglify from 'gulp-uglify-es'
 import gulpif from 'gulp-if'
-import phpcs from 'gulp-phpcs'
 import cache from 'gulp-cache'
 import debug from 'gulp-debug'
 import scss from 'gulp-sass'
@@ -110,19 +109,8 @@ const content = series(clean__content, copy__content)
 // CLEAN -------------------------------------------------------------
 
 function clean__vendor () { return del([config.vendor.dest + '{vendor.head,vendor}.min.js']) }
-function clean__composer_vendor () { return del([root_dist + '/vendor']) }
-function clean__composer_json () { return del([root_dist + '/composer.{json,lock}']) }
 
 // PROCESS -------------------------------------------------------------
-
-function process__vendor_head () {
-  return src(config.vendor.head)
-    .pipe(gulpif(DEBUG, debug({ title: '## VENDOR_HEAD:' })))
-    .pipe(concat('vendor.head.js'))
-    .pipe(gulpif((ENV === 'production' || ENV === 'staging'), uglify()))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(config.vendor.dest))
-}
 
 function process__vendor () {
   return src(config.vendor.src)
@@ -133,17 +121,9 @@ function process__vendor () {
     .pipe(dest(config.vendor.dest))
 }
 
-function process__composer_json () {
-  return src(root_src + 'composer.{json,lock}')
-    .pipe(gulpif(DEBUG, debug({ title: '## COMPOSER_JSON:' })))
-    .pipe(dest(root_dist))
-}
-
 // COMPOSITION -------------------------------------------------------------
 
-// const vendor = series(clean__vendor, process__vendor_head, process__vendor)
 const vendor = series(clean__vendor, process__vendor)
-const composer = (ENV === 'production' || ENV === 'staging') ? series(clean__composer_vendor, clean__composer_json, process__composer_json) : series(clean__composer_vendor, clean__composer_json)
 
 ////////////////////////////////////////////////////////////////////////////////
 // SEO
@@ -223,15 +203,6 @@ function clean__snippets () { return del([snippets__dest]) }
 function clean__templates () { return del([templates__dest]) }
 function clean__htaccess () { return del([htaccess__dest + '.htaccess']) }
 function clean__index () { return del([index__dest + 'index.php']) }
-
-// LINT -------------------------------------------------------------
-
-function lint__logic () {
-  return src(['./app/{config,languages,collections,controllers,templates,snippets}/**/*.php', '!index.php'])
-    .pipe(gulpif(DEBUG, debug({ title: '## LOGIC:' })))
-    .pipe(phpcs({ bin: 'dist/vendor/bin/phpcs', standard: './phpcs.ruleset.xml' }))
-    .pipe(phpcs.reporter('log'))
-}
 
 // COPY -------------------------------------------------------------
 
@@ -605,16 +576,13 @@ const LOGIC = series(dotenv, application, enviroments, htaccess, configs, langua
 const STYLE = series(styles, scripts__main, scripts__panel)
 const ASSET = series(images, icons, favicons, fonts)
 const PLUGIN = series(plugins)
-const LINT = series(lint__logic)
 const SEO = series(robots)
 const RUN = STATE_PLUGINS ? series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__plugins, watch__content)) : series(browsersync, parallel(watch__logic, watch__assets, watch__styles, watch__scripts, watch__content))
 
 // MAIN -------------------------------------------------------------
 
-exports.composer_clean = (ENV === 'production' || ENV === 'staging') ? series(clean__composer_vendor, process__composer_json) : series(clean__composer_vendor)
-
 if (ENV === 'production' || ENV === 'staging') {
-  exports.default = STATE_PLUGINS ? series(LINT, DATA, LOGIC, STYLE, ASSET, SEO, PLUGIN) : series(LINT, DATA, LOGIC, STYLE, ASSET, SEO)
+  exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, SEO, PLUGIN) : series(DATA, LOGIC, STYLE, ASSET, SEO)
 } else {
   exports.default = STATE_PLUGINS ? series(DATA, LOGIC, STYLE, ASSET, PLUGIN, RUN) : series(DATA, LOGIC, STYLE, ASSET, RUN)
 }
@@ -624,8 +592,8 @@ if (ENV === 'production' || ENV === 'staging') {
 ////////////////////////////////////////////////////////////////////////////////
 
 function prep (paths) {
-  for (var p in paths) {
-    var value = paths[p]
+  for (const p in paths) {
+    const value = paths[p]
     paths[p] = value.length ? value.replace(/\/?$/, '/') : value
   }
   return paths
