@@ -36,8 +36,8 @@ ServerSignature Off
   RewriteRule ^(.*) index.php [L]
 
   # redirect to https
-  #RewriteCond %{SERVER_PORT} !^443$
-  #RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
+  # RewriteCond %{SERVER_PORT} !^443$
+  # RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
 
 </IfModule>
 
@@ -59,7 +59,7 @@ ServerSignature Off
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-Content-Type-Options "nosniff"
   Header set X-XSS-Protection "1; mode=block"
-  Header set Feature-Policy "fullscreen 'self'; geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'none'; payment 'none'"
+  Header set Feature-Policy "fullscreen 'self'; geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; payment 'none'"
   Header set Referrer-Policy "no-referrer-when-downgrade"
   Header set Strict-Transport-Security "max-age=31536000"
   # Header set Content-Security-Policy "default-src 'self' 'unsafe-eval' 'unsafe-inline' maps.googleapis.com; form-src 'self'"

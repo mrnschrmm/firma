@@ -35,7 +35,6 @@ module.exports = {
   },
   vendor: {
     dest: 'dist/public',
-    head: [],
     src: [
       'node_modules/jquery/dist/jquery.js',
       'node_modules/headroom.js/dist/headroom.js',
