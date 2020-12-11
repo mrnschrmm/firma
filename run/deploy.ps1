@@ -57,8 +57,8 @@ try
         $sssn = New-Object WinSCP.Session
         $sssn.ExecutablePath = $winSCPexec
         $sssn.DebugLogLevel = '0'
-        $sssn.SessionLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.log'
-        $sssn.DebugLogPath = 'D:\Sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.debug.log'
+        $sssn.SessionLogPath = 'T:\_sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.log'
+        $sssn.DebugLogPath = 'T:\_sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.deploy.debug.log'
         $sssn.Open($options)
 
         $sssn.add_FileTransferred({LogTransferredFiles($_)})
