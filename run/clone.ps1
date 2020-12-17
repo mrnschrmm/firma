@@ -1,128 +1,266 @@
-# NAME
-$id = $Env:APP_NAME
+Write-Host '### TASK ### CLONE ###'
 
-# LOCATION
-$baseLocalEntry = 'T:\_sites\'
-$baseLocalEntryPath = $baseLocalEntry + $id + '\'
-$baseLocalConfigPath = 'T:\__configs\M-1\sites\' + $id + '\'
-$baseLocalBackup = $baseLocalEntryPath + 'backup' + '\'
-$baseLocalContent = $baseLocalEntryPath + 'db' + '\'
-$baseLocalStorage = $baseLocalEntryPath + 'dist\storage' + '\'
+# DIAGNOSTICS
+$Timer = [system.diagnostics.stopwatch]::startNew()
 
-$baseRemoteEntry = '/'
-$baseRemoteContent = $baseRemoteEntry + 'content' + '/'
-$baseRemoteStorage = $baseRemoteEntry + 'storage' + '/'
+try {
 
-# OPTIONS
-$envConfig = $Null
-$session = $Null
-$done = $false
+    # IMPORT
+    Import-Module '.\run\module\env.psm1'
+    Import-Module '.\run\module\transfer.psm1'
 
-# DEPENDENCY
-$winSCPexec = $Env:APPS_HOME + '\' + 'winscp\current\WinSCP.exe'
-$winSCPdnet = $Env:APPS_HOME + '\' + 'winscp\current\WinSCPnet.dll'
-
-try
-{
-    Write-Host '## RUN ## CLONE'
+    # DEPENDENCY
+    $winSCPexec = 'C:\Apps\_m\apps\winscp\current\WinSCP.exe'
+    $winSCPdnet = 'C:\Apps\_m\apps\winscp\current\WinSCPnet.dll'
 
     Add-Type -Path $winSCPdnet
-    Import-Module ($baseLocalEntryPath + 'run\module\env.psm1')
 
-    # Authentication
-    $envConfig = GetEnvConfig $baseLocalEntryPath
+    # AUTHENTICATION
+    $Config = GetEnvConfig '.\'
 
-    $usr = $envConfig.SESSION_USER
-    $hsh = $envConfig.SESSION_HASH
-    $key = $baseLocalConfigPath + 'auth\production'
-    $pw = $($hsh | ConvertTo-SecureString -Key (Get-Content $key))
+    $usr = $Config.SESSION_USER
+    $hsh = $Config.SESSION_HASH
+    $key = "T:\__configs\M-1\sites\$Env:APP_NAME\auth\production"
+    $pw = $hsh | ConvertTo-SecureString -Key (Get-Content $key)
 
-    # Transfer
-    Import-Module ($baseLocalEntryPath + 'run\module\transfer.psm1')
+    # OPTIONS
+    $Options = New-Object WinSCP.TransferOptions
 
-    Function SessionConnect
-    {
-        # Options
-        $options = New-Object WinSCP.SessionOptions -Property @{
+    Function SessionConnect {
+        [CmdletBinding()]
+
+        # SESSION
+        $Settings = New-Object WinSCP.SessionOptions -Property @{
             Protocol = [WinSCP.Protocol]::Ftp
             FtpSecure = [WinSCP.FtpSecure]::Explicit
-            HostName = $envConfig.SESSION_HOST
+            HostName = $Config.SESSION_HOST
             UserName = $usr
             Password = [System.Net.NetworkCredential]::new('', $pw).Password
             TimeoutInMilliseconds = '60000'
         }
 
-        $options.AddRawSettings("AddressFamily", "1")
-        $options.AddRawSettings("FollowDirectorySymlinks", "1")
-        $options.AddRawSettings("Utf", "1")
-        $options.AddRawSettings("MinTlsVersion", "12")
+        $Settings.AddRawSettings("AddressFamily", "1")
+        $Settings.AddRawSettings("FollowDirectorySymlinks", "1")
+        $Settings.AddRawSettings("Utf", "1")
+        $Settings.AddRawSettings("MinTlsVersion", "12")
 
-        $sssn = New-Object WinSCP.Session
-        $sssn.ExecutablePath = $winSCPexec
-        $sssn.DebugLogLevel = '0'
-        $sssn.SessionLogPath = 'T:\_sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.log'
-        $sssn.DebugLogPath = 'T:\_sync\OneDrive\_mmrhcs\_logs\_winscp\m1.winscp.' + $id + '.clone.debug.log'
-        $sssn.Open($options)
+        $WinSCP = New-Object WinSCP.Session
+        $WinSCP.ExecutablePath = $winSCPexec
 
-        $sssn.add_FileTransferred({LogTransferredFiles($_)})
+        # LOG
+        $WinSCP.SessionLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:APP_NAME + '.clone.log'
+        $WinSCP.DebugLogPath = $Env:Onedrive + '\_mmrhcs\_logs\_winscp\m1.winscp.' + $Env:APP_NAME + '.clone.debug.log'
+        $WinSCP.DebugLogLevel = '0'
+        $WinSCP.add_FileTransferred({LogTransferredFiles($_)})
 
-        return $sssn
+        # CONNECT
+        $WinSCP.Open($Settings)
+
+        return $WinSCP
     }
 
-    try
-    {
-        $session = SessionConnect
+    try {
 
-        do
-        {
-            $done = FileActionsHandler "clone" $baseLocalEntryPath $baseLocalBackup $baseLocalContent
+        # QUEUE - BACKUP
+
+        $Done = $Null
+
+        while ($Done -eq $Null) {
+
+            $Session = SessionConnect –ErrorAction Stop
+            $ExitCode = $Null
+
+            try {
+
+                ActionHandler -Session $Session -Switch 'Clone' –ErrorAction Stop
+            }
+            catch {
+
+                if ($Session.Opened -eq $True) {
+
+                    Write-Host
+                    Write-Host '# CONNECTION # STATUS'
+                    Write-Host
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss') Terminating..."
+
+                    $Session.Close()
+                    $Session.Dispose()
+
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss') $(if ($Session.Opened -ne $True) { 'Connection Status: Closed' } else { 'Connection Status: Open' })"
+
+                    $Session = $Null
+                }
+
+                Write-Host
+                Write-Host "$(Get-Date -Format 'HH:mm:ss') Retry..."
+
+                $ExitCode = 1
+            }
+
+            if ($ExitCode -ne 1) {
+
+                $Session.Close()
+                $Session.Dispose()
+                $Session = $Null
+                $Done = $True
+            }
         }
-        while ($done -eq $False)
 
-        $session.Dispose()
-        $done = $False
+        try {
 
-        $session = SessionConnect
+            # QUEUE - CONTENT
 
-        do
-        {
-            $done = TransferQueueHandler "clone::content" $session $baseRemoteContent $baseLocalContent
+            $Done = $Null
+
+            while ($Done -eq $Null) {
+
+                $Session = SessionConnect –ErrorAction Stop
+                $ExitCode = $Null
+
+                try {
+
+                    TransferHandler -Session $Session -Options $Options -Switch 'CloneContent' –ErrorAction Stop
+                }
+                catch {
+
+                    if ($Session.Opened -eq $True) {
+
+                        Write-Host
+                        Write-Host '# CONNECTION # STATUS'
+                        Write-Host
+                        Write-Host "$(Get-Date -Format 'HH:mm:ss') Terminating..."
+
+                        $Session.Close()
+                        $Session.Dispose()
+
+                        Write-Host "$(Get-Date -Format 'HH:mm:ss') $(if ($Session.Opened -ne $True) { 'Connection Status: Closed' } else { 'Connection Status: Open' })"
+
+                        $Session = $Null
+                    }
+
+                    Write-Host
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss') Retry..."
+
+                    $ExitCode = 1
+                }
+
+                if ($ExitCode -ne 1) {
+
+                    $Session.Close()
+                    $Session.Dispose()
+                    $Session = $Null
+                    $Done = $True
+                }
+            }
         }
-        while ($done -eq $False)
+        catch {
 
-        $session.Dispose()
-        $done = $False
-
-        $session = SessionConnect
-
-        do
-        {
-            $done = TransferQueueHandler "clone::storage" $session $baseRemoteStorage $baseLocalStorage
+            Write-Host
+            Write-Host '# ERROR # CONTENT'
+            Write-Host
+            Write-Host $_.Exception.Message
+            Write-Host $_.ScriptStackTrace
+            Write-Host
         }
-        while ($done -eq $False)
 
-        $session.Dispose()
-        $done = $False
+        try {
+
+            # QUEUE - STORAGE
+
+            $Done = $Null
+
+            while ($Done -eq $Null) {
+
+                $Session = SessionConnect –ErrorAction Stop
+                $ExitCode = $Null
+
+                try {
+
+                    TransferHandler -Session $Session -Options $Options -Switch 'CloneStorage' –ErrorAction Stop
+                }
+                catch {
+
+                    if ($Session.Opened -eq $True) {
+
+                        Write-Host
+                        Write-Host '# CONNECTION # STATUS'
+                        Write-Host
+                        Write-Host "$(Get-Date -Format 'HH:mm:ss') Terminating..."
+
+                        $Session.Close()
+
+                        Write-Host "$(Get-Date -Format 'HH:mm:ss') $(if ($Session.Opened -ne $True) { 'Connection Status: Closed' } else { 'Connection Status: Open' })"
+                    }
+
+                    $Session.Dispose()
+                    $Session = $Null
+
+                    Write-Host
+                    Write-Host "$(Get-Date -Format 'HH:mm:ss') Retry..."
+
+                    $ExitCode = 1
+                }
+
+                if ($ExitCode -ne 1) {
+
+                    $Session.Close()
+                    $Session.Dispose()
+                    $Session = $Null
+                    $Done = $True
+                }
+            }
+        }
+        catch {
+
+            Write-Host
+            Write-Host '# ERROR # STORAGE'
+            Write-Host
+            Write-Host $_.Exception.Message
+            Write-Host $_.ScriptStackTrace
+            Write-Host
+        }
     }
-    finally
-    {
+    catch {
+
         Write-Host
-        Write-Host '## Complete ##'
+        Write-Host '# ERROR # BACKUP'
+        Write-Host
+        Write-Host $_.Exception.Message
+        Write-Host $_.ScriptStackTrace
         Write-Host
     }
-
-    exit 0
 }
-catch
-{
-    Write-Host
-    Write-Host '## Error ##'
-    Write-Host
-    Write-Host "$($_.Exception.Message)"
-    Write-Host
-    Write-Host "$($_.ScriptStackTrace)"
-    Write-Host
-    Write-Host '##'
+catch {
 
-    exit 1
+    Write-Host
+    Write-Host '# ERROR # CONNECTION'
+    Write-Host
+    Write-Host $_.Exception.Message
+    Write-Host $_.ScriptStackTrace
+    Write-Host
+}
+finally {
+
+    if ($Session.Opened -eq $True) {
+
+        Write-Host
+        Write-Host '# CONNECTION # STATUS'
+        Write-Host
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') Terminating..."
+
+        $Session.Close()
+        $Session.Dispose()
+
+        Write-Host "$(Get-Date -Format 'HH:mm:ss') $(if ($Session.Opened -ne $True) { 'Connection Status: Closed' } else { 'Connection Status: Open' })"
+
+        $Session = $Null
+    }
+
+    $Timer.Stop()
+
+    Write-Host
+    Write-Host "### TASK ### CLONE ### END"
+    Write-Host
+    Write-Host "Time: $($Timer.Elapsed.TotalMinutes) Minutes"
+    Write-Host
 }

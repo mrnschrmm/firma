@@ -12,9 +12,9 @@
     "build.preview.debug": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:NODE_DEBUG='*'; ./run/build.ps1",
     "clone": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:APP_NAME='%npm_package_name%'; ./run/clone.ps1",
     "deploy": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='production'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1",
-    "deploy.full": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='production'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1 -full",
+    "deploy.full": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='production'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1 -Full",
     "deploy.preview": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1",
-    "deploy.preview.full": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1 -full"
+    "deploy.preview.full": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command $env:NODE_ENV='staging'; $env:APP_NAME='%npm_package_name%'; ./run/deploy.ps1 -Full"
   },
   "browserslist": {
     "production": [

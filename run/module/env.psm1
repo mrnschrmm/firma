@@ -21,10 +21,10 @@ Function GetEnvConfig {
 }
 
 function Update-Composer {
-
     [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)] [ValidateSet('Clear','Init')] [string]$Mode
+
+    param (
+        [Parameter(Mandatory)] [ValidateSet('Clear','Init')] [String]$Mode
     )
 
     if ($Mode -eq 'Init') {

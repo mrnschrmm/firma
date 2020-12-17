@@ -1,4 +1,4 @@
-Write-Host '## RUN ## BUILD'
+Write-Host '### TASK ### BUILD ###'
 Write-Host
 
 Import-Module '.\run\module\env.psm1'
