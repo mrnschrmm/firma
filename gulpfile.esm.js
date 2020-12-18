@@ -21,7 +21,6 @@ import Parcel from 'parcel-bundler'
 
 import config from './config'
 
-const NAME = process.env.APP_NAME
 const ENV = process.env.NODE_ENV
 const DEBUG = (process.env.NODE_DEBUG) ? true : false
 
@@ -40,7 +39,6 @@ const db = path.db
 const STATE_PLUGINS = (typeof config.plugins !== 'undefined' && config.plugins.length > 0) ? true : false
 
 // INFO
-console.log('APP:', NAME)
 console.log('ENV:', ENV)
 console.log('DEBUG:', DEBUG)
 
