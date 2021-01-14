@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b19060445c931cb7a6f7b36a1cee8bff",
+    "content-hash": "d222ec0db53308ad4055ff5d0a474b49",
     "packages": [
         {
             "name": "claviska/simpleimage",
@@ -781,16 +781,16 @@
         },
         {
             "name": "sylvainjule/locator",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sylvainjule/kirby-locator.git",
-                "reference": "32b5f33ca56b824e6aee3bb207f2e3e5076cf087"
+                "reference": "07f6cad4f6bd09489ee378e318b387c803392faa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sylvainjule/kirby-locator/zipball/32b5f33ca56b824e6aee3bb207f2e3e5076cf087",
-                "reference": "32b5f33ca56b824e6aee3bb207f2e3e5076cf087",
+                "url": "https://api.github.com/repos/sylvainjule/kirby-locator/zipball/07f6cad4f6bd09489ee378e318b387c803392faa",
+                "reference": "07f6cad4f6bd09489ee378e318b387c803392faa",
                 "shasum": ""
             },
             "require": {
@@ -813,22 +813,22 @@
             "description": "A map & geolocation field, built on top of open-source services / Mapbox",
             "support": {
                 "issues": "https://github.com/sylvainjule/kirby-locator/issues",
-                "source": "https://github.com/sylvainjule/kirby-locator/tree/1.0.7"
+                "source": "https://github.com/sylvainjule/kirby-locator/tree/1.0.8"
             },
-            "time": "2020-11-06T07:59:26+00:00"
+            "time": "2020-12-26T22:06:42+00:00"
         },
         {
             "name": "sylvainjule/matomo",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sylvainjule/kirby-matomo.git",
-                "reference": "3c82ffda22f3622fd650947abb916d97efa943fb"
+                "reference": "11d754eb15f7c37cf0877095e50b407f66715096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sylvainjule/kirby-matomo/zipball/3c82ffda22f3622fd650947abb916d97efa943fb",
-                "reference": "3c82ffda22f3622fd650947abb916d97efa943fb",
+                "url": "https://api.github.com/repos/sylvainjule/kirby-matomo/zipball/11d754eb15f7c37cf0877095e50b407f66715096",
+                "reference": "11d754eb15f7c37cf0877095e50b407f66715096",
                 "shasum": ""
             },
             "require": {
@@ -851,9 +851,9 @@
             "description": "Matomo helpers and panel sections for Kirby",
             "support": {
                 "issues": "https://github.com/sylvainjule/kirby-matomo/issues",
-                "source": "https://github.com/sylvainjule/kirby-matomo/tree/master"
+                "source": "https://github.com/sylvainjule/kirby-matomo/tree/1.0.6"
             },
-            "time": "2020-04-10T13:25:27+00:00"
+            "time": "2020-12-23T19:00:39+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
