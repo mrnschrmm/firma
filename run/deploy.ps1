@@ -1,14 +1,11 @@
 Write-Host '### TASK ### DEPLOY ###'
 Write-Host
 
-$Env:APP_NAME=$Args[0]
-$Env:NODE_ENV=$Args[1]
-
-DIAGNOSTICS
+# DIAGNOSTICS
 $Timer = [system.diagnostics.stopwatch]::startNew()
 
-ARGUMENTS
-if ($args -eq '-Full') { $Sets = @('Env','Config','Public','Site','Kirby','Vendor') } else { $Sets = @('Env','Config','Public','Site') }
+# ARGUMENTS
+if ($Args[2] -eq 'full') { $Sets = @('Env','Config','Public','Site','Kirby','Vendor') } else { $Sets = @('Env','Config','Public','Site') }
 
 try {
 
