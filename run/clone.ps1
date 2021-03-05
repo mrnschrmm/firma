@@ -1,5 +1,7 @@
 Write-Host '### TASK ### CLONE ###'
 
+$Env:APP_NAME=$Args[0]
+
 # DIAGNOSTICS
 $Timer = [system.diagnostics.stopwatch]::startNew()
 
